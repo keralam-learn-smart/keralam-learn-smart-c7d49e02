@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { CATEGORIES } from "@/data/categories";
 import { Button } from "@/components/ui/button";
@@ -73,20 +73,25 @@ function Index() {
         </h3>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((cat) => (
-            <Card
+            <Link
               key={cat.slug}
-              className="cursor-pointer p-4 transition hover:border-primary hover:shadow-md"
+              to="/category/$slug"
+              params={{ slug: cat.slug }}
+              search={{ lang }}
+              className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
             >
-              <div className="flex items-start gap-3">
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/10 text-2xl">
-                  {cat.icon}
+              <Card className="cursor-pointer p-4 transition hover:border-primary hover:shadow-md">
+                <div className="flex items-start gap-3">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/10 text-2xl">
+                    {cat.icon}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h4 className={`font-semibold leading-snug ${ml}`}>{t(cat.name)}</h4>
+                    <p className={`mt-1 text-sm text-muted-foreground ${ml}`}>{t(cat.desc)}</p>
+                  </div>
                 </div>
-                <div className="min-w-0 flex-1">
-                  <h4 className={`font-semibold leading-snug ${ml}`}>{t(cat.name)}</h4>
-                  <p className={`mt-1 text-sm text-muted-foreground ${ml}`}>{t(cat.desc)}</p>
-                </div>
-              </div>
-            </Card>
+              </Card>
+            </Link>
           ))}
         </div>
       </main>
