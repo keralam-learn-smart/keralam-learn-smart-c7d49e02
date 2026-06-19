@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SiteProvider } from "../lib/site-context";
 
 function NotFoundComponent() {
   return (
@@ -77,18 +78,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "AI-powered platform for Kerala RTO learner's license tests in English and Malayalam." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "AI-powered platform for Kerala RTO learner's license tests in English and Malayalam." },
+      { title: "Kerala Road Master — Kerala RTO Learning & Test Platform" },
+      { name: "description", content: "Free bilingual (English & Malayalam) Kerala RTO learning platform: traffic signs, signals, road rules, 1000+ practice questions, 10 mock tests and AI tutor." },
+      { name: "author", content: "Kerala Road Master" },
+      { name: "theme-color", content: "#F26B1D" },
+      { property: "og:title", content: "Kerala Road Master — Kerala RTO Learning & Test Platform" },
+      { property: "og:description", content: "Bilingual Kerala RTO learning, mock tests and AI tutor for the Learner Licence exam." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "AI-powered platform for Kerala RTO learner's license tests in English and Malayalam." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5933b991-9a4c-4108-9235-f7ab471421c2/id-preview-b0557e93--1603691b-7085-4017-a1bc-17a43b599fa4.lovable.app-1781759049628.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5933b991-9a4c-4108-9235-f7ab471421c2/id-preview-b0557e93--1603691b-7085-4017-a1bc-17a43b599fa4.lovable.app-1781759049628.png" },
+      { name: "twitter:title", content: "Kerala Road Master" },
+      { name: "twitter:description", content: "Bilingual Kerala RTO learning, mock tests and AI tutor." },
     ],
     links: [
       {
@@ -122,8 +121,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SiteProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </SiteProvider>
     </QueryClientProvider>
   );
 }
