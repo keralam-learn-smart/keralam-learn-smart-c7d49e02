@@ -1,8 +1,11 @@
-import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { CATEGORIES, getCategory } from "@/data/categories";
+import { QUESTIONS } from "@/data/questions";
+import { getSign } from "@/data/signs";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { SiteLayout } from "@/components/site-layout";
+import { useSite } from "@/lib/site-context";
 
 type Lang = "en" | "ml";
 
@@ -49,31 +52,18 @@ const STUDY_NOTES: Record<string, { en: string; ml: string }[]> = {
 
 function CategoryPage() {
   const { cat } = Route.useLoaderData();
-  const { lang: initial } = Route.useSearch();
-  const router = useRouter();
-  const [lang, setLang] = useState<Lang>(initial);
-  const t = (s: { en: string; ml: string }) => s[lang];
+  const { lang, t } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
 
   const idx = CATEGORIES.findIndex((c) => c.slug === cat.slug);
   const prev = idx > 0 ? CATEGORIES[idx - 1] : null;
   const next = idx < CATEGORIES.length - 1 ? CATEGORIES[idx + 1] : null;
   const notes = STUDY_NOTES[cat.slug] ?? [];
+  const relatedQs = QUESTIONS.filter((q) => q.category === cat.slug).slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-10 border-b border-border bg-card/80 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
-          <Button variant="ghost" size="sm" onClick={() => router.history.back()}>
-            ← {lang === "en" ? "Back" : "തിരികെ"}
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => setLang(lang === "en" ? "ml" : "en")}>
-            {lang === "en" ? "മലയാളം" : "English"}
-          </Button>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-3xl px-4 py-6">
+    <SiteLayout>
+      <div className="mx-auto max-w-3xl px-4 py-6">
         <div className="mb-6 flex items-start gap-4">
           <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-primary/10 text-4xl">
             {cat.icon}
@@ -107,6 +97,48 @@ function CategoryPage() {
           </Card>
         )}
 
+        {relatedQs.length > 0 && (
+          <Card className="mb-4 p-5">
+            <h2 className={`mb-3 text-lg font-semibold ${ml}`}>
+              {lang === "en" ? "Sample Questions" : "സാമ്പിൾ ചോദ്യങ്ങൾ"}
+            </h2>
+            <ul className="space-y-4">
+              {relatedQs.map((q, qi) => {
+                const sign = q.signId ? getSign(q.signId) : undefined;
+                return (
+                  <li key={q.id} className="border-b border-border pb-3 last:border-0 last:pb-0">
+                    <div className="flex items-start gap-3">
+                      {sign && (
+                        <div
+                          className="h-16 w-16 shrink-0"
+                          aria-label={sign.name.en}
+                          dangerouslySetInnerHTML={{ __html: sign.svg }}
+                        />
+                      )}
+                      <div className="min-w-0">
+                        <p className={`text-sm font-medium ${ml}`}>
+                          {qi + 1}. {t(q.question)}
+                        </p>
+                        <p className={`mt-1 text-sm text-green-700 dark:text-green-400 ${ml}`}>
+                          ✓ {t(q.options[q.correct])}
+                        </p>
+                        <p className={`mt-1 text-xs text-muted-foreground ${ml}`}>
+                          {t(q.explanation)}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+            <Link to="/quiz" className="mt-4 inline-block">
+              <Button size="sm" variant="outline">
+                {lang === "en" ? "Practice all questions →" : "എല്ലാ ചോദ്യങ്ങളും പരിശീലിക്കുക →"}
+              </Button>
+            </Link>
+          </Card>
+        )}
+
         <Card className="mb-6 p-5">
           <h2 className={`mb-2 text-lg font-semibold ${ml}`}>
             {lang === "en" ? "Exam Tip" : "പരീക്ഷാ ടിപ്പ്"}
@@ -123,7 +155,6 @@ function CategoryPage() {
             <Link
               to="/category/$slug"
               params={{ slug: prev.slug }}
-              search={{ lang }}
               className="flex-1"
             >
               <Button variant="outline" className="w-full justify-start">
@@ -137,7 +168,6 @@ function CategoryPage() {
             <Link
               to="/category/$slug"
               params={{ slug: next.slug }}
-              search={{ lang }}
               className="flex-1"
             >
               <Button variant="outline" className="w-full justify-end">
@@ -148,7 +178,7 @@ function CategoryPage() {
             <div className="flex-1" />
           )}
         </nav>
-      </main>
-    </div>
+      </div>
+    </SiteLayout>
   );
 }
