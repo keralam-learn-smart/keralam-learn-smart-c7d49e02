@@ -28,6 +28,16 @@ export const CATEGORIES: Category[] = [
     },
   },
   {
+    slug: "police-hand-signals",
+    icon: "👮",
+    name: { en: "Police Hand Signals", ml: "പോലീസ് കൈ സിഗ്നലുകൾ" },
+    desc: { en: "Stop, go, slow down signals by traffic police", ml: "ട്രാഫിക് പോലീസിന്റെ കൈ സിഗ്നലുകൾ" },
+    content: {
+      en: "Traffic police hand signals override traffic lights and signs. Key signals: arm raised straight up = stop traffic from all directions; arm extended sideways with palm out = stop traffic approaching from that side; both arms raised palm forward = stop traffic from front and back; arm swinging from front to side = signal to proceed; one arm bent at elbow with light/baton waved = warning/slow down. Always obey a traffic officer.",
+      ml: "ട്രാഫിക് പോലീസിന്റെ കൈ സിഗ്നലുകൾ ട്രാഫിക് ലൈറ്റിനെക്കാളും അടയാളങ്ങളെക്കാളും മുൻഗണനയുള്ളവയാണ്. കൈ നേരെ മുകളിലേക്ക് ഉയർത്തുമ്പോൾ എല്ലാ വശത്തുനിന്നുമുള്ള ഗതാഗതം നിർത്തണം. കൈ വശത്തേക്ക് നീട്ടി ഉള്ളംകൈ പുറത്തേക്ക് കാട്ടുമ്പോൾ ആ വശത്തുനിന്നുള്ള വാഹനങ്ങൾ നിർത്തണം. പോലീസ് ഉദ്യോഗസ്ഥനെ എപ്പോഴും അനുസരിക്കണം.",
+    },
+  },
+  {
     slug: "road-rules",
     icon: "🛣️",
     name: { en: "Road Rules", ml: "റോഡ് നിയമങ്ങൾ" },
@@ -58,6 +68,16 @@ export const CATEGORIES: Category[] = [
     },
   },
   {
+    slug: "driving-licence",
+    icon: "🪪",
+    name: { en: "Driving Licence (DL) Guide", ml: "ഡ്രൈവിങ് ലൈസൻസ്" },
+    desc: { en: "How to apply, fees, validity, renewal", ml: "എങ്ങനെ അപേക്ഷിക്കാം, ഫീസ്, പുതുക്കൽ" },
+    content: {
+      en: "Apply for a permanent DL after 30 days of holding a Learner Licence, within its 6-month validity. You must pass a practical driving test at the RTO. DL is valid for 20 years or until age 50 (whichever is earlier); transport DL is valid for 3 years. Renew within 1 year of expiry without penalty. Online application: parivahan.gov.in.",
+      ml: "ലേണർ ലൈസൻസ് നേടി 30 ദിവസത്തിന് ശേഷം, 6 മാസ കാലാവധിക്കുള്ളിൽ പെർമനന്റ് DL ന് അപേക്ഷിക്കാം. RTO യിൽ പ്രായോഗിക ഡ്രൈവിങ് ടെസ്റ്റ് ജയിക്കണം. DL ന് 20 വർഷം അല്ലെങ്കിൽ 50 വയസ്സ് വരെ സാധുത (ഏതാണ് നേരത്തെ). ട്രാൻസ്പോർട്ട് DL ന് 3 വർഷം. പുതുക്കൽ: parivahan.gov.in.",
+    },
+  },
+  {
     slug: "vehicle-documents",
     icon: "📄",
     name: { en: "Vehicle Documents", ml: "വാഹന രേഖകൾ" },
@@ -78,6 +98,16 @@ export const CATEGORIES: Category[] = [
     },
   },
   {
+    slug: "penalties",
+    icon: "⚖️",
+    name: { en: "Penalties & Fines", ml: "പിഴകൾ" },
+    desc: { en: "Motor Vehicles Act penalties in Kerala", ml: "മോട്ടോർ വാഹന നിയമ പിഴകൾ" },
+    content: {
+      en: "Driving without licence: ₹5,000. Driving without insurance: ₹2,000 (1st), ₹4,000 (next). Over-speeding: ₹1,000–₹2,000. Drunk driving: ₹10,000 + up to 6 months jail. No helmet / seatbelt: ₹1,000. Using mobile while driving: ₹5,000. Jumping red signal: ₹1,000–₹5,000. Driving without RC: ₹5,000. Repeat offences attract higher fines and licence suspension.",
+      ml: "ലൈസൻസ് ഇല്ലാതെ വാഹനമോടിക്കൽ: ₹5,000. ഇൻഷുറൻസ് ഇല്ലാതെ: ₹2,000 (ആദ്യം), ₹4,000 (പിന്നീട്). അമിത വേഗത: ₹1,000–₹2,000. മദ്യപിച്ച് വാഹനമോടിക്കൽ: ₹10,000 + 6 മാസം വരെ ജയിൽ. ഹെൽമെറ്റ് / സീറ്റ് ബെൽറ്റ് ഇല്ലെങ്കിൽ: ₹1,000. ഡ്രൈവ് ചെയ്യുമ്പോൾ മൊബൈൽ ഉപയോഗം: ₹5,000.",
+    },
+  },
+  {
     slug: "road-safety",
     icon: "🦺",
     name: { en: "Road Safety", ml: "റോഡ് സുരക്ഷ" },
@@ -85,6 +115,16 @@ export const CATEGORIES: Category[] = [
     content: {
       en: "ISI-marked helmet is mandatory for rider AND pillion. Seat belt mandatory for driver and all front+rear passengers. Speed limits in Kerala: 50 km/h in city, 70 km/h on State Highways, 80–100 km/h on National Highways. Drink-drive limit: 30 mg/100ml blood.",
       ml: "ISI ഹെൽമെറ്റ് ഡ്രൈവർക്കും പിന്നിലിരിക്കുന്നയാൾക്കും നിർബന്ധം. എല്ലാ യാത്രക്കാർക്കും സീറ്റ് ബെൽറ്റ് നിർബന്ധം. കേരളത്തിലെ വേഗപരിധി: നഗരത്തിൽ 50, സംസ്ഥാന ഹൈവേയിൽ 70, ദേശീയ ഹൈവേയിൽ 80–100 km/h. മദ്യപാന പരിധി: 100ml രക്തത്തിൽ 30mg.",
+    },
+  },
+  {
+    slug: "defensive-driving",
+    icon: "🛡️",
+    name: { en: "Defensive Driving", ml: "ഡിഫൻസീവ് ഡ്രൈവിങ്" },
+    desc: { en: "Anticipate, observe, act safely", ml: "മുൻകൂട്ടി കാണുക, നിരീക്ഷിക്കുക" },
+    content: {
+      en: "Defensive driving means anticipating the actions of other road users and being ready to react. Keep a safe following distance (2-second rule). Scan 12 seconds ahead. Check mirrors every 5–8 seconds. Never assume eye contact = permission. Avoid the blind spots of large vehicles. Adjust to weather: rain doubles braking distance.",
+      ml: "ഡിഫൻസീവ് ഡ്രൈവിങ് എന്നാൽ മറ്റുള്ളവരുടെ പ്രവർത്തനങ്ങൾ മുൻകൂട്ടി കണ്ട് പ്രതികരിക്കാൻ തയ്യാറാകുന്നു. സുരക്ഷിത പിന്തുടരൽ ദൂരം (2 സെക്കൻഡ് നിയമം). 12 സെക്കൻഡ് മുന്നോട്ട് നോക്കുക. 5–8 സെക്കൻഡിലൊരിക്കൽ കണ്ണാടി പരിശോധിക്കുക. വലിയ വാഹനങ്ങളുടെ ബ്ലൈൻഡ് സ്പോട്ടുകൾ ഒഴിവാക്കുക.",
     },
   },
   {
