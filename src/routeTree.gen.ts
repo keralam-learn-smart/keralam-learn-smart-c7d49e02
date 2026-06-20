@@ -20,10 +20,12 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApplicationTrackingRouteImport } from './routes/application-tracking'
 import { Route as AiAssistantRouteImport } from './routes/ai-assistant'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QuizIndexRouteImport } from './routes/quiz.index'
 import { Route as QuizSetIdRouteImport } from './routes/quiz.$setId'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -80,6 +82,10 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -100,6 +106,11 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
   path: '/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -114,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/quiz/': typeof QuizIndexRoute
@@ -131,6 +143,7 @@ export interface FileRoutesByTo {
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/quiz': typeof QuizIndexRoute
@@ -138,6 +151,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/ai-assistant': typeof AiAssistantRoute
   '/application-tracking': typeof ApplicationTrackingRoute
@@ -149,6 +163,7 @@ export interface FileRoutesById {
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/quiz/': typeof QuizIndexRoute
@@ -168,6 +183,7 @@ export interface FileRouteTypes {
     | '/mock-tests'
     | '/privacy'
     | '/terms'
+    | '/profile'
     | '/category/$slug'
     | '/quiz/$setId'
     | '/quiz/'
@@ -185,12 +201,14 @@ export interface FileRouteTypes {
     | '/mock-tests'
     | '/privacy'
     | '/terms'
+    | '/profile'
     | '/category/$slug'
     | '/quiz/$setId'
     | '/quiz'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/ai-assistant'
     | '/application-tracking'
@@ -202,6 +220,7 @@ export interface FileRouteTypes {
     | '/mock-tests'
     | '/privacy'
     | '/terms'
+    | '/_authenticated/profile'
     | '/category/$slug'
     | '/quiz/$setId'
     | '/quiz/'
@@ -209,6 +228,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AiAssistantRoute: typeof AiAssistantRoute
   ApplicationTrackingRoute: typeof ApplicationTrackingRoute
@@ -304,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -332,11 +359,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AiAssistantRoute: AiAssistantRoute,
   ApplicationTrackingRoute: ApplicationTrackingRoute,
