@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Moon, Sun, Languages } from "lucide-react";
+import { Menu, Moon, Sun, Languages, LogIn, User as UserIcon, LogOut } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,7 +9,17 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSite } from "@/lib/site-context";
+import { useAuth } from "@/lib/auth-context";
 
 type NavItem = { to: string; en: string; ml: string };
 type NavGroup = { en: string; ml: string; items: NavItem[] };
@@ -159,6 +169,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             >
               {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
+            <UserMenu />
           </div>
         </div>
       </header>
