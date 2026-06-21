@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { CATEGORIES, getCategory } from "@/data/categories";
 import { QUESTIONS } from "@/data/questions";
-import { getSign } from "@/data/signs";
+import { getSign, SIGNS, type SignCategory } from "@/data/signs";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SiteLayout } from "@/components/site-layout";
@@ -60,6 +60,7 @@ function CategoryPage() {
   const next = idx < CATEGORIES.length - 1 ? CATEGORIES[idx + 1] : null;
   const notes = STUDY_NOTES[cat.slug] ?? [];
   const relatedQs = QUESTIONS.filter((q) => q.category === cat.slug).slice(0, 6);
+  const showSignLibrary = cat.slug === "traffic-signs";
 
   return (
     <SiteLayout>
@@ -80,6 +81,8 @@ function CategoryPage() {
           </h2>
           <p className={`text-sm leading-relaxed ${ml}`}>{t(cat.content)}</p>
         </Card>
+
+        {showSignLibrary && <SignLibrary />}
 
         {notes.length > 0 && (
           <Card className="mb-4 p-5">
@@ -180,5 +183,93 @@ function CategoryPage() {
         </nav>
       </div>
     </SiteLayout>
+  );
+}
+
+const SIGN_GROUP_LABEL: Record<SignCategory, { en: string; ml: string; color: string }> = {
+  mandatory: { en: "Mandatory Signs (Blue circles)", ml: "നിർബന്ധിത ചിഹ്നങ്ങൾ (നീല വൃത്തം)", color: "border-blue-600" },
+  prohibitory: { en: "Prohibitory Signs (Red circles)", ml: "നിരോധന ചിഹ്നങ്ങൾ (ചുവന്ന വൃത്തം)", color: "border-red-600" },
+  warning: { en: "Cautionary / Warning Signs (Red triangles)", ml: "മുന്നറിയിപ്പ് ചിഹ്നങ്ങൾ (ചുവന്ന ത്രികോണം)", color: "border-amber-600" },
+  informatory: { en: "Informatory Signs (Blue rectangles)", ml: "വിവര ചിഹ്നങ്ങൾ (നീല ദീർഘചതുരം)", color: "border-sky-600" },
+  signal: { en: "Traffic Signals", ml: "ഗതാഗത സിഗ്നലുകൾ", color: "border-emerald-600" },
+};
+
+function SignLibrary() {
+  const { lang, t } = useSite();
+  const ml = lang === "ml" ? "lang-ml" : "";
+  const groups: SignCategory[] = ["mandatory", "prohibitory", "warning", "informatory", "signal"];
+  return (
+    <Card className="mb-4 p-5">
+      <h2 className={`mb-1 text-lg font-semibold ${ml}`}>
+        {lang === "en" ? "Kerala RTO Sign Library" : "കേരള RTO ചിഹ്ന ലൈബ്രറി"}
+      </h2>
+      <p className={`mb-4 text-xs text-muted-foreground ${ml}`}>
+        {lang === "en"
+          ? "Every sign with meaning, driver action, exam point and real-life example."
+          : "ഓരോ ചിഹ്നവും അർത്ഥം, ഡ്രൈവർ നടപടി, പരീക്ഷാ പോയിന്റ്, ഉദാഹരണം സഹിതം."}
+      </p>
+      <div className="space-y-6">
+        {groups.map((g) => {
+          const items = SIGNS.filter((s) => s.category === g);
+          if (!items.length) return null;
+          const label = SIGN_GROUP_LABEL[g];
+          return (
+            <section key={g}>
+              <h3 className={`mb-3 border-l-4 pl-3 text-base font-bold ${label.color} ${ml}`}>
+                {t({ en: label.en, ml: label.ml })}
+              </h3>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {items.map((s) => (
+                  <div
+                    key={s.id}
+                    className="rounded-xl border border-border bg-card p-3"
+                  >
+                    <div className="flex gap-3">
+                      <div
+                        className="h-20 w-20 shrink-0"
+                        aria-label={s.name.en}
+                        dangerouslySetInnerHTML={{ __html: s.svg }}
+                      />
+                      <div className="min-w-0">
+                        <p className={`text-sm font-semibold ${ml}`}>{t(s.name)}</p>
+                        <p className={`mt-0.5 text-xs text-muted-foreground ${ml}`}>
+                          <span className="font-semibold">{t({ en: "Meaning: ", ml: "അർത്ഥം: " })}</span>
+                          {t(s.meaning)}
+                        </p>
+                      </div>
+                    </div>
+                    <dl className="mt-3 space-y-1.5 text-xs leading-relaxed">
+                      <div className={ml}>
+                        <dt className="inline font-semibold text-primary">
+                          {t({ en: "Driver action: ", ml: "ഡ്രൈവർ നടപടി: " })}
+                        </dt>
+                        <dd className="inline">{t(s.explanation)}</dd>
+                      </div>
+                      <div className={ml}>
+                        <dt className="inline font-semibold text-primary">
+                          {t({ en: "Example: ", ml: "ഉദാഹരണം: " })}
+                        </dt>
+                        <dd className="inline">{t(s.example)}</dd>
+                      </div>
+                      <div className={ml}>
+                        <dt className="inline font-semibold text-primary">
+                          {t({ en: "Exam point: ", ml: "പരീക്ഷാ പോയിന്റ്: " })}
+                        </dt>
+                        <dd className="inline">
+                          {t({
+                            en: `Recognise the ${g} shape/colour and respond before reaching the sign.`,
+                            ml: `${g === "warning" ? "ത്രികോണ" : g === "informatory" ? "ദീർഘചതുര" : "വൃത്താകൃതി"} രൂപവും നിറവും തിരിച്ചറിയുക, അടയാളം എത്തുന്നതിന് മുമ്പ് പ്രതികരിക്കുക.`,
+                          })}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    </Card>
   );
 }
