@@ -11,7 +11,7 @@ import { useSite } from "@/lib/site-context";
 export const Route = createFileRoute("/application-tracking")({
   head: () => ({
     meta: [
-      { title: "Application Tracking — Kerala Road Master" },
+      { title: "Application Tracking — Traffic Tips" },
       { name: "description", content: "Track your Kerala RTO learner/driving licence application status directly on parivahan.gov.in." },
       { property: "og:title", content: "Kerala RTO Application Tracking" },
       { property: "og:description", content: "Track LL/DL application status." },

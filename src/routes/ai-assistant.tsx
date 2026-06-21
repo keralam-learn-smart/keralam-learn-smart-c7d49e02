@@ -14,9 +14,9 @@ type Msg = { role: "user" | "assistant"; content: string };
 export const Route = createFileRoute("/ai-assistant")({
   head: () => ({
     meta: [
-      { title: "AI Study Assistant — Kerala Road Master" },
+      { title: "AI Study Assistant — Traffic Tips" },
       { name: "description", content: "Ask anything about the Kerala RTO learner licence test in English or Malayalam. Free AI tutor." },
-      { property: "og:title", content: "AI Study Assistant — Kerala Road Master" },
+      { property: "og:title", content: "AI Study Assistant — Traffic Tips" },
       { property: "og:description", content: "AI-powered Malayalam + English tutor for the Kerala RTO LL test." },
     ],
   }),

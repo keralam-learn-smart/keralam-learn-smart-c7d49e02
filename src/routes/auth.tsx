@@ -14,8 +14,8 @@ import { useSite } from "@/lib/site-context";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign In — Kerala Road Master" },
-      { name: "description", content: "Sign in or create a Kerala Road Master account to track your learning progress, mock-test scores and bookings." },
+      { title: "Sign In — Traffic Tips" },
+      { name: "description", content: "Sign in or create a Traffic Tips account to track your learning progress, mock-test scores and bookings." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -111,7 +111,7 @@ function AuthPage() {
 
       <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <h1 className={`text-2xl font-bold ${ml}`}>
-          {t("Kerala Road Master", "കേരള റോഡ് മാസ്റ്റർ")}
+          {t("Traffic Tips", "ട്രാഫിക് ടിപ്സ്")}
         </h1>
         <p className={`mt-1 text-sm text-muted-foreground ${ml}`}>
           {t("Sign in to save progress, take mock tests and book training.", "പുരോഗതി സംരക്ഷിക്കാൻ സൈൻ ഇൻ ചെയ്യുക.")}

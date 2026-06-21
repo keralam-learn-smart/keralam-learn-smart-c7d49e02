@@ -10,7 +10,7 @@ import { useSite } from "@/lib/site-context";
 
 const FAQS: { q: { en: string; ml: string }; a: { en: string; ml: string } }[] = [
   {
-    q: { en: "Is Kerala Road Master free?", ml: "കേരള റോഡ് മാസ്റ്റർ സൗജന്യമാണോ?" },
+    q: { en: "Is Traffic Tips free?", ml: "ട്രാഫിക് ടിപ്സ് സൗജന്യമാണോ?" },
     a: {
       en: "Yes. All learning content, practice questions and mock tests are 100% free. No sign-up required.",
       ml: "അതെ. എല്ലാ ഉള്ളടക്കവും 100% സൗജന്യമാണ്. രജിസ്ട്രേഷൻ ആവശ്യമില്ല.",
@@ -65,9 +65,9 @@ export const Route = createFileRoute("/faq")({
     };
     return {
       meta: [
-        { title: "FAQ — Kerala Road Master" },
+        { title: "FAQ — Traffic Tips" },
         { name: "description", content: "Frequently asked questions about the Kerala RTO learner licence test." },
-        { property: "og:title", content: "FAQ — Kerala Road Master" },
+        { property: "og:title", content: "FAQ — Traffic Tips" },
         { property: "og:description", content: "Common questions answered about the Kerala RTO LL test." },
       ],
       scripts: [
