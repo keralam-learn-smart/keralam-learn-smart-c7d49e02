@@ -14,7 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
-      { title: "My Profile — Kerala Road Master" },
+      { title: "My Profile — Traffic Tips" },
       { name: "robots", content: "noindex" },
     ],
   }),

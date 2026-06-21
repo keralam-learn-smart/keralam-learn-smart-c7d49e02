@@ -49,8 +49,8 @@ function QuizIndex() {
         </h1>
         <p className={`mb-6 text-sm text-muted-foreground ${ml}`}>
           {lang === "en"
-            ? `10 sets · ${QUESTIONS_PER_SET} questions each · 20-second timer per question`
-            : `10 സെറ്റുകൾ · ഓരോന്നിലും ${QUESTIONS_PER_SET} ചോദ്യങ്ങൾ · ഓരോ ചോദ്യത്തിന് 20 സെക്കൻഡ്`}
+            ? `${TOTAL_SETS} mock test sets · ${QUESTIONS_PER_SET} questions each · 20-second timer per question`
+            : `${TOTAL_SETS} മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ · ഓരോന്നിലും ${QUESTIONS_PER_SET} ചോദ്യങ്ങൾ · ഓരോ ചോദ്യത്തിന് 20 സെക്കൻഡ്`}
         </p>
 
         <Card className="mb-6 bg-gradient-to-br from-primary to-accent p-5 text-primary-foreground">
@@ -61,8 +61,8 @@ function QuizIndex() {
               </h2>
               <p className={`mt-1 text-sm opacity-90 ${ml}`}>
                 {lang === "en"
-                  ? "Random 25 questions, exam-style."
-                  : "ക്രമരഹിതമായ 25 ചോദ്യങ്ങൾ, പരീക്ഷാ ശൈലിയിൽ."}
+                  ? `Random ${QUESTIONS_PER_SET} questions, exam-style.`
+                  : `ക്രമരഹിതമായ ${QUESTIONS_PER_SET} ചോദ്യങ്ങൾ, പരീക്ഷാ ശൈലിയിൽ.`}
               </p>
             </div>
             <Link to="/quiz/$setId" params={{ setId: "mock" }}>

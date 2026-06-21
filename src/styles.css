@@ -68,7 +68,7 @@
 
 :root {
   --radius: 0.625rem;
-  /* Kerala Road Master — Orange primary theme */
+  /* Traffic Tips — Orange primary theme */
   --background: oklch(0.99 0.005 60);
   --foreground: oklch(0.18 0.03 40);
   --card: oklch(1 0 0);
@@ -162,6 +162,18 @@
   :lang(ml), .lang-ml {
     font-family: "Noto Sans Malayalam", "Inter Variable", system-ui, sans-serif;
     letter-spacing: 0;
+    line-height: 1.65;
+  }
+
+  /* Dark mode: stronger contrast + heavier weight for readability. */
+  .dark body {
+    font-weight: 450;
+  }
+  .dark {
+    --muted-foreground: oklch(0.86 0.01 40);
+  }
+  .dark h1, .dark h2, .dark h3, .dark h4 {
+    font-weight: 800;
   }
 }
 

@@ -10,7 +10,7 @@ import { useSite } from "@/lib/site-context";
 
 const FAQS: { q: { en: string; ml: string }; a: { en: string; ml: string } }[] = [
   {
-    q: { en: "Is Kerala Road Master free?", ml: "കേരള റോഡ് മാസ്റ്റർ സൗജന്യമാണോ?" },
+    q: { en: "Is Traffic Tips free?", ml: "ട്രാഫിക് ടിപ്സ് സൗജന്യമാണോ?" },
     a: {
       en: "Yes. All learning content, practice questions and mock tests are 100% free. No sign-up required.",
       ml: "അതെ. എല്ലാ ഉള്ളടക്കവും 100% സൗജന്യമാണ്. രജിസ്ട്രേഷൻ ആവശ്യമില്ല.",
@@ -47,8 +47,8 @@ const FAQS: { q: { en: string; ml: string }; a: { en: string; ml: string } }[] =
     a: { en: "₹10,000 for first offence and up to 6 months imprisonment, plus licence suspension.", ml: "ആദ്യ കുറ്റത്തിന് ₹10,000, 6 മാസം വരെ ജയിൽ, ലൈസൻസ് സസ്പെൻഷൻ." },
   },
   {
-    q: { en: "Where can I check my application status?", ml: "അപേക്ഷയുടെ സ്ഥിതി എവിടെ പരിശോധിക്കാം?" },
-    a: { en: "Use our Application Tracking page or visit parivahan.gov.in directly.", ml: "ഞങ്ങളുടെ Application Tracking പേജ് അല്ലെങ്കിൽ parivahan.gov.in നേരിട്ട് സന്ദർശിക്കുക." },
+    q: { en: "How many traffic signs should I learn?", ml: "എത്ര ഗതാഗത ചിഹ്നങ്ങൾ പഠിക്കണം?" },
+    a: { en: "Learn all mandatory, cautionary, prohibitory and informatory signs — about 80 in total are tested in Kerala.", ml: "എല്ലാ നിർബന്ധിത, മുന്നറിയിപ്പ്, നിരോധന, വിവര ചിഹ്നങ്ങളും പഠിക്കുക — കേരളത്തിൽ ഏകദേശം 80 എണ്ണം പരീക്ഷയിൽ വരുന്നു." },
   },
 ];
 
@@ -65,9 +65,9 @@ export const Route = createFileRoute("/faq")({
     };
     return {
       meta: [
-        { title: "FAQ — Kerala Road Master" },
+        { title: "FAQ — Traffic Tips" },
         { name: "description", content: "Frequently asked questions about the Kerala RTO learner licence test." },
-        { property: "og:title", content: "FAQ — Kerala Road Master" },
+        { property: "og:title", content: "FAQ — Traffic Tips" },
         { property: "og:description", content: "Common questions answered about the Kerala RTO LL test." },
       ],
       scripts: [

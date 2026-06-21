@@ -11,9 +11,9 @@ import { useSite } from "@/lib/site-context";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Kerala Road Master" },
-      { name: "description", content: "Get in touch with the Kerala Road Master team for feedback, corrections or partnerships." },
-      { property: "og:title", content: "Contact Kerala Road Master" },
+      { title: "Contact — Traffic Tips" },
+      { name: "description", content: "Get in touch with the Traffic Tips team for feedback, corrections or partnerships." },
+      { property: "og:title", content: "Contact Traffic Tips" },
       { property: "og:description", content: "Send us feedback or report content errors." },
     ],
   }),

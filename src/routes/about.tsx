@@ -6,13 +6,13 @@ import { useSite } from "@/lib/site-context";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us — Kerala Road Master" },
+      { title: "About Us — Traffic Tips" },
       {
         name: "description",
         content:
-          "Kerala Road Master is a free bilingual learning platform for the Kerala RTO Learner Licence (LL) test.",
+          "Traffic Tips is a free bilingual learning platform for the Kerala RTO Learner Licence (LL) test.",
       },
-      { property: "og:title", content: "About Kerala Road Master" },
+      { property: "og:title", content: "About Traffic Tips" },
       {
         property: "og:description",
         content: "Our mission, our team and how we help Kerala learners pass the RTO test.",
@@ -29,12 +29,12 @@ function AboutPage() {
     <SiteLayout>
       <div className="mx-auto max-w-3xl px-4 py-8">
         <h1 className={`text-3xl font-bold ${ml}`}>
-          {lang === "en" ? "About Kerala Road Master" : "കേരള റോഡ് മാസ്റ്റർ കുറിച്ച്"}
+          {lang === "en" ? "About Traffic Tips" : "ട്രാഫിക് ടിപ്സ് കുറിച്ച്"}
         </h1>
         <p className={`mt-3 text-muted-foreground ${ml}`}>
           {lang === "en"
-            ? "Kerala Road Master is a free bilingual (English & Malayalam) learning and testing platform built for aspirants of the Kerala RTO Learner Licence (LL) and Driving Licence (DL) tests."
-            : "കേരള RTO ലേണർ ലൈസൻസ്, ഡ്രൈവിങ് ലൈസൻസ് പരീക്ഷാ ഉദ്യോഗാർത്ഥികൾക്കായി രൂപകൽപ്പന ചെയ്ത സൗജന്യ ദ്വിഭാഷാ പഠന-പരീക്ഷാ പ്ലാറ്റ്ഫോമാണ് കേരള റോഡ് മാസ്റ്റർ."}
+            ? "Traffic Tips is a free bilingual (English & Malayalam) learning and testing platform built for aspirants of the Kerala RTO Learner Licence (LL) and Driving Licence (DL) tests."
+            : "കേരള RTO ലേണർ ലൈസൻസ്, ഡ്രൈവിങ് ലൈസൻസ് പരീക്ഷാ ഉദ്യോഗാർത്ഥികൾക്കായി രൂപകൽപ്പന ചെയ്ത സൗജന്യ ദ്വിഭാഷാ പഠന-പരീക്ഷാ പ്ലാറ്റ്ഫോമാണ് ട്രാഫിക് ടിപ്സ്."}
         </p>
 
         <Card className="mt-6 p-6">
@@ -55,9 +55,9 @@ function AboutPage() {
           <ul className={`mt-2 list-disc space-y-1 pl-5 text-sm ${ml}`}>
             <li>{lang === "en" ? "1000+ Kerala RTO practice questions" : "1000+ കേരള RTO പരിശീലന ചോദ്യങ്ങൾ"}</li>
             <li>{lang === "en" ? "100+ traffic signs with explanations" : "100+ ഗതാഗത ചിഹ്നങ്ങൾ വിശദീകരണത്തോടെ"}</li>
-            <li>{lang === "en" ? "10 mock tests of 25 questions each, 20s timer" : "10 മോക്ക് ടെസ്റ്റുകൾ, 25 ചോദ്യങ്ങൾ, 20s ടൈമർ"}</li>
+            <li>{lang === "en" ? "20 mock tests of 15 questions each, 20s timer" : "20 മോക്ക് ടെസ്റ്റുകൾ, 15 ചോദ്യങ്ങൾ, 20s ടൈമർ"}</li>
             <li>{lang === "en" ? "AI Study Assistant for instant answers" : "തൽക്ഷണ ഉത്തരങ്ങൾക്കായി AI പഠന സഹായി"}</li>
-            <li>{lang === "en" ? "Fee calculator & application tracking links" : "ഫീസ് കാൽക്കുലേറ്റർ, അപേക്ഷാ ട്രാക്കിങ്"}</li>
+            <li>{lang === "en" ? "Fee calculator and official RTO links" : "ഫീസ് കാൽക്കുലേറ്റർ, ഔദ്യോഗിക RTO ലിങ്കുകൾ"}</li>
           </ul>
         </Card>
       </div>

@@ -5,9 +5,9 @@ import { useSite } from "@/lib/site-context";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Kerala Road Master" },
-      { name: "description", content: "How Kerala Road Master handles data, cookies and analytics." },
-      { property: "og:title", content: "Privacy Policy — Kerala Road Master" },
+      { title: "Privacy Policy — Traffic Tips" },
+      { name: "description", content: "How Traffic Tips handles data, cookies and analytics." },
+      { property: "og:title", content: "Privacy Policy — Traffic Tips" },
       { property: "og:description", content: "Our privacy practices, in plain language." },
     ],
   }),
@@ -31,8 +31,8 @@ function PrivacyPage() {
           <h2>1. {lang === "en" ? "Information we collect" : "ഞങ്ങൾ ശേഖരിക്കുന്ന വിവരങ്ങൾ"}</h2>
           <p>
             {lang === "en"
-              ? "Kerala Road Master is designed to be privacy-first. We do not require account registration. Anonymous usage data (page views, test progress) may be stored locally on your device to remember your progress."
-              : "കേരള റോഡ് മാസ്റ്റർ സ്വകാര്യതയ്ക്ക് മുൻഗണന നൽകുന്നു. അക്കൗണ്ട് രജിസ്ട്രേഷൻ ആവശ്യമില്ല. പേജ് കാഴ്ചകൾ, ടെസ്റ്റ് പുരോഗതി പോലുള്ള അജ്ഞാത ഉപയോഗ ഡാറ്റ നിങ്ങളുടെ ഉപകരണത്തിൽ പ്രാദേശികമായി സംഭരിക്കാം."}
+              ? "Traffic Tips is designed to be privacy-first. We do not require account registration. Anonymous usage data (page views, test progress) may be stored locally on your device to remember your progress."
+              : "ട്രാഫിക് ടിപ്സ് സ്വകാര്യതയ്ക്ക് മുൻഗണന നൽകുന്നു. അക്കൗണ്ട് രജിസ്ട്രേഷൻ ആവശ്യമില്ല. പേജ് കാഴ്ചകൾ, ടെസ്റ്റ് പുരോഗതി പോലുള്ള അജ്ഞാത ഉപയോഗ ഡാറ്റ നിങ്ങളുടെ ഉപകരണത്തിൽ പ്രാദേശികമായി സംഭരിക്കാം."}
           </p>
 
           <h2>2. {lang === "en" ? "AI assistant data" : "AI സഹായി ഡാറ്റ"}</h2>

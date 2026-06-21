@@ -47,7 +47,6 @@ const NAV: NavGroup[] = [
       { to: "/category/insurance", en: "Insurance", ml: "ഇൻഷുറൻസ്" },
       { to: "/category/penalties", en: "Penalties & Fines", ml: "പിഴകൾ" },
       { to: "/fee-calculator", en: "Fee Calculator", ml: "ഫീസ് കാൽക്കുലേറ്റർ" },
-      { to: "/application-tracking", en: "Application Tracking", ml: "അപേക്ഷാ ട്രാക്കിങ്" },
     ],
   },
   {
@@ -107,7 +106,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <SheetContent side="left" className="w-[88vw] max-w-sm overflow-y-auto p-0">
               <SheetHeader className="border-b border-border p-4">
                 <SheetTitle className={ml}>
-                  {lang === "en" ? "Kerala Road Master" : "കേരള റോഡ് മാസ്റ്റർ"}
+                  {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
                 </SheetTitle>
               </SheetHeader>
               <nav className="p-4">
@@ -137,11 +136,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
           <Link to="/" className="flex min-w-0 items-center gap-2">
             <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground shadow-sm">
-              K
+              T
             </div>
             <div className="min-w-0">
               <p className={`truncate text-sm font-bold leading-tight sm:text-base ${ml}`}>
-                {lang === "en" ? "Kerala Road Master" : "കേരള റോഡ് മാസ്റ്റർ"}
+                {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
               </p>
               <p className={`hidden truncate text-[10px] text-muted-foreground sm:block ${ml}`}>
                 {lang === "en"
@@ -182,10 +181,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <div>
               <div className="flex items-center gap-2">
                 <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground">
-                  K
+              T
                 </div>
                 <p className={`font-bold ${ml}`}>
-                  {lang === "en" ? "Kerala Road Master" : "കേരള റോഡ് മാസ്റ്റർ"}
+                  {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
                 </p>
               </div>
               <p className={`mt-2 text-xs text-muted-foreground ${ml}`}>
@@ -242,7 +241,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
 
           <div className="mt-6 border-t border-border pt-4 text-center text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Kerala Road Master. All Rights Reserved.
+            © {new Date().getFullYear()} Traffic Tips. All Rights Reserved.
           </div>
         </div>
       </footer>

@@ -26,7 +26,7 @@ const SERVICE_LABELS: Record<Service, { en: string; ml: string; fee: number }> =
 export const Route = createFileRoute("/fee-calculator")({
   head: () => ({
     meta: [
-      { title: "RTO Fee Calculator — Kerala Road Master" },
+      { title: "RTO Fee Calculator — Traffic Tips" },
       { name: "description", content: "Estimate Kerala RTO fees for learner licence, driving test, DL issue, renewal and more." },
       { property: "og:title", content: "Kerala RTO Fee Calculator" },
       { property: "og:description", content: "Quick fee estimates for common Kerala RTO services." },

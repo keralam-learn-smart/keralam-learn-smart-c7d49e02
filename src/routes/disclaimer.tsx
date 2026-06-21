@@ -5,9 +5,9 @@ import { useSite } from "@/lib/site-context";
 export const Route = createFileRoute("/disclaimer")({
   head: () => ({
     meta: [
-      { title: "Disclaimer — Kerala Road Master" },
-      { name: "description", content: "Educational disclaimer for Kerala Road Master." },
-      { property: "og:title", content: "Disclaimer — Kerala Road Master" },
+      { title: "Disclaimer — Traffic Tips" },
+      { name: "description", content: "Educational disclaimer for Traffic Tips." },
+      { property: "og:title", content: "Disclaimer — Traffic Tips" },
       { property: "og:description", content: "We are not affiliated with Kerala MVD or parivahan.gov.in." },
     ],
   }),
@@ -24,8 +24,8 @@ function DisclaimerPage() {
         <div className="prose prose-sm mt-6 max-w-none dark:prose-invert">
           <p>
             {lang === "en"
-              ? "Kerala Road Master is an independent educational website. It is not affiliated with, endorsed by or sponsored by the Kerala Motor Vehicles Department (MVD), parivahan.gov.in or any government body."
-              : "കേരള റോഡ് മാസ്റ്റർ ഒരു സ്വതന്ത്ര വിദ്യാഭ്യാസ വെബ്സൈറ്റാണ്. ഇത് കേരള മോട്ടോർ വാഹന വകുപ്പ് (MVD), parivahan.gov.in അല്ലെങ്കിൽ ഏതെങ്കിലും സർക്കാർ സ്ഥാപനവുമായി ബന്ധപ്പെട്ടതല്ല."}
+              ? "Traffic Tips is an independent educational website. It is not affiliated with, endorsed by or sponsored by the Kerala Motor Vehicles Department (MVD), parivahan.gov.in or any government body."
+              : "ട്രാഫിക് ടിപ്സ് ഒരു സ്വതന്ത്ര വിദ്യാഭ്യാസ വെബ്സൈറ്റാണ്. ഇത് കേരള മോട്ടോർ വാഹന വകുപ്പ് (MVD), parivahan.gov.in അല്ലെങ്കിൽ ഏതെങ്കിലും സർക്കാർ സ്ഥാപനവുമായി ബന്ധപ്പെട്ടതല്ല."}
           </p>
           <p>
             {lang === "en"
