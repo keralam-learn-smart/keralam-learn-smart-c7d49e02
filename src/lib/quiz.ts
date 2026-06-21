@@ -1,7 +1,7 @@
 import { QUESTIONS, type Question } from "@/data/questions";
 
-export const TOTAL_SETS = 10;
-export const QUESTIONS_PER_SET = 25;
+export const TOTAL_SETS = 20;
+export const QUESTIONS_PER_SET = 15;
 export const SECONDS_PER_QUESTION = 20;
 export const PASS_PERCENT = 60;
 

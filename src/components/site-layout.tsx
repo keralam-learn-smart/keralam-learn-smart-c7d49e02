@@ -47,7 +47,6 @@ const NAV: NavGroup[] = [
       { to: "/category/insurance", en: "Insurance", ml: "ഇൻഷുറൻസ്" },
       { to: "/category/penalties", en: "Penalties & Fines", ml: "പിഴകൾ" },
       { to: "/fee-calculator", en: "Fee Calculator", ml: "ഫീസ് കാൽക്കുലേറ്റർ" },
-      { to: "/application-tracking", en: "Application Tracking", ml: "അപേക്ഷാ ട്രാക്കിങ്" },
     ],
   },
   {

@@ -31,9 +31,9 @@ function Index() {
   const ml = lang === "ml" ? "lang-ml" : "";
 
   const features = [
-    { icon: BookOpen, en: "1000+ Questions", ml: "1000+ ചോദ്യങ്ങൾ" },
+    { icon: BookOpen, en: "500+ Questions", ml: "500+ ചോദ്യങ്ങൾ" },
     { icon: Timer, en: "20s Timer Per Q", ml: "ഓരോ ചോദ്യത്തിന് 20s" },
-    { icon: Trophy, en: "10 Mock Tests", ml: "10 മോക്ക് ടെസ്റ്റുകൾ" },
+    { icon: Trophy, en: "20 Mock Test Sets", ml: "20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ" },
     { icon: Bot, en: "AI Study Tutor", ml: "AI പഠന ട്യൂട്ടർ" },
   ];
 
@@ -52,22 +52,22 @@ function Index() {
           </h1>
           <p className={`mt-2 max-w-2xl text-sm opacity-90 sm:text-base ${ml}`}>
             {lang === "en"
-              ? "Bilingual learning, 100+ traffic signs, 10 mock tests with instant validation, and an AI tutor — all free."
-              : "ദ്വിഭാഷാ പഠനം, 100+ ചിഹ്നങ്ങൾ, 10 മോക്ക് ടെസ്റ്റുകൾ, AI ട്യൂട്ടർ — എല്ലാം സൗജന്യം."}
+              ? "Bilingual learning, 100+ traffic signs, 20 mock test sets with instant validation, and an AI tutor — all free."
+              : "ദ്വിഭാഷാ പഠനം, 100+ ചിഹ്നങ്ങൾ, 20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ, AI ട്യൂട്ടർ — എല്ലാം സൗജന്യം."}
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Link to="/quiz/$setId" params={{ setId: "mock" }}>
-              <Button size="lg" className="bg-white text-primary shadow-md hover:bg-white/90">
+          <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
+            <Link to="/quiz/$setId" params={{ setId: "mock" }} className="w-full">
+              <Button size="lg" className="h-12 w-full bg-white text-primary shadow-md hover:bg-white/90">
                 {lang === "en" ? "🚦 Start Mock Test" : "🚦 മോക്ക് ടെസ്റ്റ്"}
               </Button>
             </Link>
-            <Link to="/quiz">
-              <Button variant="secondary" size="lg">
+            <Link to="/quiz" className="w-full">
+              <Button variant="secondary" size="lg" className="h-12 w-full">
                 {lang === "en" ? "Practice Sets" : "പരിശീലനം"}
               </Button>
             </Link>
-            <Link to="/ai-assistant">
-              <Button size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white">
+            <Link to="/ai-assistant" className="w-full">
+              <Button size="lg" variant="outline" className="h-12 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white">
                 <Bot className="mr-1 h-4 w-4" />
                 {lang === "en" ? "Ask AI Tutor" : "AI ട്യൂട്ടറോട് ചോദിക്കൂ"}
               </Button>

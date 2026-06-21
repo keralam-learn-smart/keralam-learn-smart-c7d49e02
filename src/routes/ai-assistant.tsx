@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Bot, Send, User } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteLayout } from "@/components/site-layout";
@@ -37,7 +37,7 @@ function AssistantPage() {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const endRef = useRef<HTMLDivElement>(null);
+  // Do NOT auto-scroll after responses — keep the user's current reading position.
 
   async function send(text: string) {
     const userMsg: Msg = { role: "user", content: text };
@@ -53,7 +53,6 @@ function AssistantPage() {
       setMessages((m) => [...m, { role: "assistant", content: `Sorry — ${msg}` }]);
     } finally {
       setLoading(false);
-      setTimeout(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
     }
   }
 
@@ -125,7 +124,6 @@ function AssistantPage() {
               {lang === "en" ? "Thinking…" : "ചിന്തിക്കുന്നു…"}
             </div>
           )}
-          <div ref={endRef} />
         </div>
 
         <form
