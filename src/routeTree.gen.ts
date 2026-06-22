@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserAgreementRouteImport } from './routes/user-agreement'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ReportIssueRouteImport } from './routes/report-issue'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MockTestsRouteImport } from './routes/mock-tests'
 import { Route as HelpSupportRouteImport } from './routes/help-support'
@@ -47,6 +48,11 @@ const TrustRoute = TrustRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportIssueRoute = ReportIssueRouteImport.update({
+  id: '/report-issue',
+  path: '/report-issue',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -171,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
+  '/report-issue': typeof ReportIssueRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/user-agreement': typeof UserAgreementRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
+  '/report-issue': typeof ReportIssueRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/user-agreement': typeof UserAgreementRoute
@@ -223,6 +231,7 @@ export interface FileRoutesById {
   '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
+  '/report-issue': typeof ReportIssueRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/user-agreement': typeof UserAgreementRoute
@@ -250,6 +259,7 @@ export interface FileRouteTypes {
     | '/help-support'
     | '/mock-tests'
     | '/privacy'
+    | '/report-issue'
     | '/terms'
     | '/trust'
     | '/user-agreement'
@@ -275,6 +285,7 @@ export interface FileRouteTypes {
     | '/help-support'
     | '/mock-tests'
     | '/privacy'
+    | '/report-issue'
     | '/terms'
     | '/trust'
     | '/user-agreement'
@@ -301,6 +312,7 @@ export interface FileRouteTypes {
     | '/help-support'
     | '/mock-tests'
     | '/privacy'
+    | '/report-issue'
     | '/terms'
     | '/trust'
     | '/user-agreement'
@@ -328,6 +340,7 @@ export interface RootRouteChildren {
   HelpSupportRoute: typeof HelpSupportRoute
   MockTestsRoute: typeof MockTestsRoute
   PrivacyRoute: typeof PrivacyRoute
+  ReportIssueRoute: typeof ReportIssueRoute
   TermsRoute: typeof TermsRoute
   TrustRoute: typeof TrustRoute
   UserAgreementRoute: typeof UserAgreementRoute
@@ -357,6 +370,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report-issue': {
+      id: '/report-issue'
+      path: '/report-issue'
+      fullPath: '/report-issue'
+      preLoaderRoute: typeof ReportIssueRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -538,6 +558,7 @@ const rootRouteChildren: RootRouteChildren = {
   HelpSupportRoute: HelpSupportRoute,
   MockTestsRoute: MockTestsRoute,
   PrivacyRoute: PrivacyRoute,
+  ReportIssueRoute: ReportIssueRoute,
   TermsRoute: TermsRoute,
   TrustRoute: TrustRoute,
   UserAgreementRoute: UserAgreementRoute,
