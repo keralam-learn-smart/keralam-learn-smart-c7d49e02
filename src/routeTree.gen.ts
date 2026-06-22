@@ -14,6 +14,7 @@ import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MockTestsRouteImport } from './routes/mock-tests'
+import { Route as HelpSupportRouteImport } from './routes/help-support'
 import { Route as FeeCalculatorRouteImport } from './routes/fee-calculator'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
@@ -56,6 +57,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const MockTestsRoute = MockTestsRouteImport.update({
   id: '/mock-tests',
   path: '/mock-tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpSupportRoute = HelpSupportRouteImport.update({
+  id: '/help-support',
+  path: '/help-support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeeCalculatorRoute = FeeCalculatorRouteImport.update({
@@ -162,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
+  '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -186,6 +193,7 @@ export interface FileRoutesByTo {
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
+  '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -212,6 +220,7 @@ export interface FileRoutesById {
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
+  '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -238,6 +247,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/faq'
     | '/fee-calculator'
+    | '/help-support'
     | '/mock-tests'
     | '/privacy'
     | '/terms'
@@ -262,6 +272,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/faq'
     | '/fee-calculator'
+    | '/help-support'
     | '/mock-tests'
     | '/privacy'
     | '/terms'
@@ -287,6 +298,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/faq'
     | '/fee-calculator'
+    | '/help-support'
     | '/mock-tests'
     | '/privacy'
     | '/terms'
@@ -313,6 +325,7 @@ export interface RootRouteChildren {
   DisclaimerRoute: typeof DisclaimerRoute
   FaqRoute: typeof FaqRoute
   FeeCalculatorRoute: typeof FeeCalculatorRoute
+  HelpSupportRoute: typeof HelpSupportRoute
   MockTestsRoute: typeof MockTestsRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
@@ -358,6 +371,13 @@ declare module '@tanstack/react-router' {
       path: '/mock-tests'
       fullPath: '/mock-tests'
       preLoaderRoute: typeof MockTestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help-support': {
+      id: '/help-support'
+      path: '/help-support'
+      fullPath: '/help-support'
+      preLoaderRoute: typeof HelpSupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fee-calculator': {
@@ -515,6 +535,7 @@ const rootRouteChildren: RootRouteChildren = {
   DisclaimerRoute: DisclaimerRoute,
   FaqRoute: FaqRoute,
   FeeCalculatorRoute: FeeCalculatorRoute,
+  HelpSupportRoute: HelpSupportRoute,
   MockTestsRoute: MockTestsRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
