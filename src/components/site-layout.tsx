@@ -85,6 +85,7 @@ const FOOTER_LINKS: NavItem[] = [
   { to: "/privacy", en: "Privacy Policy", ml: "സ്വകാര്യതാ നയം" },
   { to: "/terms", en: "Terms & Conditions", ml: "നിബന്ധനകൾ" },
   { to: "/disclaimer", en: "Disclaimer", ml: "നിരാകരണം" },
+  { to: "/trust", en: "Trust & Security", ml: "വിശ്വാസവും സുരക്ഷയും" },
   { to: "/faq", en: "FAQ", ml: "സാധാരണ ചോദ്യങ്ങൾ" },
 ];
 

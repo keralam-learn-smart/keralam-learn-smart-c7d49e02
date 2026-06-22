@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MockTestsRouteImport } from './routes/mock-tests'
@@ -27,6 +28,11 @@ import { Route as QuizSetIdRouteImport } from './routes/quiz.$setId'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 
+const TrustRoute = TrustRouteImport.update({
+  id: '/trust',
+  path: '/trust',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/trust': typeof TrustRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
   '/quiz/$setId': typeof QuizSetIdRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/trust': typeof TrustRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
   '/quiz/$setId': typeof QuizSetIdRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/trust': typeof TrustRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
   '/quiz/$setId': typeof QuizSetIdRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/mock-tests'
     | '/privacy'
     | '/terms'
+    | '/trust'
     | '/profile'
     | '/category/$slug'
     | '/quiz/$setId'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/mock-tests'
     | '/privacy'
     | '/terms'
+    | '/trust'
     | '/profile'
     | '/category/$slug'
     | '/quiz/$setId'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/mock-tests'
     | '/privacy'
     | '/terms'
+    | '/trust'
     | '/_authenticated/profile'
     | '/category/$slug'
     | '/quiz/$setId'
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   MockTestsRoute: typeof MockTestsRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
+  TrustRoute: typeof TrustRoute
   CategorySlugRoute: typeof CategorySlugRoute
   QuizSetIdRoute: typeof QuizSetIdRoute
   QuizIndexRoute: typeof QuizIndexRoute
@@ -247,6 +260,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/trust': {
+      id: '/trust'
+      path: '/trust'
+      fullPath: '/trust'
+      preLoaderRoute: typeof TrustRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -394,6 +414,7 @@ const rootRouteChildren: RootRouteChildren = {
   MockTestsRoute: MockTestsRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
+  TrustRoute: TrustRoute,
   CategorySlugRoute: CategorySlugRoute,
   QuizSetIdRoute: QuizSetIdRoute,
   QuizIndexRoute: QuizIndexRoute,
