@@ -8,7 +8,16 @@ import {
   type ReactNode,
 } from "react";
 
-export type Lang = "en" | "ml";
+export type Lang = "en" | "ml" | "hi" | "ta";
+
+const LANG_VALUES: readonly Lang[] = ["en", "ml", "hi", "ta"] as const;
+
+export const LANGUAGES: { code: Lang; label: string; native: string }[] = [
+  { code: "en", label: "English", native: "English" },
+  { code: "ml", label: "Malayalam", native: "മലയാളം" },
+  { code: "hi", label: "Hindi", native: "हिन्दी" },
+  { code: "ta", label: "Tamil", native: "தமிழ்" },
+];
 
 type SiteCtx = {
   lang: Lang;
@@ -33,7 +42,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const l = window.localStorage.getItem(LANG_KEY);
-      if (l === "ml" || l === "en") setLangState(l);
+      if (l && (LANG_VALUES as readonly string[]).includes(l)) setLangState(l as Lang);
       const d = window.localStorage.getItem(DARK_KEY);
       const prefers =
         d === "1" ||
@@ -71,7 +80,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
       dark,
       setDark: setDarkState,
       toggleDark: () => setDarkState((d) => !d),
-      t: (s) => s[lang],
+      t: (s) => (lang === "ml" ? s.ml : s.en),
     }),
     [lang, setLang, dark],
   );
