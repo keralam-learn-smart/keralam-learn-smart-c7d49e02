@@ -16,6 +16,7 @@ import { Route as MockTestsRouteImport } from './routes/mock-tests'
 import { Route as FeeCalculatorRouteImport } from './routes/fee-calculator'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as CopyrightRouteImport } from './routes/copyright'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -62,6 +63,11 @@ const FaqRoute = FaqRouteImport.update({
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CopyrightRoute = CopyrightRouteImport.update({
+  id: '/copyright',
+  path: '/copyright',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiePolicyRoute = CookiePolicyRouteImport.update({
@@ -132,6 +138,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/copyright': typeof CopyrightRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/copyright': typeof CopyrightRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
@@ -174,6 +182,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/copyright': typeof CopyrightRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/cookie-policy'
+    | '/copyright'
     | '/disclaimer'
     | '/faq'
     | '/fee-calculator'
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/cookie-policy'
+    | '/copyright'
     | '/disclaimer'
     | '/faq'
     | '/fee-calculator'
@@ -237,6 +248,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/cookie-policy'
+    | '/copyright'
     | '/disclaimer'
     | '/faq'
     | '/fee-calculator'
@@ -259,6 +271,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
+  CopyrightRoute: typeof CopyrightRoute
   DisclaimerRoute: typeof DisclaimerRoute
   FaqRoute: typeof FaqRoute
   FeeCalculatorRoute: typeof FeeCalculatorRoute
@@ -320,6 +333,13 @@ declare module '@tanstack/react-router' {
       path: '/disclaimer'
       fullPath: '/disclaimer'
       preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/copyright': {
+      id: '/copyright'
+      path: '/copyright'
+      fullPath: '/copyright'
+      preLoaderRoute: typeof CopyrightRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookie-policy': {
@@ -429,6 +449,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
+  CopyrightRoute: CopyrightRoute,
   DisclaimerRoute: DisclaimerRoute,
   FaqRoute: FaqRoute,
   FeeCalculatorRoute: FeeCalculatorRoute,
