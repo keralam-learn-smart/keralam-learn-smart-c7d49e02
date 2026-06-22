@@ -7,7 +7,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useSite } from "@/lib/site-context";
+import { useAuth } from "@/lib/auth-context";
 import { askTutor } from "@/lib/ai.functions";
+import { Link } from "@tanstack/react-router";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -34,6 +36,7 @@ function AssistantPage() {
   const { lang } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
   const ask = useServerFn(askTutor);
+  const { user, loading: authLoading } = useAuth();
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
