@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://keralam-learn-smart.vercel.app/sitemap.xml
