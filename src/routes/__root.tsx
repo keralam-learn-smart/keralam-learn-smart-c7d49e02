@@ -120,6 +120,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         {/* End Google Tag Manager */}
+        {/* Google AdSense Auto Ads */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7684149874357678"
+          crossOrigin="anonymous"
+        />
+        {/* End Google AdSense Auto Ads */}
         <HeadContent />
       </head>
       <body>
