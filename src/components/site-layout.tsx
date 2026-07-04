@@ -35,6 +35,7 @@ const NAV: NavGroup[] = [
     ml: "പഠിക്കുക",
     items: [
       { to: "/", en: "Home", ml: "ഹോം" },
+      { to: "/driving-guide", en: "Driving Guide", ml: "ഡ്രൈവിംഗ് ഗൈഡ്" },
       { to: "/category/traffic-signs", en: "Traffic Signs", ml: "ഗതാഗത ചിഹ്നങ്ങൾ" },
       { to: "/category/traffic-signals", en: "Traffic Signals", ml: "ഗതാഗത സിഗ്നലുകൾ" },
       { to: "/category/police-hand-signals", en: "Police Hand Signals", ml: "പോലീസ് കൈ സിഗ്നലുകൾ" },

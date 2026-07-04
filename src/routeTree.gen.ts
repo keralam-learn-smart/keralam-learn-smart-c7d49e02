@@ -19,6 +19,7 @@ import { Route as MockTestsRouteImport } from './routes/mock-tests'
 import { Route as HelpSupportRouteImport } from './routes/help-support'
 import { Route as FeeCalculatorRouteImport } from './routes/fee-calculator'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as DrivingGuideRouteImport } from './routes/driving-guide'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as DataProtectionRouteImport } from './routes/data-protection'
 import { Route as CopyrightRouteImport } from './routes/copyright'
@@ -84,6 +85,11 @@ const FeeCalculatorRoute = FeeCalculatorRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrivingGuideRoute = DrivingGuideRouteImport.update({
+  id: '/driving-guide',
+  path: '/driving-guide',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DisclaimerRoute = DisclaimerRouteImport.update({
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/copyright': typeof CopyrightRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/driving-guide': typeof DrivingGuideRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
@@ -205,6 +212,7 @@ export interface FileRoutesByTo {
   '/copyright': typeof CopyrightRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/driving-guide': typeof DrivingGuideRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
@@ -234,6 +242,7 @@ export interface FileRoutesById {
   '/copyright': typeof CopyrightRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/driving-guide': typeof DrivingGuideRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
@@ -263,6 +272,7 @@ export interface FileRouteTypes {
     | '/copyright'
     | '/data-protection'
     | '/disclaimer'
+    | '/driving-guide'
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
@@ -290,6 +300,7 @@ export interface FileRouteTypes {
     | '/copyright'
     | '/data-protection'
     | '/disclaimer'
+    | '/driving-guide'
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
@@ -318,6 +329,7 @@ export interface FileRouteTypes {
     | '/copyright'
     | '/data-protection'
     | '/disclaimer'
+    | '/driving-guide'
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
@@ -347,6 +359,7 @@ export interface RootRouteChildren {
   CopyrightRoute: typeof CopyrightRoute
   DataProtectionRoute: typeof DataProtectionRoute
   DisclaimerRoute: typeof DisclaimerRoute
+  DrivingGuideRoute: typeof DrivingGuideRoute
   FaqRoute: typeof FaqRoute
   FeeCalculatorRoute: typeof FeeCalculatorRoute
   HelpSupportRoute: typeof HelpSupportRoute
@@ -432,6 +445,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driving-guide': {
+      id: '/driving-guide'
+      path: '/driving-guide'
+      fullPath: '/driving-guide'
+      preLoaderRoute: typeof DrivingGuideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/disclaimer': {
@@ -573,6 +593,7 @@ const rootRouteChildren: RootRouteChildren = {
   CopyrightRoute: CopyrightRoute,
   DataProtectionRoute: DataProtectionRoute,
   DisclaimerRoute: DisclaimerRoute,
+  DrivingGuideRoute: DrivingGuideRoute,
   FaqRoute: FaqRoute,
   FeeCalculatorRoute: FeeCalculatorRoute,
   HelpSupportRoute: HelpSupportRoute,
@@ -590,13 +611,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
