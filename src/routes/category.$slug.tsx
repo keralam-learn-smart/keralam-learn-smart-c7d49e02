@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SiteLayout } from "@/components/site-layout";
 import { useSite } from "@/lib/site-context";
+import { AdUnit } from "@/components/ad-unit";
 
 type Lang = "en" | "ml";
 
@@ -85,6 +86,8 @@ function CategoryPage() {
           </h2>
           <p className={`text-sm leading-relaxed ${ml}`}>{t(cat.content)}</p>
         </Card>
+
+        <AdUnit format="auto" className="mb-4" />
 
         {showSignLibrary && <SignLibrary />}
         {showSignalLibrary && <SignalLibrary />}
