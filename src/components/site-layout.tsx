@@ -277,6 +277,30 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   ? "Free bilingual learning, mock tests and AI tutor for the Kerala RTO Learner Licence exam."
                   : "കേരള RTO ലേണർ ലൈസൻസ് പരീക്ഷയ്ക്ക് സൗജന്യ ദ്വിഭാഷാ പഠനം, മോക്ക് ടെസ്റ്റുകൾ, AI ട്യൂട്ടർ."}
               </p>
+              <address className="mt-4 space-y-1.5 text-xs not-italic text-muted-foreground">
+                <p>
+                  <span className="font-semibold text-foreground">
+                    {lang === "en" ? "Email: " : "ഇമെയിൽ: "}
+                  </span>
+                  <a href="mailto:renjithraj154@gmail.com" className="hover:text-primary">
+                    renjithraj154@gmail.com
+                  </a>
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">
+                    {lang === "en" ? "Phone: " : "ഫോൺ: "}
+                  </span>
+                  <a href="tel:+919447480651" className="hover:text-primary">
+                    +91 94474 80651
+                  </a>
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">
+                    {lang === "en" ? "Address: " : "വിലാസം: "}
+                  </span>
+                  Plavarthala Line, Thamalam, Karamana, Thiruvananthapuram – 695012, Kerala, India
+                </p>
+              </address>
             </div>
 
             <div>
