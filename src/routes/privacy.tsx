@@ -52,8 +52,8 @@ function PrivacyPage() {
           <h2>4. {lang === "en" ? "Contact" : "ബന്ധപ്പെടുക"}</h2>
           <p>
             {lang === "en"
-              ? "Questions about this policy? Reach us at hello@keralaroadmaster.in"
-              : "നയത്തെക്കുറിച്ചുള്ള ചോദ്യങ്ങൾ? hello@keralaroadmaster.in ൽ ബന്ധപ്പെടുക"}
+              ? "Questions about this policy? Reach us at renjithraj154@gmail.com or +91 94474 80651. Address: Plavarthala Line, Thamalam, Karamana, Thiruvananthapuram – 695012, Kerala, India."
+              : "നയത്തെക്കുറിച്ചുള്ള ചോദ്യങ്ങൾ? renjithraj154@gmail.com അല്ലെങ്കിൽ +91 94474 80651 ൽ ബന്ധപ്പെടുക. വിലാസം: പ്ലാവർത്തല ലൈൻ, തമലം, കാരമന, തിരുവനന്തപുരം – 695012, കേരളം."}
           </p>
         </div>
       </article>
