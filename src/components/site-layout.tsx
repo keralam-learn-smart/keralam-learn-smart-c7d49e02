@@ -98,6 +98,7 @@ const FOOTER_LINKS: NavItem[] = [
 const LEGAL_LINKS: NavItem[] = [
   { to: "/privacy", en: "Privacy Policy", ml: "സ്വകാര്യതാ നയം" },
   { to: "/terms", en: "Terms & Conditions", ml: "നിബന്ധനകൾ" },
+  { to: "/refund-policy", en: "Refund & Cancellation Policy", ml: "റീഫണ്ട് നയം" },
   { to: "/disclaimer", en: "Disclaimer", ml: "നിരാകരണം" },
   { to: "/cookie-policy", en: "Cookie Policy", ml: "കുക്കി നയം" },
   { to: "/copyright", en: "Copyright Policy", ml: "പകർപ്പവകാശ നയം" },
@@ -228,16 +229,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground shadow-sm">
               T
             </div>
-            <div className="min-w-0">
-              <p className={`truncate text-sm font-bold leading-tight sm:text-base ${ml}`}>
-                {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
-              </p>
-              <p className={`hidden truncate text-[10px] text-muted-foreground sm:block ${ml}`}>
-                {lang === "en"
-                  ? "Kerala RTO Learning & Test Platform"
-                  : "കേരള RTO പഠന-പരീക്ഷാ പ്ലാറ്റ്ഫോം"}
-              </p>
-            </div>
+            <span className="sr-only">
+              {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
+            </span>
           </Link>
 
           <div className="ml-auto flex items-center gap-1">
@@ -352,7 +346,7 @@ function UserMenu() {
 
   if (!user) {
     return (
-      <Button asChild size="sm" className="ml-1 h-9">
+      <Button asChild size="sm" className="ml-1 h-9 rounded-full px-4">
         <Link to="/auth">
           <LogIn className="mr-1.5 h-4 w-4" />
           <span className={ml}>{t("Sign In", "സൈൻ ഇൻ")}</span>

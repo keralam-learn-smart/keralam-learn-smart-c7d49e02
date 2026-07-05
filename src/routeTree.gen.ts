@@ -14,6 +14,7 @@ import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReportIssueRouteImport } from './routes/report-issue'
+import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MockTestsRouteImport } from './routes/mock-tests'
 import { Route as HelpSupportRouteImport } from './routes/help-support'
@@ -60,6 +61,11 @@ const SettingsRoute = SettingsRouteImport.update({
 const ReportIssueRoute = ReportIssueRouteImport.update({
   id: '/report-issue',
   path: '/report-issue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundPolicyRoute = RefundPolicyRouteImport.update({
+  id: '/refund-policy',
+  path: '/refund-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -190,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/terms': typeof TermsRoute
@@ -218,6 +225,7 @@ export interface FileRoutesByTo {
   '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/terms': typeof TermsRoute
@@ -248,6 +256,7 @@ export interface FileRoutesById {
   '/help-support': typeof HelpSupportRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/terms': typeof TermsRoute
@@ -278,6 +287,7 @@ export interface FileRouteTypes {
     | '/help-support'
     | '/mock-tests'
     | '/privacy'
+    | '/refund-policy'
     | '/report-issue'
     | '/settings'
     | '/terms'
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/help-support'
     | '/mock-tests'
     | '/privacy'
+    | '/refund-policy'
     | '/report-issue'
     | '/settings'
     | '/terms'
@@ -335,6 +346,7 @@ export interface FileRouteTypes {
     | '/help-support'
     | '/mock-tests'
     | '/privacy'
+    | '/refund-policy'
     | '/report-issue'
     | '/settings'
     | '/terms'
@@ -365,6 +377,7 @@ export interface RootRouteChildren {
   HelpSupportRoute: typeof HelpSupportRoute
   MockTestsRoute: typeof MockTestsRoute
   PrivacyRoute: typeof PrivacyRoute
+  RefundPolicyRoute: typeof RefundPolicyRoute
   ReportIssueRoute: typeof ReportIssueRoute
   SettingsRoute: typeof SettingsRoute
   TermsRoute: typeof TermsRoute
@@ -410,6 +423,13 @@ declare module '@tanstack/react-router' {
       path: '/report-issue'
       fullPath: '/report-issue'
       preLoaderRoute: typeof ReportIssueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund-policy': {
+      id: '/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof RefundPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -599,6 +619,7 @@ const rootRouteChildren: RootRouteChildren = {
   HelpSupportRoute: HelpSupportRoute,
   MockTestsRoute: MockTestsRoute,
   PrivacyRoute: PrivacyRoute,
+  RefundPolicyRoute: RefundPolicyRoute,
   ReportIssueRoute: ReportIssueRoute,
   SettingsRoute: SettingsRoute,
   TermsRoute: TermsRoute,
@@ -611,13 +632,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
