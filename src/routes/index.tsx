@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles, Timer, BookOpen, Trophy, Bot } from "lucide-react";
+import { Sparkles, Timer, BookOpen, Trophy, Bot, Lock } from "lucide-react";
 import { CATEGORIES } from "@/data/categories";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -71,6 +71,20 @@ function Index() {
               <Button size="lg" variant="outline" className="h-12 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white">
                 <Bot className="mr-1 h-4 w-4" />
                 {lang === "en" ? "Ask AI Tutor" : "AI ട്യൂട്ടറോട് ചോദിക്കൂ"}
+              </Button>
+            </Link>
+          </div>
+
+          <div className="mt-4">
+            <Link to="/unlock" className="block">
+              <Button
+                size="lg"
+                className="h-12 w-full rounded-full bg-yellow-400 text-black shadow-md hover:bg-yellow-300"
+              >
+                <Lock className="mr-2 h-4 w-4" />
+                {lang === "en"
+                  ? "Unlock Full Access — ₹45 (one-time)"
+                  : "പൂർണ്ണ ആക്‌സസ് അൺലോക്ക് ചെയ്യൂ — ₹45"}
               </Button>
             </Link>
           </div>

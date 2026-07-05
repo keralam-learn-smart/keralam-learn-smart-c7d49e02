@@ -36,6 +36,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QuizIndexRouteImport } from './routes/quiz.index'
 import { Route as QuizSetIdRouteImport } from './routes/quiz.$setId'
+import { Route as PaymentSuccessRouteImport } from './routes/payment.success'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as ApiPublicInstamojoWebhookRouteImport } from './routes/api/public/instamojo-webhook'
@@ -174,6 +175,11 @@ const QuizSetIdRoute = QuizSetIdRouteImport.update({
   path: '/quiz/$setId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PaymentSuccessRoute = PaymentSuccessRouteImport.update({
+  id: '/payment/success',
+  path: '/payment/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
   id: '/category/$slug',
   path: '/category/$slug',
@@ -218,6 +224,7 @@ export interface FileRoutesByFullPath {
   '/user-agreement': typeof UserAgreementRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/quiz/': typeof QuizIndexRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
@@ -249,6 +256,7 @@ export interface FileRoutesByTo {
   '/user-agreement': typeof UserAgreementRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/quiz': typeof QuizIndexRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
@@ -282,6 +290,7 @@ export interface FileRoutesById {
   '/user-agreement': typeof UserAgreementRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/quiz/': typeof QuizIndexRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
@@ -315,6 +324,7 @@ export interface FileRouteTypes {
     | '/user-agreement'
     | '/profile'
     | '/category/$slug'
+    | '/payment/success'
     | '/quiz/$setId'
     | '/quiz/'
     | '/api/public/instamojo-webhook'
@@ -346,6 +356,7 @@ export interface FileRouteTypes {
     | '/user-agreement'
     | '/profile'
     | '/category/$slug'
+    | '/payment/success'
     | '/quiz/$setId'
     | '/quiz'
     | '/api/public/instamojo-webhook'
@@ -378,6 +389,7 @@ export interface FileRouteTypes {
     | '/user-agreement'
     | '/_authenticated/profile'
     | '/category/$slug'
+    | '/payment/success'
     | '/quiz/$setId'
     | '/quiz/'
     | '/api/public/instamojo-webhook'
@@ -410,6 +422,7 @@ export interface RootRouteChildren {
   UnlockRoute: typeof UnlockRoute
   UserAgreementRoute: typeof UserAgreementRoute
   CategorySlugRoute: typeof CategorySlugRoute
+  PaymentSuccessRoute: typeof PaymentSuccessRoute
   QuizSetIdRoute: typeof QuizSetIdRoute
   QuizIndexRoute: typeof QuizIndexRoute
   ApiPublicInstamojoWebhookRoute: typeof ApiPublicInstamojoWebhookRoute
@@ -606,6 +619,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizSetIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/payment/success': {
+      id: '/payment/success'
+      path: '/payment/success'
+      fullPath: '/payment/success'
+      preLoaderRoute: typeof PaymentSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/category/$slug': {
       id: '/category/$slug'
       path: '/category/$slug'
@@ -668,6 +688,7 @@ const rootRouteChildren: RootRouteChildren = {
   UnlockRoute: UnlockRoute,
   UserAgreementRoute: UserAgreementRoute,
   CategorySlugRoute: CategorySlugRoute,
+  PaymentSuccessRoute: PaymentSuccessRoute,
   QuizSetIdRoute: QuizSetIdRoute,
   QuizIndexRoute: QuizIndexRoute,
   ApiPublicInstamojoWebhookRoute: ApiPublicInstamojoWebhookRoute,
