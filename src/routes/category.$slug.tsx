@@ -13,7 +13,7 @@ import { AdUnit } from "@/components/ad-unit";
 type Lang = "en" | "ml";
 
 export const Route = createFileRoute("/category/$slug")({
-  validateSearch: (s: Record<string, unknown>): { lang: Lang } => ({
+  validateSearch: (s: Record<string, unknown>): { lang?: Lang } => ({
     lang: s.lang === "ml" ? "ml" : "en",
   }),
   loader: ({ params }) => {
