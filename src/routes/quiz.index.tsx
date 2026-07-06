@@ -15,7 +15,7 @@ import {
 type Lang = "en" | "ml";
 
 export const Route = createFileRoute("/quiz/")({
-  validateSearch: (s: Record<string, unknown>): { lang: Lang } => ({
+  validateSearch: (s: Record<string, unknown>): { lang?: Lang } => ({
     lang: s.lang === "ml" ? "ml" : "en",
   }),
   head: () => ({
