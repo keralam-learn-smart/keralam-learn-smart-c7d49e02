@@ -5,14 +5,21 @@ import { useSite, LANGUAGES, type Lang } from "@/lib/site-context";
 
 export function LanguageMenu() {
   const { lang, setLang } = useSite();
+  const current = LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0];
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Language">
-          <Languages className="h-5 w-5" />
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-9 rounded-full px-3 gap-1.5"
+          aria-label="Language"
+        >
+          <Languages className="h-4 w-4" />
+          <span className="text-sm font-medium">{current.code.toUpperCase()}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
+      <DropdownMenuContent align="end" className="w-44">
         <DropdownMenuLabel>Language</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {LANGUAGES.map((l) => (
