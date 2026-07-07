@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth/callback")({
+  ssr: false,
   component: AuthCallbackPage,
 });
 
@@ -10,36 +11,34 @@ function AuthCallbackPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let mounted = true;
+    let cancelled = false;
 
-    (async () => {
-      try {
-        // Use Supabase helper to parse URL and persist session if available
-        // (supabase-js v2 exposes getSessionFromUrl).
-        if (typeof supabase.auth.getSessionFromUrl === "function") {
-          const { data, error } = await supabase.auth.getSessionFromUrl();
-          if (error) {
-            console.error("getSessionFromUrl error:", error);
-            if (mounted) navigate({ to: "/auth" });
-            return;
-          }
-        } else {
-          // Fallback wait briefly for onAuthStateChange to fire (if tokens are set by provider wrapper)
-          await new Promise((r) => setTimeout(r, 300));
-        }
-
-        // Give auth listener time to pick up session, then navigate into protected area
-        if (mounted) {
+    // Wait for Supabase to hydrate the session (set by the Lovable OAuth wrapper
+    // via supabase.auth.setSession, or via the URL hash on full-page redirects).
+    const check = async () => {
+      for (let i = 0; i < 20; i++) {
+        if (cancelled) return;
+        const { data } = await supabase.auth.getSession();
+        if (data.session) {
           navigate({ to: "/profile" });
+          return;
         }
-      } catch (err) {
-        console.error("Auth callback handling failed:", err);
-        if (mounted) navigate({ to: "/auth" });
+        await new Promise((r) => setTimeout(r, 150));
       }
-    })();
+      if (!cancelled) navigate({ to: "/auth" });
+    };
+
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
+        navigate({ to: "/profile" });
+      }
+    });
+
+    check();
 
     return () => {
-      mounted = false;
+      cancelled = true;
+      sub.subscription.unsubscribe();
     };
   }, [navigate]);
 
