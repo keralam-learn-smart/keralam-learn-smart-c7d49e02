@@ -1,0 +1,90 @@
+Perform a complete authentication route repair for my TanStack Router project.
+
+Do NOT redesign the UI.
+Do NOT remove any existing functionality.
+Only create missing files and repair authentication.
+
+My project already contains:
+- src/routes/auth.tsx
+- src/routes/auth.callback.tsx
+- src/routes/_authenticated/profile.tsx
+
+The following files are missing and must be created if they do not exist:
+
+1. src/routes/auth.index.tsx
+2. src/routes/auth-error.tsx
+3. src/routes/forgot-password.tsx
+4. src/routes/reset-password.tsx
+
+Requirements:
+
+- Follow TanStack Router file-based routing conventions.
+- Use TypeScript.
+- Use createFileRoute() correctly.
+- Import all required modules.
+- Ensure there are no TypeScript errors.
+- Ensure there are no build errors.
+- Ensure routeTree.gen.ts regenerates correctly.
+
+auth.index.tsx
+- Redirect authenticated users to /profile.
+- Redirect unauthenticated users to /auth.
+- Render the existing authentication page correctly.
+
+auth-error.tsx
+- Display authentication errors clearly.
+- Handle OAuth callback failures.
+- Provide a button to return to Login.
+
+forgot-password.tsx
+- Create a complete Forgot Password page.
+- Validate email.
+- Send password reset email using Supabase Auth.
+- Show loading state.
+- Show success and error messages.
+
+reset-password.tsx
+- Verify the recovery session.
+- Allow entering a new password.
+- Confirm password.
+- Validate password strength.
+- Update password using Supabase Auth.
+- Redirect to Login after success.
+
+Authentication Requirements
+
+- Login must work.
+- Signup must work.
+- Logout must work.
+- Google Login must work.
+- Password Reset must work.
+- Session persistence must work.
+- Protected routes must work.
+- Email validation must work.
+- Authentication redirects must work.
+- Redirect to /profile after successful login.
+
+Routing Requirements
+
+- Remove every 404 error.
+- Verify every authentication route.
+- Verify callback routing.
+- Verify nested routing.
+- Verify route imports.
+- Verify route exports.
+
+Deployment Requirements
+
+- Ensure GitHub build succeeds.
+- Ensure Vercel build succeeds.
+- Ensure production deployment works.
+- Ensure the live website opens without any authentication routing errors.
+
+At the end provide a report including:
+- Files created
+- Files modified
+- Routes added
+- Errors fixed
+- Build status
+- Authentication status
+- Production readiness status

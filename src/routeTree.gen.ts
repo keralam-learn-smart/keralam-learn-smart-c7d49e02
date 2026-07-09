@@ -27,7 +27,7 @@ import { Route as DataProtectionRouteImport } from './routes/data-protection'
 import { Route as CopyrightRouteImport } from './routes/copyright'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthErrorRouteImport } from './routes/auth-error'
 import { Route as ApplicationTrackingRouteImport } from './routes/application-tracking'
 import { Route as AiAssistantRouteImport } from './routes/ai-assistant'
 import { Route as AcceptableUseRouteImport } from './routes/acceptable-use'
@@ -35,9 +35,12 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QuizIndexRouteImport } from './routes/quiz.index'
+import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as QuizSetIdRouteImport } from './routes/quiz.$setId'
 import { Route as PaymentSuccessRouteImport } from './routes/payment.success'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
+import { Route as AuthForgotPasswordRouteImport } from './routes/auth.forgot-password'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as ApiPublicInstamojoWebhookRouteImport } from './routes/api/public/instamojo-webhook'
@@ -132,9 +135,9 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const AuthErrorRoute = AuthErrorRouteImport.update({
+  id: '/auth-error',
+  path: '/auth-error',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApplicationTrackingRoute = ApplicationTrackingRouteImport.update({
@@ -171,6 +174,11 @@ const QuizIndexRoute = QuizIndexRouteImport.update({
   path: '/quiz/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/auth/',
+  path: '/auth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuizSetIdRoute = QuizSetIdRouteImport.update({
   id: '/quiz/$setId',
   path: '/quiz/$setId',
@@ -186,10 +194,20 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
   path: '/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
+  id: '/auth/reset-password',
+  path: '/auth/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
+  id: '/auth/forgot-password',
+  path: '/auth/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: '/callback',
-  path: '/callback',
-  getParentRoute: () => AuthRoute,
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
@@ -209,7 +227,7 @@ export interface FileRoutesByFullPath {
   '/acceptable-use': typeof AcceptableUseRoute
   '/ai-assistant': typeof AiAssistantRoute
   '/application-tracking': typeof ApplicationTrackingRoute
-  '/auth': typeof AuthRouteWithChildren
+  '/auth-error': typeof AuthErrorRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
@@ -230,9 +248,12 @@ export interface FileRoutesByFullPath {
   '/user-agreement': typeof UserAgreementRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
   '/category/$slug': typeof CategorySlugRoute
   '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
+  '/auth/': typeof AuthIndexRoute
   '/quiz/': typeof QuizIndexRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
 }
@@ -242,7 +263,7 @@ export interface FileRoutesByTo {
   '/acceptable-use': typeof AcceptableUseRoute
   '/ai-assistant': typeof AiAssistantRoute
   '/application-tracking': typeof ApplicationTrackingRoute
-  '/auth': typeof AuthRouteWithChildren
+  '/auth-error': typeof AuthErrorRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
@@ -263,9 +284,12 @@ export interface FileRoutesByTo {
   '/user-agreement': typeof UserAgreementRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
   '/category/$slug': typeof CategorySlugRoute
   '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
+  '/auth': typeof AuthIndexRoute
   '/quiz': typeof QuizIndexRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
 }
@@ -277,7 +301,7 @@ export interface FileRoutesById {
   '/acceptable-use': typeof AcceptableUseRoute
   '/ai-assistant': typeof AiAssistantRoute
   '/application-tracking': typeof ApplicationTrackingRoute
-  '/auth': typeof AuthRouteWithChildren
+  '/auth-error': typeof AuthErrorRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
@@ -298,9 +322,12 @@ export interface FileRoutesById {
   '/user-agreement': typeof UserAgreementRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
   '/category/$slug': typeof CategorySlugRoute
   '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
+  '/auth/': typeof AuthIndexRoute
   '/quiz/': typeof QuizIndexRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
 }
@@ -312,7 +339,7 @@ export interface FileRouteTypes {
     | '/acceptable-use'
     | '/ai-assistant'
     | '/application-tracking'
-    | '/auth'
+    | '/auth-error'
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
@@ -333,9 +360,12 @@ export interface FileRouteTypes {
     | '/user-agreement'
     | '/profile'
     | '/auth/callback'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
     | '/category/$slug'
     | '/payment/success'
     | '/quiz/$setId'
+    | '/auth/'
     | '/quiz/'
     | '/api/public/instamojo-webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -345,7 +375,7 @@ export interface FileRouteTypes {
     | '/acceptable-use'
     | '/ai-assistant'
     | '/application-tracking'
-    | '/auth'
+    | '/auth-error'
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
@@ -366,9 +396,12 @@ export interface FileRouteTypes {
     | '/user-agreement'
     | '/profile'
     | '/auth/callback'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
     | '/category/$slug'
     | '/payment/success'
     | '/quiz/$setId'
+    | '/auth'
     | '/quiz'
     | '/api/public/instamojo-webhook'
   id:
@@ -379,7 +412,7 @@ export interface FileRouteTypes {
     | '/acceptable-use'
     | '/ai-assistant'
     | '/application-tracking'
-    | '/auth'
+    | '/auth-error'
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
@@ -400,9 +433,12 @@ export interface FileRouteTypes {
     | '/user-agreement'
     | '/_authenticated/profile'
     | '/auth/callback'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
     | '/category/$slug'
     | '/payment/success'
     | '/quiz/$setId'
+    | '/auth/'
     | '/quiz/'
     | '/api/public/instamojo-webhook'
   fileRoutesById: FileRoutesById
@@ -414,7 +450,7 @@ export interface RootRouteChildren {
   AcceptableUseRoute: typeof AcceptableUseRoute
   AiAssistantRoute: typeof AiAssistantRoute
   ApplicationTrackingRoute: typeof ApplicationTrackingRoute
-  AuthRoute: typeof AuthRouteWithChildren
+  AuthErrorRoute: typeof AuthErrorRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   CopyrightRoute: typeof CopyrightRoute
@@ -433,9 +469,13 @@ export interface RootRouteChildren {
   TrustRoute: typeof TrustRoute
   UnlockRoute: typeof UnlockRoute
   UserAgreementRoute: typeof UserAgreementRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
   CategorySlugRoute: typeof CategorySlugRoute
   PaymentSuccessRoute: typeof PaymentSuccessRoute
   QuizSetIdRoute: typeof QuizSetIdRoute
+  AuthIndexRoute: typeof AuthIndexRoute
   QuizIndexRoute: typeof QuizIndexRoute
   ApiPublicInstamojoWebhookRoute: typeof ApiPublicInstamojoWebhookRoute
 }
@@ -568,11 +608,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/auth-error': {
+      id: '/auth-error'
+      path: '/auth-error'
+      fullPath: '/auth-error'
+      preLoaderRoute: typeof AuthErrorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/application-tracking': {
@@ -624,6 +664,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/': {
+      id: '/auth/'
+      path: '/auth'
+      fullPath: '/auth/'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quiz/$setId': {
       id: '/quiz/$setId'
       path: '/quiz/$setId'
@@ -645,12 +692,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/reset-password': {
+      id: '/auth/reset-password'
+      path: '/auth/reset-password'
+      fullPath: '/auth/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/forgot-password': {
+      id: '/auth/forgot-password'
+      path: '/auth/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/callback': {
       id: '/auth/callback'
-      path: '/callback'
+      path: '/auth/callback'
       fullPath: '/auth/callback'
       preLoaderRoute: typeof AuthCallbackRouteImport
-      parentRoute: typeof AuthRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/profile': {
       id: '/_authenticated/profile'
@@ -680,16 +741,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface AuthRouteChildren {
-  AuthCallbackRoute: typeof AuthCallbackRoute
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthCallbackRoute: AuthCallbackRoute,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -697,7 +748,7 @@ const rootRouteChildren: RootRouteChildren = {
   AcceptableUseRoute: AcceptableUseRoute,
   AiAssistantRoute: AiAssistantRoute,
   ApplicationTrackingRoute: ApplicationTrackingRoute,
-  AuthRoute: AuthRouteWithChildren,
+  AuthErrorRoute: AuthErrorRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   CopyrightRoute: CopyrightRoute,
@@ -716,12 +767,26 @@ const rootRouteChildren: RootRouteChildren = {
   TrustRoute: TrustRoute,
   UnlockRoute: UnlockRoute,
   UserAgreementRoute: UserAgreementRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
+  AuthResetPasswordRoute: AuthResetPasswordRoute,
   CategorySlugRoute: CategorySlugRoute,
   PaymentSuccessRoute: PaymentSuccessRoute,
   QuizSetIdRoute: QuizSetIdRoute,
+  AuthIndexRoute: AuthIndexRoute,
   QuizIndexRoute: QuizIndexRoute,
   ApiPublicInstamojoWebhookRoute: ApiPublicInstamojoWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
