@@ -14,7 +14,10 @@ type Section = { icon: string; title: { en: string; ml: string }; subs: Sub[] };
 const SECTIONS: Section[] = [
   {
     icon: "📘",
-    title: { en: "Driving Training: Start Your Journey", ml: "ഡ്രൈവിംഗ് പരിശീലനം: യാത്ര ആരംഭിക്കുക" },
+    title: {
+      en: "Driving Training: Start Your Journey",
+      ml: "ഡ്രൈവിംഗ് പരിശീലനം: യാത്ര ആരംഭിക്കുക",
+    },
     subs: [
       {
         title: { en: "What is Driving Training?", ml: "ഡ്രൈവിംഗ് പരിശീലനം എന്നാൽ എന്ത്?" },
@@ -38,14 +41,20 @@ const SECTIONS: Section[] = [
         },
       },
       {
-        title: { en: "Importance of Practical Training", ml: "പ്രായോഗിക പരിശീലനത്തിന്റെ പ്രാധാന്യം" },
+        title: {
+          en: "Importance of Practical Training",
+          ml: "പ്രായോഗിക പരിശീലനത്തിന്റെ പ്രാധാന്യം",
+        },
         body: {
           en: "Real driving skill comes only from behind-the-wheel practice — steering, gear changes, clutch control, parking, hill starts and reading traffic. Aim for at least 20–30 hours of supervised driving before the DL test.",
           ml: "സ്റ്റിയറിംഗ്, ഗിയർ, ക്ലച്ച്, പാർക്കിംഗ്, ഹിൽ സ്റ്റാർട്ട്, ട്രാഫിക് വായന — ഇവയെല്ലാം യഥാർത്ഥ പരിശീലനത്തിലൂടെ മാത്രമേ ലഭിക്കൂ. DL പരീക്ഷയ്ക്ക് മുൻപ് കുറഞ്ഞത് 20–30 മണിക്കൂർ പരിശീലനം നേടുക.",
         },
       },
       {
-        title: { en: "Next Step: Getting Your Driving License", ml: "അടുത്ത പടി: ഡ്രൈവിംഗ് ലൈസൻസ്" },
+        title: {
+          en: "Next Step: Getting Your Driving License",
+          ml: "അടുത്ത പടി: ഡ്രൈവിംഗ് ലൈസൻസ്",
+        },
         body: {
           en: "Apply for a Learner Licence on Parivahan Sarathi, pass the LL test, practise for 30 days, then book the Driving Licence test at your RTO. Carry Form 4, LL, address & age proof, and pass the practical test to get your DL.",
           ml: "പരിവാഹൻ സാരഥിയിൽ ലേണർ ലൈസൻസിനായി അപേക്ഷിക്കുക, LL ടെസ്റ്റ് പാസാവുക, 30 ദിവസം പരിശീലിക്കുക, ശേഷം RTO യിൽ DL ടെസ്റ്റ് ബുക്ക് ചെയ്യുക. ഫോം 4, LL, വിലാസം & വയസ്സ് തെളിവ് കൊണ്ടുവരിക.",
@@ -103,7 +112,10 @@ const SECTIONS: Section[] = [
   },
   {
     icon: "📘",
-    title: { en: "Vehicle and Traffic Safety: Your Responsibility on the Road", ml: "വാഹന-ട്രാഫിക് സുരക്ഷ: നിങ്ങളുടെ ഉത്തരവാദിത്തം" },
+    title: {
+      en: "Vehicle and Traffic Safety: Your Responsibility on the Road",
+      ml: "വാഹന-ട്രാഫിക് സുരക്ഷ: നിങ്ങളുടെ ഉത്തരവാദിത്തം",
+    },
     subs: [
       {
         title: { en: "Importance of Vehicle Safety", ml: "വാഹന സുരക്ഷയുടെ പ്രാധാന്യം" },
@@ -156,7 +168,8 @@ export const Route = createFileRoute("/driving-guide")({
       { property: "og:title", content: "Driving Learning Guide — Traffic Tips" },
       {
         property: "og:description",
-        content: "Driver training, vehicle laws and road safety explained in a clear expandable guide.",
+        content:
+          "Driver training, vehicle laws and road safety explained in a clear expandable guide.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -209,7 +222,9 @@ function DrivingGuidePage() {
                       <AccordionTrigger className={`text-sm font-medium ${ml}`}>
                         {lang === "en" ? s.title.en : s.title.ml}
                       </AccordionTrigger>
-                      <AccordionContent className={`text-sm leading-relaxed text-muted-foreground ${ml}`}>
+                      <AccordionContent
+                        className={`text-sm leading-relaxed text-muted-foreground ${ml}`}
+                      >
                         {lang === "en" ? s.body.en : s.body.ml}
                       </AccordionContent>
                     </AccordionItem>

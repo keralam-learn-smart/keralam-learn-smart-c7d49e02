@@ -12,7 +12,11 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Traffic Tips" },
-      { name: "description", content: "Get in touch with the Traffic Tips team for feedback, corrections or partnerships." },
+      {
+        name: "description",
+        content:
+          "Get in touch with the Traffic Tips team for feedback, corrections or partnerships.",
+      },
       { property: "og:title", content: "Contact Traffic Tips" },
       { property: "og:description", content: "Send us feedback or report content errors." },
     ],
@@ -40,7 +44,10 @@ function ContactPage() {
           <Card className="p-4">
             <Mail className="h-5 w-5 text-primary" />
             <p className="mt-2 text-xs text-muted-foreground">Email</p>
-            <a href="mailto:renjithraj154@gmail.com" className="text-sm font-medium hover:text-primary break-all">
+            <a
+              href="mailto:renjithraj154@gmail.com"
+              className="text-sm font-medium hover:text-primary break-all"
+            >
               renjithraj154@gmail.com
             </a>
           </Card>
@@ -81,8 +88,16 @@ function ContactPage() {
               className="space-y-3"
             >
               <Input required placeholder={lang === "en" ? "Your name" : "നിങ്ങളുടെ പേര്"} />
-              <Input required type="email" placeholder={lang === "en" ? "Email address" : "ഇമെയിൽ"} />
-              <Textarea required rows={5} placeholder={lang === "en" ? "Your message…" : "നിങ്ങളുടെ സന്ദേശം…"} />
+              <Input
+                required
+                type="email"
+                placeholder={lang === "en" ? "Email address" : "ഇമെയിൽ"}
+              />
+              <Textarea
+                required
+                rows={5}
+                placeholder={lang === "en" ? "Your message…" : "നിങ്ങളുടെ സന്ദേശം…"}
+              />
               <Button type="submit" className="w-full">
                 {lang === "en" ? "Send Message" : "സന്ദേശം അയയ്ക്കുക"}
               </Button>

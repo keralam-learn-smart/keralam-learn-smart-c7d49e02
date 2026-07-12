@@ -3,8 +3,14 @@ import { useSite } from "@/lib/site-context";
 import type { ReactNode } from "react";
 
 export function LegalPage({
-  titleEn, titleMl, children,
-}: { titleEn: string; titleMl: string; children: ReactNode }) {
+  titleEn,
+  titleMl,
+  children,
+}: {
+  titleEn: string;
+  titleMl: string;
+  children: ReactNode;
+}) {
   const { lang } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
   return (

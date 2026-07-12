@@ -12,7 +12,11 @@ export const Route = createFileRoute("/application-tracking")({
   head: () => ({
     meta: [
       { title: "Application Tracking — Traffic Tips" },
-      { name: "description", content: "Track your Kerala RTO learner/driving licence application status directly on parivahan.gov.in." },
+      {
+        name: "description",
+        content:
+          "Track your Kerala RTO learner/driving licence application status directly on parivahan.gov.in.",
+      },
       { property: "og:title", content: "Kerala RTO Application Tracking" },
       { property: "og:description", content: "Track LL/DL application status." },
     ],
@@ -43,7 +47,12 @@ function AppTrack() {
             <Label htmlFor="appno" className={ml}>
               {lang === "en" ? "Application number" : "അപേക്ഷാ നമ്പർ"}
             </Label>
-            <Input id="appno" value={appNo} onChange={(e) => setAppNo(e.target.value)} placeholder="e.g. KL0120240012345" />
+            <Input
+              id="appno"
+              value={appNo}
+              onChange={(e) => setAppNo(e.target.value)}
+              placeholder="e.g. KL0120240012345"
+            />
           </div>
           <div>
             <Label htmlFor="dob" className={ml}>
@@ -54,7 +63,10 @@ function AppTrack() {
           <Button
             className="w-full"
             onClick={() =>
-              window.open("https://parivahan.gov.in/parivahan/en/content/application-status", "_blank")
+              window.open(
+                "https://parivahan.gov.in/parivahan/en/content/application-status",
+                "_blank",
+              )
             }
           >
             <ExternalLink className="mr-2 h-4 w-4" />
@@ -68,17 +80,32 @@ function AppTrack() {
           </h2>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <a className="text-primary underline" href="https://sarathi.parivahan.gov.in" target="_blank" rel="noreferrer">
+              <a
+                className="text-primary underline"
+                href="https://sarathi.parivahan.gov.in"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Sarathi (DL/LL services)
               </a>
             </li>
             <li>
-              <a className="text-primary underline" href="https://vahan.parivahan.gov.in" target="_blank" rel="noreferrer">
+              <a
+                className="text-primary underline"
+                href="https://vahan.parivahan.gov.in"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Vahan (Vehicle services)
               </a>
             </li>
             <li>
-              <a className="text-primary underline" href="https://mvd.kerala.gov.in" target="_blank" rel="noreferrer">
+              <a
+                className="text-primary underline"
+                href="https://mvd.kerala.gov.in"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Kerala MVD official
               </a>
             </li>

@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -10,7 +16,13 @@ import { supabase } from "@/integrations/supabase/client";
 
 type Kind = "feedback" | "suggestion" | "bug" | "rating";
 
-export function FeedbackDialog({ children, kind = "feedback" }: { children: React.ReactNode; kind?: Kind }) {
+export function FeedbackDialog({
+  children,
+  kind = "feedback",
+}: {
+  children: React.ReactNode;
+  kind?: Kind;
+}) {
   const { lang } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
   const [open, setOpen] = useState(false);
@@ -42,7 +54,9 @@ export function FeedbackDialog({ children, kind = "feedback" }: { children: Reac
       if (error) throw error;
       toast.success(lang === "en" ? "Thanks! Submitted." : "നന്ദി! സമർപ്പിച്ചു.");
       setOpen(false);
-      setRating(0); setEmail(""); setMessage("");
+      setRating(0);
+      setEmail("");
+      setMessage("");
     } catch (e: any) {
       toast.error(e?.message || "Failed");
     } finally {
@@ -55,14 +69,18 @@ export function FeedbackDialog({ children, kind = "feedback" }: { children: Reac
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className={ml}>{lang === "en" ? titles[kind].en : titles[kind].ml}</DialogTitle>
+          <DialogTitle className={ml}>
+            {lang === "en" ? titles[kind].en : titles[kind].ml}
+          </DialogTitle>
         </DialogHeader>
         <div className="space-y-3">
           {(kind === "rating" || kind === "feedback") && (
             <div className="flex justify-center gap-1">
               {[1, 2, 3, 4, 5].map((n) => (
                 <button key={n} type="button" onClick={() => setRating(n)} aria-label={`Rate ${n}`}>
-                  <Star className={`h-7 w-7 ${n <= rating ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"}`} />
+                  <Star
+                    className={`h-7 w-7 ${n <= rating ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"}`}
+                  />
                 </button>
               ))}
             </div>
@@ -70,12 +88,14 @@ export function FeedbackDialog({ children, kind = "feedback" }: { children: Reac
           <Input
             type="email"
             placeholder={lang === "en" ? "Your email (optional)" : "ഇമെയിൽ (ഓപ്ഷണൽ)"}
-            value={email} onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Textarea
             rows={4}
             placeholder={lang === "en" ? "Type your message..." : "നിങ്ങളുടെ സന്ദേശം..."}
-            value={message} onChange={(e) => setMessage(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
           <Button onClick={submit} disabled={busy} className="w-full">
             {busy ? "..." : lang === "en" ? "Submit" : "സമർപ്പിക്കുക"}

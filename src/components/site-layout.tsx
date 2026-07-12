@@ -1,14 +1,21 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Moon, Sun, LogIn, User as UserIcon, LogOut, Share2, Heart, MessageSquare, Settings, LifeBuoy, AlertTriangle } from "lucide-react";
+import {
+  Menu,
+  Moon,
+  Sun,
+  LogIn,
+  User as UserIcon,
+  LogOut,
+  Share2,
+  Heart,
+  MessageSquare,
+  Settings,
+  LifeBuoy,
+  AlertTriangle,
+} from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -134,7 +141,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <nav className="p-4">
                 {NAV.map((g) => (
                   <div key={g.en} className="mb-4">
-                    <p className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}>
+                    <p
+                      className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}
+                    >
                       {lang === "en" ? g.en : g.ml}
                     </p>
                     <ul className="space-y-1">
@@ -153,68 +162,104 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   </div>
                 ))}
                 <div className="mb-4">
-                  <p className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}>
+                  <p
+                    className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}
+                  >
                     {t("Community", "കമ്മ്യൂണിറ്റി")}
                   </p>
                   <ul className="space-y-1">
                     <li>
                       <FollowDialog>
-                        <button onClick={closeSheet} className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                        <button
+                          onClick={closeSheet}
+                          className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                        >
                           <Heart className="h-4 w-4" /> {t("Follow Us", "പിന്തുടരുക")}
                         </button>
                       </FollowDialog>
                     </li>
                     <li>
                       <ShareDialog>
-                        <button onClick={closeSheet} className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                        <button
+                          onClick={closeSheet}
+                          className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                        >
                           <Share2 className="h-4 w-4" /> {t("Share Website", "വെബ്സൈറ്റ് പങ്കിടുക")}
                         </button>
                       </ShareDialog>
                     </li>
                     <li>
                       <FeedbackDialog kind="feedback">
-                        <button onClick={closeSheet} className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                        <button
+                          onClick={closeSheet}
+                          className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                        >
                           <MessageSquare className="h-4 w-4" /> {t("Feedback", "അഭിപ്രായം")}
                         </button>
                       </FeedbackDialog>
                     </li>
                     <li>
-                      <Link to="/report-issue" onClick={closeSheet} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
-                        <AlertTriangle className="h-4 w-4" /> {t("Report Issue", "പ്രശ്നം റിപ്പോർട്ട്")}
+                      <Link
+                        to="/report-issue"
+                        onClick={closeSheet}
+                        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                      >
+                        <AlertTriangle className="h-4 w-4" />{" "}
+                        {t("Report Issue", "പ്രശ്നം റിപ്പോർട്ട്")}
                       </Link>
                     </li>
                   </ul>
                 </div>
                 <div className="mb-4">
-                  <p className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}>
+                  <p
+                    className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}
+                  >
                     {t("Account & Settings", "അക്കൗണ്ട് & സജ്ജീകരണങ്ങൾ")}
                   </p>
                   <ul className="space-y-1">
                     <li>
-                      <Link to="/settings" onClick={closeSheet} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                      <Link
+                        to="/settings"
+                        onClick={closeSheet}
+                        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                      >
                         <Settings className="h-4 w-4" /> {t("Settings", "സജ്ജീകരണങ്ങൾ")}
                       </Link>
                     </li>
                     <li>
-                      <Link to="/auth" onClick={closeSheet} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                      <Link
+                        to="/auth"
+                        onClick={closeSheet}
+                        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                      >
                         <LogIn className="h-4 w-4" /> {t("Login / Sign Up", "ലോഗിൻ / സൈൻ അപ്പ്")}
                       </Link>
                     </li>
                     <li>
-                      <Link to="/help-support" onClick={closeSheet} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                      <Link
+                        to="/help-support"
+                        onClick={closeSheet}
+                        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                      >
                         <LifeBuoy className="h-4 w-4" /> {t("Help & Support", "സഹായം")}
                       </Link>
                     </li>
                   </ul>
                 </div>
                 <div className="mb-4">
-                  <p className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}>
+                  <p
+                    className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}
+                  >
                     {t("Legal", "നിയമപരം")}
                   </p>
                   <ul className="space-y-1">
                     {LEGAL_LINKS.map((it) => (
                       <li key={it.to}>
-                        <Link to={it.to} onClick={closeSheet} className={`block rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                        <Link
+                          to={it.to}
+                          onClick={closeSheet}
+                          className={`block rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                        >
                           {lang === "en" ? it.en : it.ml}
                         </Link>
                       </li>
@@ -229,9 +274,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground shadow-sm">
               T
             </div>
-            <span className="sr-only">
-              {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
-            </span>
+            <span className="sr-only">{lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}</span>
           </Link>
 
           <div className="ml-auto flex items-center gap-1">
@@ -240,12 +283,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 <Share2 className="h-5 w-5" />
               </Button>
             </ShareDialog>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleDark}
-              aria-label="Toggle dark mode"
-            >
+            <Button variant="ghost" size="icon" onClick={toggleDark} aria-label="Toggle dark mode">
               {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
             <LanguageMenu />
@@ -266,7 +304,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <div>
               <div className="flex items-center gap-2">
                 <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground">
-              T
+                  T
                 </div>
                 <p className={`font-bold ${ml}`}>
                   {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
@@ -338,7 +376,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 {lang === "en" ? "Company" : "കമ്പനി"}
               </p>
               <ul className="space-y-1 text-sm">
-                {[...FOOTER_LINKS, ...LEGAL_LINKS.filter(l => !FOOTER_LINKS.some(f => f.to === l.to))].map((it) => (
+                {[
+                  ...FOOTER_LINKS,
+                  ...LEGAL_LINKS.filter((l) => !FOOTER_LINKS.some((f) => f.to === l.to)),
+                ].map((it) => (
                   <li key={it.to}>
                     <Link to={it.to} className={`text-muted-foreground hover:text-primary ${ml}`}>
                       {lang === "en" ? it.en : it.ml}
@@ -380,7 +421,12 @@ function UserMenu() {
   }
 
   const name = profile?.full_name || user.email || "U";
-  const initials = name.split(" ").map((s) => s[0]).join("").slice(0, 2).toUpperCase();
+  const initials = name
+    .split(" ")
+    .map((s) => s[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <DropdownMenu>

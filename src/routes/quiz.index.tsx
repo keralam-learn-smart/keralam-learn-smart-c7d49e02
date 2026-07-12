@@ -5,12 +5,7 @@ import { Card } from "@/components/ui/card";
 import { SiteLayout } from "@/components/site-layout";
 import { useSite } from "@/lib/site-context";
 import { AdUnit } from "@/components/ad-unit";
-import {
-  TOTAL_SETS,
-  QUESTIONS_PER_SET,
-  getCompletedSets,
-  getSetScores,
-} from "@/lib/quiz";
+import { TOTAL_SETS, QUESTIONS_PER_SET, getCompletedSets, getSetScores } from "@/lib/quiz";
 
 type Lang = "en" | "ml";
 

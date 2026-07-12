@@ -135,10 +135,9 @@ export const verifyPaymentStatus = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const token = await getAccessToken();
-    const res = await fetch(
-      `${instamojoBaseUrl()}/v2/payment_requests/${data.paymentRequestId}/`,
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+    const res = await fetch(`${instamojoBaseUrl()}/v2/payment_requests/${data.paymentRequestId}/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     if (!res.ok) {
       const txt = await res.text();
       console.error("[Instamojo] verify error", res.status, txt);
@@ -159,9 +158,7 @@ export const verifyPaymentStatus = createServerFn({ method: "POST" })
         : "pending";
 
     const paymentId =
-      data.paymentId ??
-      (json.payments ?? []).find((p) => p.payment_id)?.payment_id ??
-      null;
+      data.paymentId ?? (json.payments ?? []).find((p) => p.payment_id)?.payment_id ?? null;
 
     const { error: updErr } = await supabase
       .from("purchases")

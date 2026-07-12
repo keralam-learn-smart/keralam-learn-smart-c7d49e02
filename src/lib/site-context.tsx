@@ -43,9 +43,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
       if (l && (LANG_VALUES as readonly string[]).includes(l)) setLangState(l as Lang);
       const d = window.localStorage.getItem(DARK_KEY);
       const prefers =
-        d === "1" ||
-        (d === null &&
-          window.matchMedia?.("(prefers-color-scheme: dark)").matches);
+        d === "1" || (d === null && window.matchMedia?.("(prefers-color-scheme: dark)").matches);
       setDarkState(!!prefers);
     } catch {
       /* ignore */

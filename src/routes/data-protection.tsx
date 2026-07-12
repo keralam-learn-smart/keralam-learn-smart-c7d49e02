@@ -5,13 +5,19 @@ export const Route = createFileRoute("/data-protection")({
   head: () => ({
     meta: [
       { title: "Data Protection Policy — Traffic Tips" },
-      { name: "description", content: "How Traffic Tips collects, stores, secures and deletes your data." },
+      {
+        name: "description",
+        content: "How Traffic Tips collects, stores, secures and deletes your data.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://keralam-learn-smart.lovable.app/data-protection" }],
   }),
   component: () => (
     <LegalPage titleEn="Data Protection Policy" titleMl="ഡാറ്റ സംരക്ഷണ നയം">
-      <p>This policy explains how Traffic Tips protects personal data under the Digital Personal Data Protection Act, 2023 (India) and general best-practice principles.</p>
+      <p>
+        This policy explains how Traffic Tips protects personal data under the Digital Personal Data
+        Protection Act, 2023 (India) and general best-practice principles.
+      </p>
       <h2>What we collect</h2>
       <ul>
         <li>Account: email, optional name and phone you provide during sign-up.</li>
@@ -30,7 +36,10 @@ export const Route = createFileRoute("/data-protection")({
         <li>Withdraw consent or request a data export by contacting us.</li>
       </ul>
       <h2>Retention</h2>
-      <p>Account data is kept while your account is active and deleted within 30 days of account deletion, except where law requires longer retention.</p>
+      <p>
+        Account data is kept while your account is active and deleted within 30 days of account
+        deletion, except where law requires longer retention.
+      </p>
     </LegalPage>
   ),
 });

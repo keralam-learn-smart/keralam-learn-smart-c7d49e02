@@ -73,9 +73,7 @@ function QuizRunner() {
   }, [isMock, setNum]);
 
   const [idx, setIdx] = useState(0);
-  const [answers, setAnswers] = useState<Answer[]>(() =>
-    Array(questions.length).fill(null),
-  );
+  const [answers, setAnswers] = useState<Answer[]>(() => Array(questions.length).fill(null));
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(SECONDS_PER_QUESTION);
@@ -206,10 +204,7 @@ function QuizRunner() {
 
   function nextQuestion() {
     if (idx + 1 >= questions.length) {
-      const correctCount = questions.reduce(
-        (n, q, i) => n + (answers[i] === q.correct ? 1 : 0),
-        0,
-      );
+      const correctCount = questions.reduce((n, q, i) => n + (answers[i] === q.correct ? 1 : 0), 0);
       if (!isMock) markSetCompleted(setNum, correctCount);
       setFinished(true);
       return;
@@ -232,9 +227,7 @@ function QuizRunner() {
 
   const sign = current.signId ? getSign(current.signId) : undefined;
   const signal =
-    current.category === "traffic-signals" && !sign
-      ? getSign("signal-red")
-      : undefined;
+    current.category === "traffic-signals" && !sign ? getSign("signal-red") : undefined;
   const isCorrect = selected !== null && selected === current.correct;
   const timerPct = (secondsLeft / SECONDS_PER_QUESTION) * 100;
 
@@ -242,11 +235,7 @@ function QuizRunner() {
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-10 border-b border-border bg-card/80 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => router.history.back()}
-          >
+          <Button variant="ghost" size="sm" onClick={() => router.history.back()}>
             ← {lang === "en" ? "Exit" : "പുറത്തുകടക്കുക"}
           </Button>
           <div className={`text-sm font-medium ${ml}`}>
@@ -254,11 +243,7 @@ function QuizRunner() {
               ? `Question ${idx + 1} of ${questions.length}`
               : `ചോദ്യം ${idx + 1} / ${questions.length}`}
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setLang(lang === "en" ? "ml" : "en")}
-          >
+          <Button variant="outline" size="sm" onClick={() => setLang(lang === "en" ? "ml" : "en")}>
             {lang === "en" ? "മലയാളം" : "English"}
           </Button>
         </div>
@@ -308,9 +293,7 @@ function QuizRunner() {
         )}
 
         <Card className="mb-4 p-5">
-          <p className={`text-base font-medium leading-relaxed ${ml}`}>
-            {t(current.question)}
-          </p>
+          <p className={`text-base font-medium leading-relaxed ${ml}`}>{t(current.question)}</p>
         </Card>
 
         <div className="space-y-2">
@@ -370,18 +353,12 @@ function QuizRunner() {
                     ? "✕ Wrong"
                     : "✕ തെറ്റ്"}
             </p>
-            <p className={`text-sm leading-relaxed ${ml}`}>
-              {t(current.explanation)}
-            </p>
+            <p className={`text-sm leading-relaxed ${ml}`}>{t(current.explanation)}</p>
           </Card>
         )}
 
         <div className="mt-6 flex justify-end">
-          <Button
-            onClick={nextQuestion}
-            disabled={!revealed}
-            size="lg"
-          >
+          <Button onClick={nextQuestion} disabled={!revealed} size="lg">
             {idx + 1 >= questions.length
               ? lang === "en"
                 ? "Finish"
@@ -413,10 +390,7 @@ function ResultView({
 }) {
   const ml = lang === "ml" ? "lang-ml" : "";
   const t = (s: { en: string; ml: string }) => s[lang];
-  const correct = questions.reduce(
-    (n, q, i) => n + (answers[i] === q.correct ? 1 : 0),
-    0,
-  );
+  const correct = questions.reduce((n, q, i) => n + (answers[i] === q.correct ? 1 : 0), 0);
   const wrong = questions.reduce(
     (n, q, i) => n + (answers[i] !== null && answers[i] !== q.correct ? 1 : 0),
     0,
@@ -439,11 +413,7 @@ function ResultView({
               ← {lang === "en" ? "All tests" : "എല്ലാ ടെസ്റ്റുകൾ"}
             </Button>
           </Link>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setLang(lang === "en" ? "ml" : "en")}
-          >
+          <Button variant="outline" size="sm" onClick={() => setLang(lang === "en" ? "ml" : "en")}>
             {lang === "en" ? "മലയാളം" : "English"}
           </Button>
         </div>
@@ -451,9 +421,7 @@ function ResultView({
 
       <main className="mx-auto max-w-3xl px-4 py-6">
         <Card
-          className={`mb-6 p-6 text-center ${
-            passed ? "border-green-600" : "border-destructive"
-          }`}
+          className={`mb-6 p-6 text-center ${passed ? "border-green-600" : "border-destructive"}`}
         >
           <p className={`text-sm uppercase tracking-wide text-muted-foreground ${ml}`}>
             {isMock
@@ -482,27 +450,19 @@ function ResultView({
 
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           <Card className="p-4 text-center">
-            <p className="text-xs text-muted-foreground">
-              {lang === "en" ? "Total" : "ആകെ"}
-            </p>
+            <p className="text-xs text-muted-foreground">{lang === "en" ? "Total" : "ആകെ"}</p>
             <p className="text-2xl font-bold">{questions.length}</p>
           </Card>
           <Card className="p-4 text-center">
-            <p className="text-xs text-green-700">
-              {lang === "en" ? "Correct" : "ശരി"}
-            </p>
+            <p className="text-xs text-green-700">{lang === "en" ? "Correct" : "ശരി"}</p>
             <p className="text-2xl font-bold text-green-700">{correct}</p>
           </Card>
           <Card className="p-4 text-center">
-            <p className="text-xs text-destructive">
-              {lang === "en" ? "Wrong" : "തെറ്റ്"}
-            </p>
+            <p className="text-xs text-destructive">{lang === "en" ? "Wrong" : "തെറ്റ്"}</p>
             <p className="text-2xl font-bold text-destructive">{wrong}</p>
           </Card>
           <Card className="p-4 text-center">
-            <p className="text-xs text-amber-600">
-              {lang === "en" ? "Skipped" : "ഒഴിവാക്കി"}
-            </p>
+            <p className="text-xs text-amber-600">{lang === "en" ? "Skipped" : "ഒഴിവാക്കി"}</p>
             <p className="text-2xl font-bold text-amber-600">{unanswered}</p>
           </Card>
         </div>
@@ -518,9 +478,7 @@ function ResultView({
                   <p className={`text-xs text-muted-foreground ${ml}`}>
                     {lang === "en" ? `Question ${i + 1}` : `ചോദ്യം ${i + 1}`}
                   </p>
-                  <p className={`mt-1 text-sm font-medium ${ml}`}>
-                    {t(q.question)}
-                  </p>
+                  <p className={`mt-1 text-sm font-medium ${ml}`}>{t(q.question)}</p>
                   {ans !== null && (
                     <p className={`mt-2 text-sm text-destructive ${ml}`}>
                       ✕ {lang === "en" ? "Your answer: " : "നിങ്ങളുടെ ഉത്തരം: "}
@@ -536,9 +494,7 @@ function ResultView({
                     ✓ {lang === "en" ? "Correct: " : "ശരി: "}
                     {t(q.options[q.correct])}
                   </p>
-                  <p className={`mt-2 text-xs text-muted-foreground ${ml}`}>
-                    {t(q.explanation)}
-                  </p>
+                  <p className={`mt-2 text-xs text-muted-foreground ${ml}`}>{t(q.explanation)}</p>
                 </Card>
               ))}
             </div>

@@ -17,9 +17,16 @@ export const Route = createFileRoute("/ai-assistant")({
   head: () => ({
     meta: [
       { title: "AI Study Assistant — Traffic Tips" },
-      { name: "description", content: "Ask anything about the Kerala RTO learner licence test in English or Malayalam. Free AI tutor." },
+      {
+        name: "description",
+        content:
+          "Ask anything about the Kerala RTO learner licence test in English or Malayalam. Free AI tutor.",
+      },
       { property: "og:title", content: "AI Study Assistant — Traffic Tips" },
-      { property: "og:description", content: "AI-powered Malayalam + English tutor for the Kerala RTO LL test." },
+      {
+        property: "og:description",
+        content: "AI-powered Malayalam + English tutor for the Kerala RTO LL test.",
+      },
     ],
   }),
   component: AssistantPage,
@@ -28,8 +35,14 @@ export const Route = createFileRoute("/ai-assistant")({
 const SUGGESTIONS = [
   { en: "Explain right of way at a roundabout", ml: "റൗണ്ടെബൗട്ടിൽ വഴി മുൻഗണന വിശദീകരിക്കുക" },
   { en: "What is the fine for not wearing a helmet?", ml: "ഹെൽമെറ്റ് ധരിക്കാത്തതിന് പിഴ എത്ര?" },
-  { en: "How do I apply for a permanent driving licence?", ml: "പെർമനന്റ് ലൈസൻസിന് എങ്ങനെ അപേക്ഷിക്കണം?" },
-  { en: "Difference between mandatory and warning signs", ml: "നിർബന്ധിതവും മുന്നറിയിപ്പ് ചിഹ്നങ്ങളും തമ്മിലുള്ള വ്യത്യാസം" },
+  {
+    en: "How do I apply for a permanent driving licence?",
+    ml: "പെർമനന്റ് ലൈസൻസിന് എങ്ങനെ അപേക്ഷിക്കണം?",
+  },
+  {
+    en: "Difference between mandatory and warning signs",
+    ml: "നിർബന്ധിതവും മുന്നറിയിപ്പ് ചിഹ്നങ്ങളും തമ്മിലുള്ള വ്യത്യാസം",
+  },
 ];
 
 function AssistantPage() {
@@ -117,10 +130,7 @@ function AssistantPage() {
 
         <div className="mb-4 flex-1 space-y-3">
           {messages.map((m, i) => (
-            <div
-              key={i}
-              className={`flex gap-2 ${m.role === "user" ? "flex-row-reverse" : ""}`}
-            >
+            <div key={i} className={`flex gap-2 ${m.role === "user" ? "flex-row-reverse" : ""}`}>
               <div
                 className={`grid h-8 w-8 shrink-0 place-items-center rounded-full ${
                   m.role === "user"
@@ -164,9 +174,7 @@ function AssistantPage() {
               }
             }}
             placeholder={
-              lang === "en"
-                ? "Ask in English or Malayalam…"
-                : "ഇംഗ്ലീഷിലോ മലയാളത്തിലോ ചോദിക്കാം…"
+              lang === "en" ? "Ask in English or Malayalam…" : "ഇംഗ്ലീഷിലോ മലയാളത്തിലോ ചോദിക്കാം…"
             }
             rows={1}
             className="min-h-10 flex-1 resize-none border-0 focus-visible:ring-0"

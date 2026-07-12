@@ -62,9 +62,7 @@ function AuthErrorPage() {
 
         <div className="mt-6 flex flex-col gap-2">
           <Link to="/auth">
-            <Button className="w-full">
-              {t("Try again", "വീണ്ടും ശ്രമിക്കുക")}
-            </Button>
+            <Button className="w-full">{t("Try again", "വീണ്ടും ശ്രമിക്കുക")}</Button>
           </Link>
           <Link to="/">
             <Button variant="ghost" className={`w-full text-sm ${ml}`}>

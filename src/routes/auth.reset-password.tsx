@@ -11,10 +11,7 @@ import { useSite } from "@/lib/site-context";
 export const Route = createFileRoute("/auth/reset-password")({
   ssr: false,
   head: () => ({
-    meta: [
-      { title: "Reset Password — Traffic Tips" },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: "Reset Password — Traffic Tips" }, { name: "robots", content: "noindex" }],
   }),
   component: ResetPasswordPage,
 });
@@ -130,14 +127,20 @@ function ResetPasswordPage() {
 
         {pageState === "done" && (
           <p className={`mt-4 text-sm text-muted-foreground ${ml}`}>
-            {t("Password updated! Redirecting…", "പാസ്‌വേഡ് അപ്ഡേറ്റ് ചെയ്തു! റീഡയറക്‌ട് ചെയ്യുന്നു…")}
+            {t(
+              "Password updated! Redirecting…",
+              "പാസ്‌വേഡ് അപ്ഡേറ്റ് ചെയ്തു! റീഡയറക്‌ട് ചെയ്യുന്നു…",
+            )}
           </p>
         )}
 
         {pageState === "ready" && (
           <form onSubmit={onSubmit} className="mt-6 space-y-4">
             <p className={`text-sm text-muted-foreground ${ml}`}>
-              {t("Choose a strong password of at least 6 characters.", "കുറഞ്ഞത് 6 അക്ഷരങ്ങൾ ഉള്ള ഒരു ശക്തമായ പാസ്‌വേഡ് തിരഞ്ഞെടുക്കുക.")}
+              {t(
+                "Choose a strong password of at least 6 characters.",
+                "കുറഞ്ഞത് 6 അക്ഷരങ്ങൾ ഉള്ള ഒരു ശക്തമായ പാസ്‌വേഡ് തിരഞ്ഞെടുക്കുക.",
+              )}
             </p>
             <div>
               <Label htmlFor="password" className={ml}>
