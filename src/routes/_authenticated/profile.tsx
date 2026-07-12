@@ -13,10 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
-    meta: [
-      { title: "My Profile — Traffic Tips" },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: "My Profile — Traffic Tips" }, { name: "robots", content: "noindex" }],
   }),
   component: ProfilePage,
 });
@@ -43,7 +40,11 @@ function ProfilePage() {
   }, [profile]);
 
   const initials = (profile?.full_name || user?.email || "U")
-    .split(" ").map((s) => s[0]).join("").slice(0, 2).toUpperCase();
+    .split(" ")
+    .map((s) => s[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   const onSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,14 +52,15 @@ function ProfilePage() {
     const parsed = schema.safeParse({ full_name: fullName, phone });
     if (!parsed.success) return toast.error(parsed.error.issues[0].message);
     setSaving(true);
-    const { error } = await supabase
-      .from("profiles")
-      .upsert({
+    const { error } = await supabase.from("profiles").upsert(
+      {
         id: user.id,
         full_name: parsed.data.full_name,
         phone: parsed.data.phone || null,
         preferred_language: lang,
-      }, { onConflict: "id" });
+      },
+      { onConflict: "id" },
+    );
     setSaving(false);
     if (error) return toast.error(error.message);
     toast.success(t("Profile saved", "പ്രൊഫൈൽ സംരക്ഷിച്ചു"));
@@ -86,7 +88,10 @@ function ProfilePage() {
         </div>
       </div>
 
-      <form onSubmit={onSave} className="space-y-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <form
+        onSubmit={onSave}
+        className="space-y-4 rounded-2xl border border-border bg-card p-6 shadow-sm"
+      >
         <h2 className={`text-lg font-semibold ${ml}`}>
           {t("Profile Details", "പ്രൊഫൈൽ വിശദാംശങ്ങൾ")}
         </h2>
@@ -95,11 +100,18 @@ function ProfilePage() {
           <Label htmlFor="full_name" className={`flex items-center gap-2 ${ml}`}>
             <User className="h-4 w-4" /> {t("Full name", "പേര്")}
           </Label>
-          <Input id="full_name" value={fullName} onChange={(e) => setFullName(e.target.value)} maxLength={80} />
+          <Input
+            id="full_name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            maxLength={80}
+          />
         </div>
 
         <div>
-          <Label className="flex items-center gap-2"><Mail className="h-4 w-4" /> {t("Email", "ഇമെയിൽ")}</Label>
+          <Label className="flex items-center gap-2">
+            <Mail className="h-4 w-4" /> {t("Email", "ഇമെയിൽ")}
+          </Label>
           <Input value={user?.email ?? ""} disabled />
         </div>
 
@@ -107,14 +119,25 @@ function ProfilePage() {
           <Label htmlFor="phone" className={`flex items-center gap-2 ${ml}`}>
             <Phone className="h-4 w-4" /> {t("Phone (optional)", "ഫോൺ (ഓപ്ഷണൽ)")}
           </Label>
-          <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91…" maxLength={20} />
+          <Input
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="+91…"
+            maxLength={20}
+          />
         </div>
 
         <div>
-          <Label className="flex items-center gap-2"><Globe className="h-4 w-4" /> {t("Preferred language", "ഭാഷ")}</Label>
+          <Label className="flex items-center gap-2">
+            <Globe className="h-4 w-4" /> {t("Preferred language", "ഭാഷ")}
+          </Label>
           <Input value={lang === "en" ? "English" : "മലയാളം"} disabled />
           <p className="mt-1 text-xs text-muted-foreground">
-            {t("Use the globe icon in the header to switch.", "ഹെഡറിലെ ഗ്ലോബ് ഐക്കൺ ഉപയോഗിച്ച് മാറ്റാം.")}
+            {t(
+              "Use the globe icon in the header to switch.",
+              "ഹെഡറിലെ ഗ്ലോബ് ഐക്കൺ ഉപയോഗിച്ച് മാറ്റാം.",
+            )}
           </p>
         </div>
 

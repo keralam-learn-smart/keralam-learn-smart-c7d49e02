@@ -11,10 +11,7 @@ import { useSite } from "@/lib/site-context";
 export const Route = createFileRoute("/auth/forgot-password")({
   ssr: false,
   head: () => ({
-    meta: [
-      { title: "Forgot Password — Traffic Tips" },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: "Forgot Password — Traffic Tips" }, { name: "robots", content: "noindex" }],
   }),
   component: ForgotPasswordPage,
 });

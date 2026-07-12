@@ -53,11 +53,31 @@ function AboutPage() {
             {lang === "en" ? "What we offer" : "ഞങ്ങൾ വാഗ്ദാനം ചെയ്യുന്നത്"}
           </h2>
           <ul className={`mt-2 list-disc space-y-1 pl-5 text-sm ${ml}`}>
-            <li>{lang === "en" ? "1000+ Kerala RTO practice questions" : "1000+ കേരള RTO പരിശീലന ചോദ്യങ്ങൾ"}</li>
-            <li>{lang === "en" ? "100+ traffic signs with explanations" : "100+ ഗതാഗത ചിഹ്നങ്ങൾ വിശദീകരണത്തോടെ"}</li>
-            <li>{lang === "en" ? "20 mock tests of 15 questions each, 20s timer" : "20 മോക്ക് ടെസ്റ്റുകൾ, 15 ചോദ്യങ്ങൾ, 20s ടൈമർ"}</li>
-            <li>{lang === "en" ? "AI Study Assistant for instant answers" : "തൽക്ഷണ ഉത്തരങ്ങൾക്കായി AI പഠന സഹായി"}</li>
-            <li>{lang === "en" ? "Fee calculator and official RTO links" : "ഫീസ് കാൽക്കുലേറ്റർ, ഔദ്യോഗിക RTO ലിങ്കുകൾ"}</li>
+            <li>
+              {lang === "en"
+                ? "1000+ Kerala RTO practice questions"
+                : "1000+ കേരള RTO പരിശീലന ചോദ്യങ്ങൾ"}
+            </li>
+            <li>
+              {lang === "en"
+                ? "100+ traffic signs with explanations"
+                : "100+ ഗതാഗത ചിഹ്നങ്ങൾ വിശദീകരണത്തോടെ"}
+            </li>
+            <li>
+              {lang === "en"
+                ? "20 mock tests of 15 questions each, 20s timer"
+                : "20 മോക്ക് ടെസ്റ്റുകൾ, 15 ചോദ്യങ്ങൾ, 20s ടൈമർ"}
+            </li>
+            <li>
+              {lang === "en"
+                ? "AI Study Assistant for instant answers"
+                : "തൽക്ഷണ ഉത്തരങ്ങൾക്കായി AI പഠന സഹായി"}
+            </li>
+            <li>
+              {lang === "en"
+                ? "Fee calculator and official RTO links"
+                : "ഫീസ് കാൽക്കുലേറ്റർ, ഔദ്യോഗിക RTO ലിങ്കുകൾ"}
+            </li>
           </ul>
         </Card>
       </div>

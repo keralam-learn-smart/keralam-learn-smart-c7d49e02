@@ -35,7 +35,9 @@ export const Route = createFileRoute("/category/$slug")({
   notFoundComponent: () => (
     <div className="p-6">
       <p className="mb-4 text-sm text-muted-foreground">Category not found.</p>
-      <Link to="/" className="text-primary underline">Back to home</Link>
+      <Link to="/" className="text-primary underline">
+        Back to home
+      </Link>
     </div>
   ),
   component: CategoryPage,
@@ -43,13 +45,25 @@ export const Route = createFileRoute("/category/$slug")({
 
 const STUDY_NOTES: Record<string, { en: string; ml: string }[]> = {
   "traffic-signs": [
-    { en: "Mandatory signs are red circles — they must be obeyed.", ml: "നിർബന്ധിത ചിഹ്നങ്ങൾ ചുവന്ന വൃത്തങ്ങളാണ് — അനുസരിക്കണം." },
-    { en: "Warning signs are red triangles pointing up.", ml: "മുന്നറിയിപ്പ് ചിഹ്നങ്ങൾ മുകളിലേക്ക് ചൂണ്ടുന്ന ചുവന്ന ത്രികോണങ്ങളാണ്." },
+    {
+      en: "Mandatory signs are red circles — they must be obeyed.",
+      ml: "നിർബന്ധിത ചിഹ്നങ്ങൾ ചുവന്ന വൃത്തങ്ങളാണ് — അനുസരിക്കണം.",
+    },
+    {
+      en: "Warning signs are red triangles pointing up.",
+      ml: "മുന്നറിയിപ്പ് ചിഹ്നങ്ങൾ മുകളിലേക്ക് ചൂണ്ടുന്ന ചുവന്ന ത്രികോണങ്ങളാണ്.",
+    },
     { en: "Informatory signs are blue rectangles.", ml: "വിവര ചിഹ്നങ്ങൾ നീല ദീർഘചതുരങ്ങളാണ്." },
   ],
   "traffic-signals": [
-    { en: "Red on top, yellow middle, green bottom — always.", ml: "മുകളിൽ ചുവപ്പ്, നടുവിൽ മഞ്ഞ, താഴെ പച്ച — എപ്പോഴും." },
-    { en: "On yellow, stop unless you cannot do so safely.", ml: "മഞ്ഞയിൽ, സുരക്ഷിതമായി നിർത്താനാകില്ലെങ്കിൽ ഒഴികെ നിർത്തുക." },
+    {
+      en: "Red on top, yellow middle, green bottom — always.",
+      ml: "മുകളിൽ ചുവപ്പ്, നടുവിൽ മഞ്ഞ, താഴെ പച്ച — എപ്പോഴും.",
+    },
+    {
+      en: "On yellow, stop unless you cannot do so safely.",
+      ml: "മഞ്ഞയിൽ, സുരക്ഷിതമായി നിർത്താനാകില്ലെങ്കിൽ ഒഴികെ നിർത്തുക.",
+    },
   ],
 };
 
@@ -164,11 +178,7 @@ function CategoryPage() {
 
         <nav className="flex items-center justify-between gap-3">
           {prev ? (
-            <Link
-              to="/category/$slug"
-              params={{ slug: prev.slug }}
-              className="flex-1"
-            >
+            <Link to="/category/$slug" params={{ slug: prev.slug }} className="flex-1">
               <Button variant="outline" className="w-full justify-start">
                 ← <span className={`ml-2 truncate ${ml}`}>{t(prev.name)}</span>
               </Button>
@@ -177,11 +187,7 @@ function CategoryPage() {
             <div className="flex-1" />
           )}
           {next ? (
-            <Link
-              to="/category/$slug"
-              params={{ slug: next.slug }}
-              className="flex-1"
-            >
+            <Link to="/category/$slug" params={{ slug: next.slug }} className="flex-1">
               <Button variant="outline" className="w-full justify-end">
                 <span className={`mr-2 truncate ${ml}`}>{t(next.name)}</span> →
               </Button>
@@ -196,10 +202,26 @@ function CategoryPage() {
 }
 
 const SIGN_GROUP_LABEL: Record<SignCategory, { en: string; ml: string; color: string }> = {
-  mandatory: { en: "Mandatory Signs (Blue circles)", ml: "നിർബന്ധിത ചിഹ്നങ്ങൾ (നീല വൃത്തം)", color: "border-blue-600" },
-  prohibitory: { en: "Prohibitory Signs (Red circles)", ml: "നിരോധന ചിഹ്നങ്ങൾ (ചുവന്ന വൃത്തം)", color: "border-red-600" },
-  warning: { en: "Cautionary / Warning Signs (Red triangles)", ml: "മുന്നറിയിപ്പ് ചിഹ്നങ്ങൾ (ചുവന്ന ത്രികോണം)", color: "border-amber-600" },
-  informatory: { en: "Informatory Signs (Blue rectangles)", ml: "വിവര ചിഹ്നങ്ങൾ (നീല ദീർഘചതുരം)", color: "border-sky-600" },
+  mandatory: {
+    en: "Mandatory Signs (Blue circles)",
+    ml: "നിർബന്ധിത ചിഹ്നങ്ങൾ (നീല വൃത്തം)",
+    color: "border-blue-600",
+  },
+  prohibitory: {
+    en: "Prohibitory Signs (Red circles)",
+    ml: "നിരോധന ചിഹ്നങ്ങൾ (ചുവന്ന വൃത്തം)",
+    color: "border-red-600",
+  },
+  warning: {
+    en: "Cautionary / Warning Signs (Red triangles)",
+    ml: "മുന്നറിയിപ്പ് ചിഹ്നങ്ങൾ (ചുവന്ന ത്രികോണം)",
+    color: "border-amber-600",
+  },
+  informatory: {
+    en: "Informatory Signs (Blue rectangles)",
+    ml: "വിവര ചിഹ്നങ്ങൾ (നീല ദീർഘചതുരം)",
+    color: "border-sky-600",
+  },
   signal: { en: "Traffic Signals", ml: "ഗതാഗത സിഗ്നലുകൾ", color: "border-emerald-600" },
 };
 
@@ -229,10 +251,7 @@ function SignLibrary() {
               </h3>
               <div className="grid gap-3 sm:grid-cols-2">
                 {items.map((s) => (
-                  <div
-                    key={s.id}
-                    className="rounded-xl border border-border bg-card p-3"
-                  >
+                  <div key={s.id} className="rounded-xl border border-border bg-card p-3">
                     <div className="flex gap-3">
                       <div
                         className="h-20 w-20 shrink-0"
@@ -242,7 +261,9 @@ function SignLibrary() {
                       <div className="min-w-0">
                         <p className={`text-sm font-semibold ${ml}`}>{t(s.name)}</p>
                         <p className={`mt-0.5 text-xs text-muted-foreground ${ml}`}>
-                          <span className="font-semibold">{t({ en: "Meaning: ", ml: "അർത്ഥം: " })}</span>
+                          <span className="font-semibold">
+                            {t({ en: "Meaning: ", ml: "അർത്ഥം: " })}
+                          </span>
                           {t(s.meaning)}
                         </p>
                       </div>
@@ -315,12 +336,16 @@ function SignalLibrary() {
                       />
                       <div className="min-w-0">
                         <p className={`text-sm font-semibold ${ml}`}>{t(s.name)}</p>
-                        <p className={`mt-0.5 text-xs text-muted-foreground ${ml}`}>{t(s.meaning)}</p>
+                        <p className={`mt-0.5 text-xs text-muted-foreground ${ml}`}>
+                          {t(s.meaning)}
+                        </p>
                       </div>
                     </div>
                     <dl className="mt-3 space-y-1.5 text-xs leading-relaxed">
                       <div className={ml}>
-                        <dt className="inline font-semibold text-primary">{t({ en: "Usage: ", ml: "ഉപയോഗം: " })}</dt>
+                        <dt className="inline font-semibold text-primary">
+                          {t({ en: "Usage: ", ml: "ഉപയോഗം: " })}
+                        </dt>
                         <dd className="inline">{t(s.usage)}</dd>
                       </div>
                       <div className={ml}>
@@ -372,11 +397,15 @@ function PoliceLibrary() {
             </div>
             <dl className="mt-3 space-y-1.5 text-xs leading-relaxed">
               <div className={ml}>
-                <dt className="inline font-semibold text-primary">{t({ en: "Used for: ", ml: "ഉപയോഗം: " })}</dt>
+                <dt className="inline font-semibold text-primary">
+                  {t({ en: "Used for: ", ml: "ഉപയോഗം: " })}
+                </dt>
                 <dd className="inline">{t(s.usage)}</dd>
               </div>
               <div className={ml}>
-                <dt className="inline font-semibold text-primary">{t({ en: "Exam note: ", ml: "പരീക്ഷാ കുറിപ്പ്: " })}</dt>
+                <dt className="inline font-semibold text-primary">
+                  {t({ en: "Exam note: ", ml: "പരീക്ഷാ കുറിപ്പ്: " })}
+                </dt>
                 <dd className="inline">{t(s.examNote)}</dd>
               </div>
             </dl>

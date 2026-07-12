@@ -8,7 +8,10 @@ export const Route = createFileRoute("/disclaimer")({
       { title: "Disclaimer — Traffic Tips" },
       { name: "description", content: "Educational disclaimer for Traffic Tips." },
       { property: "og:title", content: "Disclaimer — Traffic Tips" },
-      { property: "og:description", content: "We are not affiliated with Kerala MVD or parivahan.gov.in." },
+      {
+        property: "og:description",
+        content: "We are not affiliated with Kerala MVD or parivahan.gov.in.",
+      },
     ],
   }),
   component: DisclaimerPage,

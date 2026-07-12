@@ -42,7 +42,9 @@ function Index() {
     <SiteLayout>
       <div className="mx-auto max-w-6xl px-4 py-6">
         <section className="mb-6 overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-6 text-primary-foreground shadow-lg sm:p-10">
-          <span className={`inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur ${ml}`}>
+          <span
+            className={`inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur ${ml}`}
+          >
             <Sparkles className="h-3 w-3" />
             {lang === "en" ? "Kerala RTO Official Syllabus" : "കേരള RTO ഔദ്യോഗിക സിലബസ്"}
           </span>
@@ -58,7 +60,10 @@ function Index() {
           </p>
           <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
             <Link to="/quiz/$setId" params={{ setId: "mock" }} className="w-full">
-              <Button size="lg" className="h-12 w-full bg-white text-primary shadow-md hover:bg-white/90">
+              <Button
+                size="lg"
+                className="h-12 w-full bg-white text-primary shadow-md hover:bg-white/90"
+              >
                 {lang === "en" ? "🚦 Start Mock Test" : "🚦 മോക്ക് ടെസ്റ്റ്"}
               </Button>
             </Link>
@@ -68,7 +73,11 @@ function Index() {
               </Button>
             </Link>
             <Link to="/ai-assistant" className="w-full">
-              <Button size="lg" variant="outline" className="h-12 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              >
                 <Bot className="mr-1 h-4 w-4" />
                 {lang === "en" ? "Ask AI Tutor" : "AI ട്യൂട്ടറോട് ചോദിക്കൂ"}
               </Button>
@@ -96,9 +105,7 @@ function Index() {
                 className="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 backdrop-blur"
               >
                 <f.icon className="h-4 w-4 shrink-0" />
-                <span className={`text-xs font-medium ${ml}`}>
-                  {lang === "en" ? f.en : f.ml}
-                </span>
+                <span className={`text-xs font-medium ${ml}`}>{lang === "en" ? f.en : f.ml}</span>
               </div>
             ))}
           </div>

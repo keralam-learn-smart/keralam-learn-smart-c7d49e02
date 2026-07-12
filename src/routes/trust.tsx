@@ -99,9 +99,7 @@ function TrustPage() {
                 </div>
                 <div>
                   <h2 className={`mb-1 text-lg font-semibold ${ml}`}>{s.title}</h2>
-                  <p className={`text-sm leading-relaxed text-muted-foreground ${ml}`}>
-                    {s.body}
-                  </p>
+                  <p className={`text-sm leading-relaxed text-muted-foreground ${ml}`}>{s.body}</p>
                 </div>
               </div>
             </Card>
@@ -115,10 +113,7 @@ function TrustPage() {
               {t("Questions or reports?", "ചോദ്യങ്ങൾ അല്ലെങ്കിൽ റിപ്പോർട്ടുകൾ?")}
             </p>
           </div>
-          <Link
-            to="/contact"
-            className="text-sm font-medium text-primary hover:underline"
-          >
+          <Link to="/contact" className="text-sm font-medium text-primary hover:underline">
             {t("Contact us", "ഞങ്ങളെ ബന്ധപ്പെടുക")} →
           </Link>
         </Card>

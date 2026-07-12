@@ -15,7 +15,11 @@ export const Route = createFileRoute("/auth/")({
   head: () => ({
     meta: [
       { title: "Sign In — Traffic Tips" },
-      { name: "description", content: "Sign in or create a Traffic Tips account to track your learning progress, mock-test scores and bookings." },
+      {
+        name: "description",
+        content:
+          "Sign in or create a Traffic Tips account to track your learning progress, mock-test scores and bookings.",
+      },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -86,7 +90,12 @@ function AuthPage() {
           },
         });
         if (error) return toast.error(error.message);
-        toast.success(t("Account created — check your email to confirm.", "അക്കൗണ്ട് സൃഷ്ടിച്ചു — ഇമെയിൽ പരിശോധിക്കുക."));
+        toast.success(
+          t(
+            "Account created — check your email to confirm.",
+            "അക്കൗണ്ട് സൃഷ്ടിച്ചു — ഇമെയിൽ പരിശോധിക്കുക.",
+          ),
+        );
         navigate({ to: "/profile" });
       } else {
         const { error } = await supabase.auth.signInWithPassword({
@@ -111,11 +120,12 @@ function AuthPage() {
       </Link>
 
       <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-        <h1 className={`text-2xl font-bold ${ml}`}>
-          {t("Traffic Tips", "ട്രാഫിക് ടിപ്സ്")}
-        </h1>
+        <h1 className={`text-2xl font-bold ${ml}`}>{t("Traffic Tips", "ട്രാഫിക് ടിപ്സ്")}</h1>
         <p className={`mt-1 text-sm text-muted-foreground ${ml}`}>
-          {t("Sign in to save progress, take mock tests and book training.", "പുരോഗതി സംരക്ഷിക്കാൻ സൈൻ ഇൻ ചെയ്യുക.")}
+          {t(
+            "Sign in to save progress, take mock tests and book training.",
+            "പുരോഗതി സംരക്ഷിക്കാൻ സൈൻ ഇൻ ചെയ്യുക.",
+          )}
         </p>
 
         <Button
@@ -137,25 +147,49 @@ function AuthPage() {
 
         <Tabs value={mode} onValueChange={(v) => setMode(v as "signin" | "signup")}>
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="signin" className={ml}>{t("Sign In", "സൈൻ ഇൻ")}</TabsTrigger>
-            <TabsTrigger value="signup" className={ml}>{t("Sign Up", "സൈൻ അപ്പ്")}</TabsTrigger>
+            <TabsTrigger value="signin" className={ml}>
+              {t("Sign In", "സൈൻ ഇൻ")}
+            </TabsTrigger>
+            <TabsTrigger value="signup" className={ml}>
+              {t("Sign Up", "സൈൻ അപ്പ്")}
+            </TabsTrigger>
           </TabsList>
 
           <form onSubmit={onSubmit} className="mt-4 space-y-3">
             <TabsContent value="signup" className="m-0 space-y-3">
               <div>
-                <Label htmlFor="name" className={ml}>{t("Full name", "പേര്")}</Label>
-                <Input id="name" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder={t("Your name", "നിങ്ങളുടെ പേര്")} autoComplete="name" />
+                <Label htmlFor="name" className={ml}>
+                  {t("Full name", "പേര്")}
+                </Label>
+                <Input
+                  id="name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder={t("Your name", "നിങ്ങളുടെ പേര്")}
+                  autoComplete="name"
+                />
               </div>
             </TabsContent>
 
             <div>
-              <Label htmlFor="email" className={ml}>{t("Email", "ഇമെയിൽ")}</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" required />
+              <Label htmlFor="email" className={ml}>
+                {t("Email", "ഇമെയിൽ")}
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                autoComplete="email"
+                required
+              />
             </div>
             <div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className={ml}>{t("Password", "പാസ്‌വേഡ്")}</Label>
+                <Label htmlFor="password" className={ml}>
+                  {t("Password", "പാസ്‌വേഡ്")}
+                </Label>
                 {mode === "signin" && (
                   <Link
                     to="/auth/forgot-password"
@@ -165,20 +199,36 @@ function AuthPage() {
                   </Link>
                 )}
               </div>
-              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" autoComplete={mode === "signup" ? "new-password" : "current-password"} required />
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                autoComplete={mode === "signup" ? "new-password" : "current-password"}
+                required
+              />
             </div>
 
             <Button type="submit" className="w-full" disabled={busy}>
-              {busy ? t("Please wait…", "ദയവായി കാത്തിരിക്കുക…") : mode === "signin" ? t("Sign In", "സൈൻ ഇൻ ചെയ്യുക") : t("Create Account", "അക്കൗണ്ട് സൃഷ്ടിക്കുക")}
+              {busy
+                ? t("Please wait…", "ദയവായി കാത്തിരിക്കുക…")
+                : mode === "signin"
+                  ? t("Sign In", "സൈൻ ഇൻ ചെയ്യുക")
+                  : t("Create Account", "അക്കൗണ്ട് സൃഷ്ടിക്കുക")}
             </Button>
           </form>
         </Tabs>
 
         <p className={`mt-4 text-center text-xs text-muted-foreground ${ml}`}>
           {t("By continuing you agree to our ", "തുടരുന്നതിലൂടെ നിങ്ങൾ ഞങ്ങളുടെ ")}
-          <Link to="/terms" className="underline">{t("Terms", "നിബന്ധനകൾ")}</Link>
+          <Link to="/terms" className="underline">
+            {t("Terms", "നിബന്ധനകൾ")}
+          </Link>
           {" & "}
-          <Link to="/privacy" className="underline">{t("Privacy Policy", "സ്വകാര്യതാ നയം")}</Link>
+          <Link to="/privacy" className="underline">
+            {t("Privacy Policy", "സ്വകാര്യതാ നയം")}
+          </Link>
           {t(".", "സമ്മതിക്കുന്നു.")}
         </p>
       </div>
@@ -189,10 +239,22 @@ function AuthPage() {
 function GoogleIcon() {
   return (
     <svg className="mr-2 h-4 w-4" viewBox="0 0 48 48" aria-hidden>
-      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.8 32.4 29.3 35.5 24 35.5c-6.3 0-11.5-5.2-11.5-11.5S17.7 12.5 24 12.5c2.9 0 5.6 1.1 7.6 2.9l5.7-5.7C33.7 6.4 29.1 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.2-.1-2.4-.3-3.5z" />
-      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 12.5 24 12.5c2.9 0 5.6 1.1 7.6 2.9l5.7-5.7C33.7 6.4 29.1 4.5 24 4.5 16.3 4.5 9.7 8.6 6.3 14.7z" />
-      <path fill="#4CAF50" d="M24 43.5c5 0 9.6-1.9 13.1-5.1l-6-5.1c-2 1.4-4.5 2.2-7.1 2.2-5.2 0-9.7-3.1-11.4-7.6L6 33.1C9.3 39.3 16.1 43.5 24 43.5z" />
-      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4 5.5l6 5.1C40.7 35.4 43.5 30.2 43.5 24c0-1.2-.1-2.4-.3-3.5z" />
+      <path
+        fill="#FFC107"
+        d="M43.6 20.5H42V20H24v8h11.3C33.8 32.4 29.3 35.5 24 35.5c-6.3 0-11.5-5.2-11.5-11.5S17.7 12.5 24 12.5c2.9 0 5.6 1.1 7.6 2.9l5.7-5.7C33.7 6.4 29.1 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.2-.1-2.4-.3-3.5z"
+      />
+      <path
+        fill="#FF3D00"
+        d="M6.3 14.7l6.6 4.8C14.6 16 19 12.5 24 12.5c2.9 0 5.6 1.1 7.6 2.9l5.7-5.7C33.7 6.4 29.1 4.5 24 4.5 16.3 4.5 9.7 8.6 6.3 14.7z"
+      />
+      <path
+        fill="#4CAF50"
+        d="M24 43.5c5 0 9.6-1.9 13.1-5.1l-6-5.1c-2 1.4-4.5 2.2-7.1 2.2-5.2 0-9.7-3.1-11.4-7.6L6 33.1C9.3 39.3 16.1 43.5 24 43.5z"
+      />
+      <path
+        fill="#1976D2"
+        d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4 5.5l6 5.1C40.7 35.4 43.5 30.2 43.5 24c0-1.2-.1-2.4-.3-3.5z"
+      />
     </svg>
   );
 }
