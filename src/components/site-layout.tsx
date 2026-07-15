@@ -99,6 +99,7 @@ const LEGAL_LINKS: NavItem[] = [
   { to: "/privacy", en: "Privacy Policy", ml: "സ്വകാര്യതാ നയം" },
   { to: "/terms", en: "Terms & Conditions", ml: "നിബന്ധനകൾ" },
   { to: "/refund-policy", en: "Refund & Cancellation Policy", ml: "റീഫണ്ട് നയം" },
+  { to: "/shipping-delivery", en: "Shipping & Delivery Policy", ml: "ഷിപ്പിംഗ് & ഡെലിവറി നയം" },
   { to: "/disclaimer", en: "Disclaimer", ml: "നിരാകരണം" },
   { to: "/cookie-policy", en: "Cookie Policy", ml: "കുക്കി നയം" },
   { to: "/copyright", en: "Copyright Policy", ml: "പകർപ്പവകാശ നയം" },

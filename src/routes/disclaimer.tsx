@@ -10,6 +10,9 @@ export const Route = createFileRoute("/disclaimer")({
       { property: "og:title", content: "Disclaimer — Traffic Tips" },
       { property: "og:description", content: "We are not affiliated with Kerala MVD or parivahan.gov.in." },
     ],
+    links: [
+      { rel: "canonical", href: "https://keralam-learn-smart.vercel.app/disclaimer" },
+    ],
   }),
   component: DisclaimerPage,
 });
@@ -24,8 +27,18 @@ function DisclaimerPage() {
         <div className="prose prose-sm mt-6 max-w-none dark:prose-invert">
           <p>
             {lang === "en"
-              ? "Traffic Tips is an independent educational website. It is not affiliated with, endorsed by or sponsored by the Kerala Motor Vehicles Department (MVD), parivahan.gov.in or any government body."
-              : "ട്രാഫിക് ടിപ്സ് ഒരു സ്വതന്ത്ര വിദ്യാഭ്യാസ വെബ്സൈറ്റാണ്. ഇത് കേരള മോട്ടോർ വാഹന വകുപ്പ് (MVD), parivahan.gov.in അല്ലെങ്കിൽ ഏതെങ്കിലും സർക്കാർ സ്ഥാപനവുമായി ബന്ധപ്പെട്ടതല്ല."}
+              ? "Traffic Tips is an independent educational website. It is not affiliated with, endorsed by or sponsored by the Kerala Motor Vehicles Department (MVD), Kerala Regional Transport Office (RTO), parivahan.gov.in or any government body."
+              : "ട്രാഫിക് ടിപ്സ് ഒരു സ്വതന്ത്ര വിദ്യാഭ്യാസ വെബ്സൈറ്റാണ്. ഇത് കേരള മോട്ടോർ വാഹന വകുപ്പ് (MVD), കേരള RTO, parivahan.gov.in അല്ലെങ്കിൽ ഏതെങ്കിലും സർക്കാർ സ്ഥാപനവുമായി ബന്ധപ്പെട്ടതല്ല."}
+          </p>
+          <p>
+            {lang === "en"
+              ? "All names, logos, trademarks and brand names mentioned on this website — including Kerala MVD, Kerala RTO and Parivahan — belong to their respective owners. They are used on this website solely for educational and reference purposes."
+              : "ഈ വെബ്സൈറ്റിൽ പരാമർശിക്കുന്ന കേരള MVD, കേരള RTO, പരിവാഹൻ എന്നിവയുൾപ്പെടെയുള്ള എല്ലാ പേരുകളും, ലോഗോകളും, ട്രേഡ്മാർക്കുകളും അവയുടെ ഉടമസ്ഥർക്കാണ്. അവ വിദ്യാഭ്യാസ ആവശ്യങ്ങൾക്കും റഫറൻസിനും മാത്രമാണ് ഉപയോഗിക്കുന്നത്."}
+          </p>
+          <p>
+            {lang === "en"
+              ? "This website is not affiliated with, endorsed by, or sponsored by any government organization. All information is provided in good faith for educational purposes only."
+              : "ഈ വെബ്സൈറ്റ് ഒരു സർക്കാർ സ്ഥാപനവുമായും ബന്ധപ്പെട്ടതല്ല, അംഗീകരിക്കപ്പെട്ടതല്ല. വിദ്യാഭ്യാസ ആവശ്യങ്ങൾക്ക് മാത്രം നൽകപ്പെടുന്ന വിവരങ്ങളാണ്."}
           </p>
           <p>
             {lang === "en"
