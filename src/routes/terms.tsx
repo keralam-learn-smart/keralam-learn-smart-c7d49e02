@@ -30,8 +30,8 @@ function TermsPage() {
           <h2>{lang === "en" ? "1. Use of the site" : "1. സൈറ്റ് ഉപയോഗം"}</h2>
           <p>
             {lang === "en"
-              ? "You may use Traffic Tips for personal, non-commercial learning. Do not copy or republish content without permission."
-              : "വ്യക്തിഗത, വാണിജ്യേതര പഠനത്തിന് മാത്രം ഉപയോഗിക്കാം. അനുമതിയില്ലാതെ ഉള്ളടക്കം പുനഃപ്രസിദ്ധീകരിക്കരുത്."}
+              ? "You may use Traffic Tips for personal, non-commercial learning, including the bilingual study content, practice quizzes, AI tutor and 20 mock test sets. Do not copy or republish content without permission."
+              : "ദ്വിഭാഷാ പഠന ഉള്ളടക്കം, പരിശീലന ക്വിസുകൾ, AI ട്യൂട്ടർ, 20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ എന്നിവ ഉൾപ്പെടെ വ്യക്തിഗത, വാണിജ്യേതര പഠനത്തിന് മാത്രം ഉപയോഗിക്കാം. അനുമതിയില്ലാതെ ഉള്ളടക്കം പുനഃപ്രസിദ്ധീകരിക്കരുത്."}
           </p>
           <h2>{lang === "en" ? "2. Accuracy" : "2. കൃത്യത"}</h2>
           <p>

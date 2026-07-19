@@ -26,10 +26,9 @@ export const Route = createFileRoute("/refund-policy")({
 
       <h2>1. Nature of our services</h2>
       <p>
-        Traffic Tips provides digital educational content, mock tests, practice quizzes and
-        AI-assisted study tools for Kerala RTO Learner Licence preparation. All products and
-        services offered on the Platform are digital in nature and are delivered instantly upon
-        successful payment.
+        Traffic Tips provides digital educational content, practice quizzes, 20 mock test sets of 15
+        questions each and AI-assisted study tools for Kerala RTO Learner Licence preparation. Paid
+        access is a one-time ₹45 digital unlock and is delivered upon successful payment.
       </p>
 
       <h2>2. No refunds</h2>

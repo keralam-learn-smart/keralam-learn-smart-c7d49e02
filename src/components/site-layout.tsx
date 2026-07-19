@@ -107,6 +107,7 @@ const LEGAL_LINKS: NavItem[] = [
   { to: "/privacy", en: "Privacy Policy", ml: "സ്വകാര്യതാ നയം" },
   { to: "/terms", en: "Terms & Conditions", ml: "നിബന്ധനകൾ" },
   { to: "/refund-policy", en: "Refund & Cancellation Policy", ml: "റീഫണ്ട് നയം" },
+  { to: "/shipping-delivery", en: "Shipping & Delivery Policy", ml: "ഷിപ്പിംഗ് & ഡെലിവറി നയം" },
   { to: "/disclaimer", en: "Disclaimer", ml: "നിരാകരണം" },
   { to: "/cookie-policy", en: "Cookie Policy", ml: "കുക്കി നയം" },
   { to: "/copyright", en: "Copyright Policy", ml: "പകർപ്പവകാശ നയം" },
@@ -438,6 +439,17 @@ function UserMenu() {
           {t("Settings", "സജ്ജീകരണങ്ങൾ")}
         </Link>
       </DropdownMenuItem>
+      <DropdownMenuSeparator className="my-2" />
+      <DropdownMenuLabel className={`px-3 py-2 text-xs ${ml}`}>
+        {t("Legal", "നിയമപരം")}
+      </DropdownMenuLabel>
+      {LEGAL_LINKS.map((item) => (
+        <DropdownMenuItem key={item.to} asChild>
+          <Link to={item.to} className={`min-h-9 rounded-xl px-3 py-2 text-sm ${ml}`}>
+            {lang === "en" ? item.en : item.ml}
+          </Link>
+        </DropdownMenuItem>
+      ))}
     </>
   );
 
