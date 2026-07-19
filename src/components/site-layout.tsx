@@ -10,6 +10,8 @@ import {
   Heart,
   MessageSquare,
   Settings,
+  Languages,
+  Check,
   LifeBuoy,
   AlertTriangle,
 } from "lucide-react";
@@ -25,12 +27,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSite } from "@/lib/site-context";
+import { LANGUAGES, useSite, type Lang } from "@/lib/site-context";
 import { useAuth } from "@/lib/auth-context";
 import { ShareDialog } from "@/components/share-dialog";
 import { FollowDialog } from "@/components/follow-dialog";
 import { FeedbackDialog } from "@/components/feedback-dialog";
-import { LanguageMenu } from "@/components/language-menu";
 import { AdUnit } from "@/components/ad-unit";
 
 type NavItem = { to: string; en: string; ml: string };
@@ -116,7 +117,7 @@ const LEGAL_LINKS: NavItem[] = [
 ];
 
 export function SiteLayout({ children }: { children: ReactNode }) {
-  const { lang, dark, toggleDark } = useSite();
+  const { lang } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
   const [open, setOpen] = useState(false);
   const closeSheet = () => setOpen(false);
@@ -277,16 +278,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <span className="sr-only">{lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}</span>
           </Link>
 
-          <div className="ml-auto flex items-center gap-1">
-            <ShareDialog>
-              <Button variant="ghost" size="icon" aria-label="Share">
-                <Share2 className="h-5 w-5" />
-              </Button>
-            </ShareDialog>
-            <Button variant="ghost" size="icon" onClick={toggleDark} aria-label="Toggle dark mode">
-              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-            <LanguageMenu />
+          <div className="ml-auto flex min-w-0 items-center gap-1">
             <UserMenu />
           </div>
         </div>
@@ -401,7 +393,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function UserMenu() {
   const { user, profile, signOut, loading } = useAuth();
-  const { lang } = useSite();
+  const { lang, setLang, dark, toggleDark } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
   const t = (en: string, m: string) => (lang === "en" ? en : m);
 
@@ -409,14 +401,65 @@ function UserMenu() {
     return <div className="h-9 w-9" aria-hidden />;
   }
 
+  const menuContentClass = "w-72 max-w-[calc(100vw-1rem)] rounded-2xl p-2 shadow-xl";
+  const menuItemClass = `min-h-11 rounded-xl px-3 py-2.5 text-sm transition-colors ${ml}`;
+  const menuIconClass = "mr-3 h-4 w-4 text-muted-foreground";
+
+  const accountTools = (
+    <>
+      <DropdownMenuSeparator className="my-2" />
+      <DropdownMenuLabel className={`flex items-center gap-3 px-3 py-2 text-xs ${ml}`}>
+        <Languages className="h-4 w-4 text-muted-foreground" />
+        {t("Language", "ഭാഷ")}
+      </DropdownMenuLabel>
+      {LANGUAGES.map((language) => (
+        <DropdownMenuItem
+          key={language.code}
+          onClick={() => setLang(language.code as Lang)}
+          className={`min-h-10 rounded-xl py-2 pl-10 pr-3 ${ml}`}
+        >
+          <span className="flex-1">{language.native}</span>
+          {lang === language.code ? <Check className="h-4 w-4" /> : null}
+        </DropdownMenuItem>
+      ))}
+      <DropdownMenuItem onClick={toggleDark} className={menuItemClass}>
+        {dark ? <Sun className={menuIconClass} /> : <Moon className={menuIconClass} />}
+        {dark ? t("Light mode", "ലൈറ്റ് മോഡ്") : t("Dark mode", "ഡാർക്ക് മോഡ്")}
+      </DropdownMenuItem>
+      <ShareDialog>
+        <DropdownMenuItem onSelect={(event) => event.preventDefault()} className={menuItemClass}>
+          <Share2 className={menuIconClass} />
+          {t("Share", "പങ്കിടുക")}
+        </DropdownMenuItem>
+      </ShareDialog>
+      <DropdownMenuItem asChild>
+        <Link to="/settings" className={menuItemClass}>
+          <Settings className={menuIconClass} />
+          {t("Settings", "സജ്ജീകരണങ്ങൾ")}
+        </Link>
+      </DropdownMenuItem>
+    </>
+  );
+
   if (!user) {
     return (
-      <Button asChild size="sm" className="ml-1 h-9 rounded-full px-4">
-        <Link to="/auth">
-          <LogIn className="mr-1.5 h-4 w-4" />
-          <span className={ml}>{t("Sign In", "സൈൻ ഇൻ")}</span>
-        </Link>
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button size="sm" className="ml-1 h-9 rounded-full px-4" aria-label="Sign in menu">
+            <LogIn className="mr-1.5 h-4 w-4" />
+            <span className={ml}>{t("Sign In", "സൈൻ ഇൻ")}</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className={menuContentClass}>
+          <DropdownMenuItem asChild>
+            <Link to="/auth" className={menuItemClass}>
+              <LogIn className={menuIconClass} />
+              {t("Sign In", "സൈൻ ഇൻ")}
+            </Link>
+          </DropdownMenuItem>
+          {accountTools}
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   }
 
@@ -438,21 +481,22 @@ function UserMenu() {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className={menuContentClass}>
         <DropdownMenuLabel className="truncate">
           <p className={`truncate text-sm font-medium ${ml}`}>{name}</p>
           <p className="truncate text-xs font-normal text-muted-foreground">{user.email}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link to="/profile" className={ml}>
-            <UserIcon className="mr-2 h-4 w-4" />
+          <Link to="/profile" className={menuItemClass}>
+            <UserIcon className={menuIconClass} />
             {t("My Profile", "എന്റെ പ്രൊഫൈൽ")}
           </Link>
         </DropdownMenuItem>
+        {accountTools}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()} className={ml}>
-          <LogOut className="mr-2 h-4 w-4" />
+        <DropdownMenuItem onClick={() => signOut()} className={menuItemClass}>
+          <LogOut className={menuIconClass} />
           {t("Sign out", "സൈൻ ഔട്ട്")}
         </DropdownMenuItem>
       </DropdownMenuContent>
