@@ -31,8 +31,8 @@ function PrivacyPage() {
           <h2>1. {lang === "en" ? "Information we collect" : "ഞങ്ങൾ ശേഖരിക്കുന്ന വിവരങ്ങൾ"}</h2>
           <p>
             {lang === "en"
-              ? "Traffic Tips is designed to be privacy-first. We do not require account registration. Anonymous usage data (page views, test progress) may be stored locally on your device to remember your progress."
-              : "ട്രാഫിക് ടിപ്സ് സ്വകാര്യതയ്ക്ക് മുൻഗണന നൽകുന്നു. അക്കൗണ്ട് രജിസ്ട്രേഷൻ ആവശ്യമില്ല. പേജ് കാഴ്ചകൾ, ടെസ്റ്റ് പുരോഗതി പോലുള്ള അജ്ഞാത ഉപയോഗ ഡാറ്റ നിങ്ങളുടെ ഉപകരണത്തിൽ പ്രാദേശികമായി സംഭരിക്കാം."}
+              ? "Traffic Tips is designed to be privacy-first. Most learning pages can be used without registration. If you create an account or sign in, we store the details needed for authentication and progress tracking. Anonymous usage data (page views, test progress) may also be stored locally on your device to remember your progress."
+              : "ട്രാഫിക് ടിപ്സ് സ്വകാര്യതയ്ക്ക് മുൻഗണന നൽകുന്നു. മിക്ക പഠന പേജുകളും രജിസ്ട്രേഷൻ ഇല്ലാതെ ഉപയോഗിക്കാം. നിങ്ങൾ അക്കൗണ്ട് സൃഷ്ടിക്കുകയോ സൈൻ ഇൻ ചെയ്യുകയോ ചെയ്താൽ, ഓതൻ്റിക്കേഷനും പുരോഗതി ട്രാക്കിംഗിനും ആവശ്യമായ വിവരങ്ങൾ ഞങ്ങൾ സൂക്ഷിക്കും. പേജ് കാഴ്ചകൾ, ടെസ്റ്റ് പുരോഗതി പോലുള്ള അജ്ഞാത ഉപയോഗ ഡാറ്റ നിങ്ങളുടെ ഉപകരണത്തിൽ പ്രാദേശികമായി സംഭരിക്കാം."}
           </p>
 
           <h2>2. {lang === "en" ? "AI assistant data" : "AI സഹായി ഡാറ്റ"}</h2>

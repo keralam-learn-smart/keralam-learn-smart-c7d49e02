@@ -21,7 +21,10 @@ export const Route = createFileRoute("/data-protection")({
       <h2>What we collect</h2>
       <ul>
         <li>Account: email, optional name and phone you provide during sign-up.</li>
-        <li>Learning progress: quiz attempts, scores and selected topics.</li>
+        <li>
+          Learning progress: quiz attempts, scores and selected topics for the 20 mock test sets and
+          practice quizzes.
+        </li>
         <li>Technical: device type, browser, and approximate region from logs.</li>
       </ul>
       <h2>How we secure it</h2>

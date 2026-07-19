@@ -21,7 +21,7 @@ export const Route = createFileRoute("/cookie-policy")({
           <strong>Essential</strong>: session, authentication and security.
         </li>
         <li>
-          <strong>Preferences</strong>: language (English / മലയാളം / हिन्दी / தமிழ்) and dark mode.
+          <strong>Preferences</strong>: language (English / മലയാളം) and dark mode.
         </li>
         <li>
           <strong>Analytics</strong>: anonymous page and feature usage.
