@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { generateText } from "ai";
 import { z } from "zod";
-import { createLovableAiGatewayProvider } from "./ai-gateway.server";
+import { createOpenAiProvider } from "./ai-gateway.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const SYSTEM = `You are the Traffic Tips AI Tutor. You help learners pass the Kerala RTO Learner Licence (LL) test.
@@ -27,22 +27,23 @@ const ChatInput = z.object({
 
 export const askTutor = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => ChatInput.parse(input))
+  .validator((input: unknown) => ChatInput.parse(input))
   .handler(async ({ data }) => {
-    const key = process.env.LOVABLE_API_KEY;
+    const key = process.env.OPENAI_API_KEY;
     if (!key) {
       return {
-        reply: "AI service is not configured yet. Please ask the site owner to enable Lovable AI.",
+        reply:
+          "AI tutor is not configured yet. Please ask the site owner to add OPENAI_API_KEY in the environment settings.",
       };
     }
-    const gateway = createLovableAiGatewayProvider(key);
+    const openai = createOpenAiProvider(key);
     const langHint =
       data.lang === "ml"
         ? "The learner is asking in Malayalam. Reply in Malayalam (മലയാളം)."
         : "The learner is asking in English. Reply in English.";
     try {
       const { text } = await generateText({
-        model: gateway("google/gemini-3-flash-preview"),
+        model: openai("gpt-4o-mini"),
         system: `${SYSTEM}\n\n${langHint}`,
         messages: [
           ...data.history.map((m) => ({ role: m.role, content: m.content })),
@@ -55,10 +56,9 @@ export const askTutor = createServerFn({ method: "POST" })
       if (msg.includes("429")) {
         return { reply: "AI is busy right now. Please try again in a moment." };
       }
-      if (msg.includes("402")) {
+      if (msg.includes("401") || msg.toLowerCase().includes("api key")) {
         return {
-          reply:
-            "AI credits exhausted. The site owner needs to add credits in Lovable to continue.",
+          reply: "AI tutor configuration needs attention. Please check OPENAI_API_KEY.",
         };
       }
       return { reply: `Sorry, the tutor could not respond. (${msg})` };
@@ -76,11 +76,11 @@ const AnalyzeInput = z.object({
 
 export const analyzePerformance = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => AnalyzeInput.parse(input))
+  .validator((input: unknown) => AnalyzeInput.parse(input))
   .handler(async ({ data }) => {
-    const key = process.env.LOVABLE_API_KEY;
-    if (!key) return { analysis: "AI service not configured." };
-    const gateway = createLovableAiGatewayProvider(key);
+    const key = process.env.OPENAI_API_KEY;
+    if (!key) return { analysis: "AI tutor is not configured. Please add OPENAI_API_KEY." };
+    const openai = createOpenAiProvider(key);
     const prompt = `Learner result on a Kerala RTO mock test:
 - Total: ${data.total}
 - Correct: ${data.correct}
@@ -92,7 +92,7 @@ Reply in ${data.lang === "ml" ? "Malayalam" : "English"}.
 Give: (1) a 1-line verdict (Pass/Needs work), (2) 3 concrete revision tips targeting the weak topics, (3) a confidence-boosting line.`;
     try {
       const { text } = await generateText({
-        model: gateway("google/gemini-3-flash-preview"),
+        model: openai("gpt-4o-mini"),
         system: SYSTEM,
         prompt,
       });
