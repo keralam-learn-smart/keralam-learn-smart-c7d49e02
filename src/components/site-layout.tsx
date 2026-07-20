@@ -408,7 +408,6 @@ function UserMenu() {
 
   const accountTools = (
     <>
-      <DropdownMenuSeparator className="my-2" />
       <DropdownMenuLabel className={`flex items-center gap-3 px-3 py-2 text-xs ${ml}`}>
         <Languages className="h-4 w-4 text-muted-foreground" />
         {t("Language", "ഭാഷ")}
@@ -463,12 +462,6 @@ function UserMenu() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className={menuContentClass}>
-          <DropdownMenuItem asChild>
-            <Link to="/auth" className={menuItemClass}>
-              <LogIn className={menuIconClass} />
-              {t("Sign In", "സൈൻ ഇൻ")}
-            </Link>
-          </DropdownMenuItem>
           {accountTools}
         </DropdownMenuContent>
       </DropdownMenu>
@@ -494,23 +487,18 @@ function UserMenu() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className={menuContentClass}>
-        <DropdownMenuLabel className="truncate">
-          <p className={`truncate text-sm font-medium ${ml}`}>{name}</p>
-          <p className="truncate text-xs font-normal text-muted-foreground">{user.email}</p>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link to="/profile" className={menuItemClass}>
             <UserIcon className={menuIconClass} />
             {t("My Profile", "എന്റെ പ്രൊഫൈൽ")}
           </Link>
         </DropdownMenuItem>
-        {accountTools}
-        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()} className={menuItemClass}>
           <LogOut className={menuIconClass} />
-          {t("Sign out", "സൈൻ ഔട്ട്")}
+          {t("Sign Out", "സൈൻ ഔട്ട്")}
         </DropdownMenuItem>
+        <DropdownMenuSeparator className="my-2" />
+        {accountTools}
       </DropdownMenuContent>
     </DropdownMenu>
   );
