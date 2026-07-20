@@ -479,11 +479,16 @@ function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="ml-1 rounded-full" aria-label="Account">
+        <Button
+          variant="ghost"
+          className="ml-1 h-9 max-w-44 rounded-full px-1.5 pr-3"
+          aria-label={t("Account menu", "അക്കൗണ്ട് മെനു")}
+        >
           <Avatar className="h-8 w-8">
             {profile?.avatar_url ? <AvatarImage src={profile.avatar_url} alt="" /> : null}
             <AvatarFallback className="text-xs">{initials}</AvatarFallback>
           </Avatar>
+          <span className={`hidden truncate text-sm font-medium sm:inline ${ml}`}>{name}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className={menuContentClass}>
