@@ -27,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LANGUAGES, useSite, type Lang } from "@/lib/site-context";
+import { LANGUAGES, useSite } from "@/lib/site-context";
 import { useAuth } from "@/lib/auth-context";
 import { ShareDialog } from "@/components/share-dialog";
 import { FollowDialog } from "@/components/follow-dialog";
@@ -416,7 +416,7 @@ function UserMenu() {
       {LANGUAGES.map((language) => (
         <DropdownMenuItem
           key={language.code}
-          onClick={() => setLang(language.code as Lang)}
+          onClick={() => setLang(language.code)}
           className={`min-h-10 rounded-xl py-2 pl-10 pr-3 ${ml}`}
         >
           <span className="flex-1">{language.native}</span>
