@@ -31,8 +31,8 @@ export const Route = createFileRoute("/user-agreement")({
       </ul>
       <h2>Educational use only</h2>
       <p>
-        Traffic Tips provides study material and practice tests. It does not issue licences,
-        certificates or any official RTO document.
+        Traffic Tips provides study material, practice quizzes and 20 mock test sets of 15 questions
+        each. It does not issue licences, certificates or any official RTO document.
       </p>
       <h2>Termination</h2>
       <p>
