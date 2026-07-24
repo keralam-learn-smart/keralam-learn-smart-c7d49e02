@@ -46,7 +46,8 @@ function QuizRunner() {
   const isMock = setId === "mock";
   const setNum = isMock ? 0 : Number(setId);
 
-  const requiresPayment = isMock || setNum > 1;
+  const FREE_PRACTICE_SET_COUNT = 5;
+  const requiresPayment = isMock || setNum > FREE_PRACTICE_SET_COUNT;
   const { user, loading: authLoading } = useAuth();
   const checkAccess = useServerFn(checkPaidAccess);
   const [accessState, setAccessState] = useState<"checking" | "ok" | "locked">(
@@ -81,54 +82,6 @@ function QuizRunner() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const current = questions[idx];
-
-  if (requiresPayment && accessState !== "ok") {
-    return (
-      <SiteLayout>
-        <div className="mx-auto max-w-lg px-4 py-10">
-          <Card className="p-6 text-center">
-            <Lock className="mx-auto mb-3 h-10 w-10 text-primary" />
-            <h1 className={`text-xl font-bold ${ml}`}>
-              {lang === "en"
-                ? accessState === "checking"
-                  ? "Checking access…"
-                  : "This test is locked"
-                : accessState === "checking"
-                  ? "ആക്‌സസ് പരിശോധിക്കുന്നു…"
-                  : "ഈ ടെസ്റ്റ് ലോക്ക് ചെയ്‌തിരിക്കുന്നു"}
-            </h1>
-            {accessState === "locked" && (
-              <>
-                <p className={`mt-2 text-sm text-muted-foreground ${ml}`}>
-                  {lang === "en"
-                    ? "Set 1 is free. Unlock all 20 mock test sets and premium content for a one-time ₹45."
-                    : "സെറ്റ് 1 സൗജന്യമാണ്. ₹45 ഒറ്റത്തവണ അടച്ച് എല്ലാ 20 സെറ്റുകളും പ്രീമിയം ഉള്ളടക്കവും അൺലോക്ക് ചെയ്യൂ."}
-                </p>
-                <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-                  <Link to="/unlock" className="flex-1">
-                    <Button size="lg" className="w-full rounded-full">
-                      {lang === "en" ? "Unlock for ₹45" : "₹45-ന് അൺലോക്ക് ചെയ്യൂ"}
-                    </Button>
-                  </Link>
-                  <Link
-                    to="/quiz/$setId"
-                    params={{ setId: "1" }}
-                    search={{ lang }}
-                    className="flex-1"
-                    reloadDocument
-                  >
-                    <Button size="lg" variant="outline" className="w-full rounded-full">
-                      {lang === "en" ? "Try Free Set 1" : "സൗജന്യ സെറ്റ് 1"}
-                    </Button>
-                  </Link>
-                </div>
-              </>
-            )}
-          </Card>
-        </div>
-      </SiteLayout>
-    );
-  }
 
   // Reset state and timer on question change.
   useEffect(() => {
@@ -173,6 +126,64 @@ function QuizRunner() {
       }
     };
   }, [idx, current, revealed, finished]);
+
+  if (requiresPayment && accessState !== "ok") {
+    return (
+      <SiteLayout>
+        <div className="mx-auto max-w-lg px-4 py-10">
+          <Card className="p-6 text-center">
+            <Lock className="mx-auto mb-3 h-10 w-10 text-primary" />
+            <h1 className={`text-xl font-bold ${ml}`}>
+              {lang === "en"
+                ? accessState === "checking"
+                  ? "Checking access…"
+                  : "This test is locked"
+                : accessState === "checking"
+                  ? "ആക്‌സസ് പരിശോധിക്കുന്നു…"
+                  : "ഈ ടെസ്റ്റ് ലോക്ക് ചെയ്‌തിരിക്കുന്നു"}
+            </h1>
+            {accessState === "locked" && (
+              <>
+                <p className={`mt-2 text-sm text-muted-foreground ${ml}`}>
+                  {isMock
+                    ? lang === "en"
+                      ? "Set 1 is free. Unlock all 20 mock test sets and premium content for a one-time ₹45."
+                      : "സെറ്റ് 1 സൗജന്യമാണ്. ₹45 ഒറ്റത്തവണ അടച്ച് എല്ലാ 20 സെറ്റുകളും പ്രീമിയം ഉള്ളടക്കവും അൺലോക്ക് ചെയ്യൂ."
+                    : lang === "en"
+                      ? "The first 5 sets are free. Unlock all practice test sets and premium content for a one-time ₹45."
+                      : "ആദ്യ 5 സെറ്റുകൾ സൗജന്യമാണ്. ₹45 ഒറ്റത്തവണ അടച്ച് എല്ലാ പ്രാക്ടീസ് ടെസ്റ്റ് സെറ്റുകളും പ്രീമിയം ഉള്ളടക്കവും അൺലോക്ക് ചെയ്യൂ."}
+                </p>
+                <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+                  <Link to="/unlock" className="flex-1">
+                    <Button size="lg" className="w-full rounded-full">
+                      {lang === "en" ? "Unlock for ₹45" : "₹45-ന് അൺലോക്ക് ചെയ്യൂ"}
+                    </Button>
+                  </Link>
+                  <Link
+                    to={isMock ? "/quiz/$setId" : "/quiz"}
+                    params={isMock ? { setId: "1" } : undefined}
+                    search={{ lang }}
+                    className="flex-1"
+                    reloadDocument
+                  >
+                    <Button size="lg" variant="outline" className="w-full rounded-full">
+                      {isMock
+                        ? lang === "en"
+                          ? "Try Free Set 1"
+                          : "സൗജന്യ സെറ്റ് 1"
+                        : lang === "en"
+                          ? "Try Free 5"
+                          : "സൗജന്യ 5 സെറ്റുകൾ"}
+                    </Button>
+                  </Link>
+                </div>
+              </>
+            )}
+          </Card>
+        </div>
+      </SiteLayout>
+    );
+  }
 
   if (!questions.length) {
     return (
