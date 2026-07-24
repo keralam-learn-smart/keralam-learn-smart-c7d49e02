@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Free bilingual (English & Malayalam) Kerala RTO learning platform: traffic signs, signals, road rules, 1000+ practice questions, 10 mock tests and AI tutor.",
+          "Bilingual (English & Malayalam) Kerala RTO learning platform for just ₹45: traffic signs, signals, road rules, 500+ practice questions, 20 mock tests and AI tutor.",
       },
       { name: "author", content: "Traffic Tips" },
       { name: "theme-color", content: "#F26B1D" },

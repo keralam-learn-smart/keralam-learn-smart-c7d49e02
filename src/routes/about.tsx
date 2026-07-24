@@ -10,7 +10,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Traffic Tips is a free bilingual learning platform for the Kerala RTO Learner Licence (LL) test.",
+          "Traffic Tips is a bilingual learning platform for the Kerala RTO Learner Licence (LL) test, available for just ₹45.",
       },
       { property: "og:title", content: "About Traffic Tips" },
       {
@@ -33,8 +33,8 @@ function AboutPage() {
         </h1>
         <p className={`mt-3 text-muted-foreground ${ml}`}>
           {lang === "en"
-            ? "Traffic Tips is a free bilingual (English & Malayalam) learning and testing platform built for aspirants of the Kerala RTO Learner Licence (LL) and Driving Licence (DL) tests."
-            : "കേരള RTO ലേണർ ലൈസൻസ്, ഡ്രൈവിങ് ലൈസൻസ് പരീക്ഷാ ഉദ്യോഗാർത്ഥികൾക്കായി രൂപകൽപ്പന ചെയ്ത സൗജന്യ ദ്വിഭാഷാ പഠന-പരീക്ഷാ പ്ലാറ്റ്ഫോമാണ് ട്രാഫിക് ടിപ്സ്."}
+            ? "Traffic Tips is a bilingual (English & Malayalam) learning and testing platform built for aspirants of the Kerala RTO Learner Licence (LL) and Driving Licence (DL) tests, available for just ₹45."
+            : "കേരള RTO ലേണർ ലൈസൻസ്, ഡ്രൈവിങ് ലൈസൻസ് പരീക്ഷാ ഉദ്യോഗാർത്ഥികൾക്കായി വെറും ₹45-ന് ലഭ്യമാകുന്ന ദ്വിഭാഷാ പഠന-പരീക്ഷാ പ്ലാറ്റ്ഫോമാണ് ട്രാഫിക് ടിപ്സ്."}
         </p>
 
         <Card className="mt-6 p-6">
@@ -43,8 +43,8 @@ function AboutPage() {
           </h2>
           <p className={`mt-2 text-sm ${ml}`}>
             {lang === "en"
-              ? "To make Kerala roads safer by giving every new driver high-quality, easy-to-understand learning material in their own language — completely free."
-              : "ഓരോ പുതിയ ഡ്രൈവർക്കും അവരുടെ സ്വന്തം ഭാഷയിൽ ഉയർന്ന നിലവാരമുള്ള, എളുപ്പത്തിൽ മനസ്സിലാക്കാവുന്ന പഠന സാമഗ്രികൾ പൂർണ്ണമായും സൗജന്യമായി നൽകി കേരളത്തിലെ റോഡുകൾ കൂടുതൽ സുരക്ഷിതമാക്കുക."}
+              ? "To make Kerala roads safer by giving every new driver high-quality, easy-to-understand learning material in their own language, at an affordable price."
+              : "ഓരോ പുതിയ ഡ്രൈവർക്കും അവരുടെ സ്വന്തം ഭാഷയിൽ ഉയർന്ന നിലവാരമുള്ള, എളുപ്പത്തിൽ മനസ്സിലാക്കാവുന്ന പഠന സാമഗ്രികൾ കുറഞ്ഞ നിരക്കിൽ നൽകി കേരളത്തിലെ റോഡുകൾ കൂടുതൽ സുരക്ഷിതമാക്കുക."}
           </p>
         </Card>
 
@@ -55,8 +55,8 @@ function AboutPage() {
           <ul className={`mt-2 list-disc space-y-1 pl-5 text-sm ${ml}`}>
             <li>
               {lang === "en"
-                ? "1000+ Kerala RTO practice questions"
-                : "1000+ കേരള RTO പരിശീലന ചോദ്യങ്ങൾ"}
+                ? "500+ Kerala RTO practice questions"
+                : "500+ കേരള RTO പരിശീലന ചോദ്യങ്ങൾ"}
             </li>
             <li>
               {lang === "en"

@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Free bilingual (English & Malayalam) Kerala RTO learner licence practice — traffic signs, signals, road rules and mock tests.",
+          "Bilingual (English & Malayalam) Kerala RTO learner licence practice for just ₹45 — traffic signs, signals, road rules and mock tests.",
       },
       { property: "og:title", content: "Kerala RTO Learner Licence Practice" },
       {
@@ -55,8 +55,8 @@ function Index() {
           </h1>
           <p className={`mt-2 max-w-2xl text-sm opacity-90 sm:text-base ${ml}`}>
             {lang === "en"
-              ? "Bilingual learning, 100+ traffic signs, 20 mock test sets with instant validation, and an AI tutor — all free."
-              : "ദ്വിഭാഷാ പഠനം, 100+ ചിഹ്നങ്ങൾ, 20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ, AI ട്യൂട്ടർ — എല്ലാം സൗജന്യം."}
+              ? "Bilingual learning, 100+ traffic signs, 20 mock test sets with instant validation, and an AI tutor — just ₹45."
+              : "ദ്വിഭാഷാ പഠനം, 100+ ചിഹ്നങ്ങൾ, 20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ, AI ട്യൂട്ടർ — വെറും ₹45."}
           </p>
           <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
             <Link to="/quiz/$setId" params={{ setId: "mock" }} className="w-full">
