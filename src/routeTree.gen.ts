@@ -13,18 +13,21 @@ import { Route as UserAgreementRouteImport } from './routes/user-agreement'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShippingDeliveryRouteImport } from './routes/shipping-delivery'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReportIssueRouteImport } from './routes/report-issue'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MockTestsRouteImport } from './routes/mock-tests'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as HelpSupportRouteImport } from './routes/help-support'
 import { Route as FeeCalculatorRouteImport } from './routes/fee-calculator'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DrivingGuideRouteImport } from './routes/driving-guide'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as DataProtectionRouteImport } from './routes/data-protection'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CopyrightRouteImport } from './routes/copyright'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -66,6 +69,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShippingDeliveryRoute = ShippingDeliveryRouteImport.update({
   id: '/shipping-delivery',
   path: '/shipping-delivery',
@@ -96,6 +104,11 @@ const MockTestsRoute = MockTestsRouteImport.update({
   path: '/mock-tests',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HelpSupportRoute = HelpSupportRouteImport.update({
   id: '/help-support',
   path: '/help-support',
@@ -124,6 +137,11 @@ const DisclaimerRoute = DisclaimerRouteImport.update({
 const DataProtectionRoute = DataProtectionRouteImport.update({
   id: '/data-protection',
   path: '/data-protection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CopyrightRoute = CopyrightRouteImport.update({
@@ -237,18 +255,21 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
+  '/dashboard': typeof DashboardRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
   '/driving-guide': typeof DrivingGuideRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
+  '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/shipping-delivery': typeof ShippingDeliveryRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -274,18 +295,21 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
+  '/dashboard': typeof DashboardRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
   '/driving-guide': typeof DrivingGuideRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
+  '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/shipping-delivery': typeof ShippingDeliveryRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -313,18 +337,21 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
+  '/dashboard': typeof DashboardRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
   '/driving-guide': typeof DrivingGuideRoute
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
+  '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/shipping-delivery': typeof ShippingDeliveryRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -352,18 +379,21 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
+    | '/dashboard'
     | '/data-protection'
     | '/disclaimer'
     | '/driving-guide'
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
+    | '/login'
     | '/mock-tests'
     | '/privacy'
     | '/refund-policy'
     | '/report-issue'
     | '/settings'
     | '/shipping-delivery'
+    | '/signup'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -389,18 +419,21 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
+    | '/dashboard'
     | '/data-protection'
     | '/disclaimer'
     | '/driving-guide'
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
+    | '/login'
     | '/mock-tests'
     | '/privacy'
     | '/refund-policy'
     | '/report-issue'
     | '/settings'
     | '/shipping-delivery'
+    | '/signup'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -427,18 +460,21 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
+    | '/dashboard'
     | '/data-protection'
     | '/disclaimer'
     | '/driving-guide'
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
+    | '/login'
     | '/mock-tests'
     | '/privacy'
     | '/refund-policy'
     | '/report-issue'
     | '/settings'
     | '/shipping-delivery'
+    | '/signup'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -466,18 +502,21 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   CopyrightRoute: typeof CopyrightRoute
+  DashboardRoute: typeof DashboardRoute
   DataProtectionRoute: typeof DataProtectionRoute
   DisclaimerRoute: typeof DisclaimerRoute
   DrivingGuideRoute: typeof DrivingGuideRoute
   FaqRoute: typeof FaqRoute
   FeeCalculatorRoute: typeof FeeCalculatorRoute
   HelpSupportRoute: typeof HelpSupportRoute
+  LoginRoute: typeof LoginRoute
   MockTestsRoute: typeof MockTestsRoute
   PrivacyRoute: typeof PrivacyRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
   ReportIssueRoute: typeof ReportIssueRoute
   SettingsRoute: typeof SettingsRoute
   ShippingDeliveryRoute: typeof ShippingDeliveryRoute
+  SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
   TrustRoute: typeof TrustRoute
   UnlockRoute: typeof UnlockRoute
@@ -523,6 +562,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shipping-delivery': {
       id: '/shipping-delivery'
       path: '/shipping-delivery'
@@ -565,6 +611,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MockTestsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/help-support': {
       id: '/help-support'
       path: '/help-support'
@@ -605,6 +658,13 @@ declare module '@tanstack/react-router' {
       path: '/data-protection'
       fullPath: '/data-protection'
       preLoaderRoute: typeof DataProtectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/copyright': {
@@ -772,18 +832,21 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   CopyrightRoute: CopyrightRoute,
+  DashboardRoute: DashboardRoute,
   DataProtectionRoute: DataProtectionRoute,
   DisclaimerRoute: DisclaimerRoute,
   DrivingGuideRoute: DrivingGuideRoute,
   FaqRoute: FaqRoute,
   FeeCalculatorRoute: FeeCalculatorRoute,
   HelpSupportRoute: HelpSupportRoute,
+  LoginRoute: LoginRoute,
   MockTestsRoute: MockTestsRoute,
   PrivacyRoute: PrivacyRoute,
   RefundPolicyRoute: RefundPolicyRoute,
   ReportIssueRoute: ReportIssueRoute,
   SettingsRoute: SettingsRoute,
   ShippingDeliveryRoute: ShippingDeliveryRoute,
+  SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
   TrustRoute: TrustRoute,
   UnlockRoute: UnlockRoute,

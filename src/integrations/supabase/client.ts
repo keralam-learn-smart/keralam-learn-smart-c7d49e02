@@ -2,28 +2,46 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
 
-function createSupabaseClient() {
-  // Use import.meta.env for client-side (Vite build-time replacement)
-  // Fall back to process.env for SSR (server-side rendering)
-  const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-  const SUPABASE_PUBLISHABLE_KEY =
-    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_PUBLISHABLE_KEY;
+function normalizeSupabaseUrl(value: string) {
+  return value.trim().replace(/\/+$/, "");
+}
 
-  if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-    const missing = [
-      ...(!SUPABASE_URL ? ["SUPABASE_URL"] : []),
-      ...(!SUPABASE_PUBLISHABLE_KEY ? ["SUPABASE_PUBLISHABLE_KEY"] : []),
-    ];
-    const message = `Missing Supabase environment variable(s): ${missing.join(", ")}. Connect Supabase in Lovable Cloud.`;
+function createSupabaseClient() {
+  const rawUrl = import.meta.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
+  const anonKey =
+    import.meta.env.VITE_SUPABASE_ANON_KEY ||
+    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.SUPABASE_PUBLISHABLE_KEY;
+
+  const missing = [
+    ...(!rawUrl ? ["VITE_SUPABASE_URL"] : []),
+    ...(!anonKey ? ["VITE_SUPABASE_ANON_KEY"] : []),
+  ];
+
+  if (missing.length > 0) {
+    const message = `Missing Supabase environment variable(s): ${missing.join(
+      ", ",
+    )}. Add the public Supabase URL and anon key in Vercel/Lovable.`;
     console.error(`[Supabase] ${message}`);
     throw new Error(message);
   }
 
-  return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+  const supabaseUrl = normalizeSupabaseUrl(rawUrl);
+
+  if (supabaseUrl.includes("/rest/v1")) {
+    throw new Error(
+      "VITE_SUPABASE_URL must be the project URL (for example https://apciavkljjnjysgmwmkk.supabase.co), not the REST endpoint.",
+    );
+  }
+
+  return createClient<Database>(supabaseUrl, anonKey, {
     auth: {
-      storage: typeof window !== "undefined" ? localStorage : undefined,
+      storage: typeof window !== "undefined" ? window.localStorage : undefined,
       persistSession: true,
       autoRefreshToken: true,
+      detectSessionInUrl: true,
+      flowType: "pkce",
     },
   });
 }

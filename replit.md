@@ -21,6 +21,6 @@ Serves on port 5000.
 ## Required Secrets
 
 - `VITE_SUPABASE_URL` — Supabase project URL
-- `VITE_SUPABASE_PUBLISHABLE_KEY` — Supabase anon/publishable key
+- `VITE_SUPABASE_ANON_KEY` — Supabase public anon key
 
 ## User Preferences

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -28,49 +28,77 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const loadProfile = async (uid: string) => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("profiles")
       .select("id, full_name, avatar_url, phone, preferred_language")
       .eq("id", uid)
       .maybeSingle();
+
+    if (error) {
+      console.error("[Auth] Failed to load profile", error);
+      setProfile(null);
+      return;
+    }
+
     setProfile(data ?? null);
   };
 
   useEffect(() => {
-    // Listener first, then fetch existing session
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, sess) => {
-      setSession(sess);
-      setUser(sess?.user ?? null);
-      if (sess?.user) {
-        // Defer DB call to avoid deadlocks inside the listener
-        setTimeout(() => loadProfile(sess.user.id), 0);
-      } else {
-        setProfile(null);
-      }
-    });
+    let mounted = true;
 
-    supabase.auth.getSession().then(({ data: { session: sess } }) => {
+    const applySession = (sess: Session | null) => {
+      if (!mounted) return;
       setSession(sess);
       setUser(sess?.user ?? null);
-      if (sess?.user) loadProfile(sess.user.id);
+      if (!sess?.user) setProfile(null);
+    };
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, sess) => {
+      applySession(sess);
+      if (sess?.user) {
+        setTimeout(() => {
+          if (mounted) void loadProfile(sess.user.id);
+        }, 0);
+      }
       setLoading(false);
     });
 
-    return () => sub.subscription.unsubscribe();
+    supabase.auth
+      .getSession()
+      .then(({ data: { session: currentSession }, error }) => {
+        if (error) console.error("[Auth] Failed to get initial session", error);
+        applySession(currentSession ?? null);
+        if (currentSession?.user) void loadProfile(currentSession.user.id);
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+      authListener.subscription.unsubscribe();
+    };
   }, []);
 
-  const value: AuthCtx = {
-    user,
-    session,
-    profile,
-    loading,
-    signOut: async () => {
-      await supabase.auth.signOut();
-    },
-    refreshProfile: async () => {
-      if (user) await loadProfile(user.id);
-    },
-  };
+  const value: AuthCtx = useMemo(
+    () => ({
+      user,
+      session,
+      profile,
+      loading,
+      signOut: async () => {
+        const { error } = await supabase.auth.signOut();
+        setSession(null);
+        setUser(null);
+        setProfile(null);
+        if (error) throw error;
+      },
+      refreshProfile: async () => {
+        if (user) await loadProfile(user.id);
+      },
+    }),
+    [loading, profile, session, user],
+  );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
