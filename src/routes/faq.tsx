@@ -10,10 +10,10 @@ import { useSite } from "@/lib/site-context";
 
 const FAQS: { q: { en: string; ml: string }; a: { en: string; ml: string } }[] = [
   {
-    q: { en: "Is Traffic Tips free?", ml: "ട്രാഫിക് ടിപ്സ് സൗജന്യമാണോ?" },
+    q: { en: "How much does Traffic Tips cost?", ml: "ട്രാഫിക് ടിപ്സിന് എത്ര ചെലവാണ്?" },
     a: {
-      en: "Yes. All learning content, practice questions and mock tests are 100% free. No sign-up required.",
-      ml: "അതെ. എല്ലാ ഉള്ളടക്കവും 100% സൗജന്യമാണ്. രജിസ്ട്രേഷൻ ആവശ്യമില്ല.",
+      en: "Traffic Tips is available for a one-time ₹45 unlock, including learning content, practice questions and mock tests.",
+      ml: "പഠന ഉള്ളടക്കം, പരിശീലന ചോദ്യങ്ങൾ, മോക്ക് ടെസ്റ്റുകൾ എന്നിവ ഉൾപ്പെടെ ട്രാഫിക് ടിപ്സ് ഒറ്റത്തവണ ₹45 അൺലോക്കായി ലഭ്യമാണ്.",
     },
   },
   {

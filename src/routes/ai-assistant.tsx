@@ -20,7 +20,7 @@ export const Route = createFileRoute("/ai-assistant")({
       {
         name: "description",
         content:
-          "Ask anything about the Kerala RTO learner licence test in English or Malayalam. Free AI tutor.",
+          "Ask anything about the Kerala RTO learner licence test in English or Malayalam with the Traffic Tips AI tutor.",
       },
       { property: "og:title", content: "AI Study Assistant — Traffic Tips" },
       {
