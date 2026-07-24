@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -9,6 +9,11 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { useSite } from "@/lib/site-context";
+
+const emailSchema = z.string().trim().email("Enter a valid email").max(255);
+const searchSchema = z.object({ mode: z.enum(["signin", "signup"]).optional() });
+const passwordSchema = z.string().min(8, "Password must be at least 8 characters").max(72);
+const nameSchema = z.string().trim().min(1, "Name is required").max(80);
 
 export const Route = createFileRoute("/auth/")({
   ssr: false,
@@ -23,12 +28,9 @@ export const Route = createFileRoute("/auth/")({
       { name: "robots", content: "noindex" },
     ],
   }),
+  validateSearch: searchSchema,
   component: AuthPage,
 });
-
-const emailSchema = z.string().trim().email("Enter a valid email").max(255);
-const passwordSchema = z.string().min(6, "Min 6 characters").max(72);
-const nameSchema = z.string().trim().min(1, "Name is required").max(80);
 
 function AuthPage() {
   const navigate = useNavigate();
@@ -37,81 +39,130 @@ function AuthPage() {
   const ml = lang === "ml" ? "lang-ml" : "";
   const t = (en: string, m: string) => (lang === "en" ? en : m);
 
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const search = useSearch({ from: "/auth/" });
+  const [mode, setMode] = useState<"signin" | "signup">(search.mode ?? "signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     if (!loading && user) navigate({ to: "/profile" });
   }, [loading, user, navigate]);
 
+  useEffect(() => {
+    if (search.mode) setMode(search.mode);
+  }, [search.mode]);
+
   const onGoogle = async () => {
+    if (busy) return;
+    setMessage(null);
     setBusy(true);
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: window.location.origin + "/auth/callback",
+          redirectTo: `${window.location.origin}/auth/callback`,
         },
       });
       if (error) {
-        toast.error(error.message ?? "Google sign-in failed");
+        const text = friendlyAuthError(error.message);
+        setMessage({ type: "error", text });
+        toast.error(text);
         setBusy(false);
         return;
       }
       // Supabase performs a full-page redirect to Google, so execution
       // stops here — no further navigation needed on this page.
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Sign-in failed");
+      const text =
+        e instanceof Error ? friendlyAuthError(e.message) : "Network error. Please try again.";
+      setMessage({ type: "error", text });
+      toast.error(text);
       setBusy(false);
     }
   };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (busy) return;
+    setMessage(null);
     setBusy(true);
     try {
       const parsedEmail = emailSchema.safeParse(email);
       const parsedPwd = passwordSchema.safeParse(password);
-      if (!parsedEmail.success) return toast.error(parsedEmail.error.issues[0].message);
-      if (!parsedPwd.success) return toast.error(parsedPwd.error.issues[0].message);
+      if (!parsedEmail.success) {
+        setMessage({ type: "error", text: parsedEmail.error.issues[0].message });
+        return toast.error(parsedEmail.error.issues[0].message);
+      }
+      if (!parsedPwd.success) {
+        setMessage({ type: "error", text: parsedPwd.error.issues[0].message });
+        return toast.error(parsedPwd.error.issues[0].message);
+      }
 
       if (mode === "signup") {
         const parsedName = nameSchema.safeParse(fullName);
-        if (!parsedName.success) return toast.error(parsedName.error.issues[0].message);
+        if (!parsedName.success) {
+          setMessage({ type: "error", text: parsedName.error.issues[0].message });
+          return toast.error(parsedName.error.issues[0].message);
+        }
+        if (password !== confirmPassword) {
+          const text = t("Passwords do not match.", "പാസ്‌വേഡുകൾ പൊരുത്തപ്പെടുന്നില്ല.");
+          setMessage({ type: "error", text });
+          return toast.error(text);
+        }
         const { error } = await supabase.auth.signUp({
           email: parsedEmail.data,
           password: parsedPwd.data,
           options: {
-            emailRedirectTo: `${window.location.origin}/profile`,
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
             data: { full_name: parsedName.data },
           },
         });
-        if (error) return toast.error(error.message);
-        toast.success(
-          t(
-            "Account created — check your email to confirm.",
-            "അക്കൗണ്ട് സൃഷ്ടിച്ചു — ഇമെയിൽ പരിശോധിക്കുക.",
-          ),
+        if (error) {
+          const text = friendlyAuthError(error.message);
+          setMessage({ type: "error", text });
+          return toast.error(text);
+        }
+        const text = t(
+          "Account created — check your email to confirm.",
+          "അക്കൗണ്ട് സൃഷ്ടിച്ചു — ഇമെയിൽ പരിശോധിക്കുക.",
         );
-        navigate({ to: "/profile" });
+        setMessage({ type: "success", text });
+        toast.success(text);
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email: parsedEmail.data,
           password: parsedPwd.data,
         });
-        if (error) return toast.error(error.message);
-        toast.success(t("Welcome back!", "സ്വാഗതം!"));
+        if (error) {
+          const text = friendlyAuthError(error.message);
+          setMessage({ type: "error", text });
+          return toast.error(text);
+        }
+        const text = t("Welcome back!", "സ്വാഗതം!");
+        toast.success(text);
         navigate({ to: "/profile" });
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
+      const text =
+        err instanceof Error ? friendlyAuthError(err.message) : "Network error. Please try again.";
+      setMessage({ type: "error", text });
+      toast.error(text);
     } finally {
       setBusy(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-md px-4 py-10 text-center text-sm text-muted-foreground">
+        Checking your session…
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto flex max-w-md flex-col px-4 py-10">
@@ -145,7 +196,26 @@ function AuthPage() {
           <div className="h-px flex-1 bg-border" />
         </div>
 
-        <Tabs value={mode} onValueChange={(v) => setMode(v as "signin" | "signup")}>
+        {message ? (
+          <div
+            className={`mt-4 rounded-xl border p-3 text-sm ${
+              message.type === "success"
+                ? "border-green-200 bg-green-50 text-green-800"
+                : "border-destructive/30 bg-destructive/10 text-destructive"
+            } ${ml}`}
+            role="status"
+          >
+            {message.text}
+          </div>
+        ) : null}
+
+        <Tabs
+          value={mode}
+          onValueChange={(v) => {
+            setMessage(null);
+            setMode(v as "signin" | "signup");
+          }}
+        >
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="signin" className={ml}>
               {t("Sign In", "സൈൻ ഇൻ")}
@@ -210,6 +280,23 @@ function AuthPage() {
               />
             </div>
 
+            {mode === "signup" && (
+              <div>
+                <Label htmlFor="confirm-password" className={ml}>
+                  {t("Confirm Password", "പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക")}
+                </Label>
+                <Input
+                  id="confirm-password"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                  required
+                />
+              </div>
+            )}
+
             <Button type="submit" className="w-full" disabled={busy}>
               {busy
                 ? t("Please wait…", "ദയവായി കാത്തിരിക്കുക…")
@@ -234,6 +321,28 @@ function AuthPage() {
       </div>
     </div>
   );
+}
+
+function friendlyAuthError(message: string) {
+  const lower = message.toLowerCase();
+  if (lower.includes("invalid login") || lower.includes("invalid credentials")) {
+    return "Incorrect email or password. Please check your credentials and try again.";
+  }
+  if (lower.includes("email not confirmed") || lower.includes("not confirmed")) {
+    return "Please confirm your email address before signing in.";
+  }
+  if (
+    lower.includes("already registered") ||
+    lower.includes("already exists") ||
+    lower.includes("user already")
+  ) {
+    return "An account already exists for this email. Try signing in instead.";
+  }
+  if (lower.includes("user not found")) return "No account was found for this email.";
+  if (lower.includes("network") || lower.includes("fetch"))
+    return "Network error. Please check your connection and try again.";
+  if (lower.includes("email")) return message;
+  return message || "Authentication failed. Please try again.";
 }
 
 function GoogleIcon() {
