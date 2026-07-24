@@ -305,7 +305,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </div>
               <p className={`mt-2 text-xs text-muted-foreground ${ml}`}>
                 {lang === "en"
-                  ? "Free bilingual learning, mock tests and AI tutor for the Kerala RTO Learner Licence exam."
+                  ? "Learn • Practice • AI Tutor — Prepare for the Kerala RTO Learner Licence Exam. Only ₹45!"
                   : "കേരള RTO ലേണർ ലൈസൻസ് പരീക്ഷയ്ക്ക് സൗജന്യ ദ്വിഭാഷാ പഠനം, മോക്ക് ടെസ്റ്റുകൾ, AI ട്യൂട്ടർ."}
               </p>
               <address className="mt-4 space-y-1.5 text-xs not-italic text-muted-foreground">
