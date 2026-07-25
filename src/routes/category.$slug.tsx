@@ -1,7 +1,15 @@
+import { useMemo, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { CATEGORIES, getCategory } from "@/data/categories";
 import { QUESTIONS } from "@/data/questions";
-import { getSign, SIGNS, type SignCategory } from "@/data/signs";
+import {
+  enrichedSign,
+  getRelatedSigns,
+  getSign,
+  SIGNS,
+  type SignCategory,
+  type SignFilter,
+} from "@/data/signs";
 import { SIGNALS, SIGNAL_GROUP } from "@/data/signals";
 import { POLICE_SIGNALS } from "@/data/police-signals";
 import { Button } from "@/components/ui/button";
@@ -261,7 +269,68 @@ const SIGN_GROUP_LABEL: Record<SignCategory, { en: string; ml: string; color: st
 function SignLibrary() {
   const { lang, t } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
-  const groups: SignCategory[] = ["mandatory", "prohibitory", "warning", "informatory", "signal"];
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState<SignFilter | "all">("all");
+  const [active, setActive] = useState(0);
+  const [bookmarks, setBookmarks] = useState<string[]>([]);
+  const [recent, setRecent] = useState<string[]>([]);
+  const filters: { value: SignFilter | "all"; label: string }[] = [
+    { value: "all", label: "All" },
+    { value: "mandatory", label: "Mandatory" },
+    { value: "warning", label: "Warning" },
+    { value: "prohibitory", label: "Regulatory" },
+    { value: "informatory", label: "Informatory" },
+    { value: "parking", label: "Parking" },
+    { value: "speed", label: "Speed" },
+    { value: "safety", label: "Safety" },
+  ];
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return SIGNS.filter((sign) => {
+      const haystack = [
+        sign.name.en,
+        sign.name.ml,
+        sign.category,
+        sign.meaning.en,
+        sign.meaning.ml,
+        sign.explanation.en,
+        sign.example.en,
+        ...(sign.keywords ?? []),
+      ]
+        .join(" ")
+        .toLowerCase();
+      const matchesQuery = !q || haystack.includes(q);
+      const matchesFilter =
+        filter === "all" ||
+        sign.category === filter ||
+        (filter === "parking" && haystack.includes("parking")) ||
+        (filter === "speed" && haystack.includes("speed")) ||
+        (filter === "safety" && ["warning", "prohibitory", "mandatory"].includes(sign.category));
+      return matchesQuery && matchesFilter;
+    });
+  }, [filter, query]);
+  const current = filtered[Math.min(active, Math.max(filtered.length - 1, 0))] ?? SIGNS[0];
+  const enriched = enrichedSign(current);
+  const quiz = enriched.quiz;
+  const related = getRelatedSigns(current);
+  const visit = (index: number) => {
+    const next = Math.max(0, Math.min(filtered.length - 1, index));
+    setActive(next);
+    const id = filtered[next]?.id;
+    if (id) setRecent((items) => [id, ...items.filter((item) => item !== id)].slice(0, 5));
+  };
+  const toggleBookmark = (id: string) =>
+    setBookmarks((items) =>
+      items.includes(id) ? items.filter((item) => item !== id) : [id, ...items],
+    );
+  const shareSign = async (name: string) => {
+    const text = `Kerala RTO sign: ${name}`;
+    if (typeof navigator !== "undefined" && "share" in navigator)
+      await navigator.share({ title: text, text });
+    else if (typeof navigator !== "undefined" && navigator.clipboard)
+      await navigator.clipboard.writeText(text);
+  };
+
   return (
     <Card className="mb-4 p-5">
       <h2 className={`mb-1 text-lg font-semibold ${ml}`}>
@@ -269,72 +338,180 @@ function SignLibrary() {
       </h2>
       <p className={`mb-4 text-xs text-muted-foreground ${ml}`}>
         {lang === "en"
-          ? "Every sign with meaning, driver action, exam point and real-life example."
-          : "ഓരോ ചിഹ്നവും അർത്ഥം, ഡ്രൈവർ നടപടി, പരീക്ഷാ പോയിന്റ്, ഉദാഹരണം സഹിതം."}
+          ? "Search, filter, bookmark and practise every major Kerala learner licence traffic sign."
+          : "പ്രധാന കേരള ലേണർ ലൈസൻസ് ചിഹ്നങ്ങൾ തിരയാനും ഫിൽട്ടർ ചെയ്യാനും ബുക്ക്മാർക്ക് ചെയ്യാനും പരിശീലിക്കാനും."}
       </p>
-      <div className="space-y-6">
-        {groups.map((g) => {
-          const items = SIGNS.filter((s) => s.category === g);
-          if (!items.length) return null;
-          const label = SIGN_GROUP_LABEL[g];
-          return (
-            <section key={g}>
-              <h3 className={`mb-3 border-l-4 pl-3 text-base font-bold ${label.color} ${ml}`}>
-                {t({ en: label.en, ml: label.ml })}
-              </h3>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {items.map((s) => (
-                  <div key={s.id} className="rounded-xl border border-border bg-card p-3">
-                    <div className="flex gap-3">
-                      <div
-                        className="h-20 w-20 shrink-0"
-                        role="img"
-                        aria-label={s.name.en}
-                        dangerouslySetInnerHTML={{ __html: s.svg }}
-                      />
-                      <div className="min-w-0">
-                        <p className={`text-sm font-semibold ${ml}`}>{t(s.name)}</p>
-                        <p className={`mt-0.5 text-xs text-muted-foreground ${ml}`}>
-                          <span className="font-semibold">
-                            {t({ en: "Meaning: ", ml: "അർത്ഥം: " })}
-                          </span>
-                          {t(s.meaning)}
-                        </p>
-                      </div>
-                    </div>
-                    <dl className="mt-3 space-y-1.5 text-xs leading-relaxed">
-                      <div className={ml}>
-                        <dt className="inline font-semibold text-primary">
-                          {t({ en: "Driver action: ", ml: "ഡ്രൈവർ നടപടി: " })}
-                        </dt>
-                        <dd className="inline">{t(s.explanation)}</dd>
-                      </div>
-                      <div className={ml}>
-                        <dt className="inline font-semibold text-primary">
-                          {t({ en: "Example: ", ml: "ഉദാഹരണം: " })}
-                        </dt>
-                        <dd className="inline">{t(s.example)}</dd>
-                      </div>
-                      <div className={ml}>
-                        <dt className="inline font-semibold text-primary">
-                          {t({ en: "Exam point: ", ml: "പരീക്ഷാ പോയിന്റ്: " })}
-                        </dt>
-                        <dd className="inline">
-                          {t({
-                            en: `Recognise the ${g} shape/colour and respond before reaching the sign.`,
-                            ml: `${g === "warning" ? "ത്രികോണ" : g === "informatory" ? "ദീർഘചതുര" : "വൃത്താകൃതി"} രൂപവും നിറവും തിരിച്ചറിയുക, അടയാളം എത്തുന്നതിന് മുമ്പ് പ്രതികരിക്കുക.`,
-                          })}
-                        </dd>
-                      </div>
-                    </dl>
-                  </div>
-                ))}
-              </div>
-            </section>
-          );
-        })}
+      <nav aria-label="Breadcrumb" className="mb-3 text-xs text-muted-foreground">
+        Home / Traffic Signs / {t(current.name)}
+      </nav>
+      <div className="mb-4 grid gap-2 sm:grid-cols-[1fr_auto]">
+        <input
+          aria-label="Search traffic signs"
+          className="rounded-md border border-input bg-background px-3 py-2 text-sm"
+          placeholder="Search by name, category, meaning or keyword"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActive(0);
+          }}
+        />
+        <div className="flex flex-wrap gap-2" role="list" aria-label="Traffic sign filters">
+          {filters.map((item) => (
+            <Button
+              key={item.value}
+              type="button"
+              size="sm"
+              variant={filter === item.value ? "default" : "outline"}
+              onClick={() => {
+                setFilter(item.value);
+                setActive(0);
+              }}
+            >
+              {item.label}
+            </Button>
+          ))}
+        </div>
       </div>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {filtered.map((s, index) => (
+          <button
+            key={s.id}
+            type="button"
+            onClick={() => visit(index)}
+            className={`rounded-xl border bg-card p-3 text-left transition hover:-translate-y-0.5 hover:shadow-sm ${current.id === s.id ? "border-primary" : "border-border"}`}
+          >
+            <div className="flex gap-3">
+              <div
+                className="h-20 w-20 shrink-0"
+                role="img"
+                aria-label={`${s.name.en} traffic sign illustration`}
+                dangerouslySetInnerHTML={{ __html: s.svg }}
+              />
+              <div>
+                <p className={`text-sm font-semibold ${ml}`}>{t(s.name)}</p>
+                <p className={`text-xs text-muted-foreground ${ml}`}>{t(s.meaning)}</p>
+                <p className="mt-1 text-[11px] uppercase tracking-wide text-primary">
+                  {s.category}
+                </p>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+      <article
+        className="mt-5 rounded-xl border border-border bg-card p-4 animate-in fade-in-50"
+        aria-live="polite"
+      >
+        <div className="flex flex-col gap-4 sm:flex-row">
+          <div
+            className="mx-auto h-32 w-32 shrink-0"
+            role="img"
+            aria-label={`${current.name.en} official SVG traffic sign`}
+            dangerouslySetInnerHTML={{ __html: current.svg }}
+          />
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+              {current.category}
+            </p>
+            <h3 className={`text-xl font-bold ${ml}`}>{t(current.name)}</h3>
+            <p className={`text-sm text-muted-foreground ${ml}`}>{t(current.meaning)}</p>
+            <p className={`mt-2 text-sm leading-relaxed ${ml}`}>{t(current.explanation)}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button size="sm" onClick={() => visit(active - 1)} disabled={active === 0}>
+                Previous
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => visit(active + 1)}
+                disabled={active >= filtered.length - 1}
+              >
+                Next
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => visit(Math.floor(Math.random() * filtered.length))}
+              >
+                Random Sign
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => toggleBookmark(current.id)}>
+                {bookmarks.includes(current.id) ? "Bookmarked" : "Bookmark"}
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => shareSign(current.name.en)}>
+                Share
+              </Button>
+            </div>
+          </div>
+        </div>
+        <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+          <Info label="Where Used" value={t(enriched.whereUsed)} ml={ml} />
+          <Info label="Why Important" value={t(enriched.whyImportant)} ml={ml} />
+          <Info
+            label="Driving Tips"
+            value={t({
+              en: enriched.drivingTips.en.join(" "),
+              ml: enriched.drivingTips.ml.join(" "),
+            })}
+            ml={ml}
+          />
+          <Info
+            label="Common Mistakes"
+            value={t({
+              en: enriched.commonMistakes.en.join(" "),
+              ml: enriched.commonMistakes.ml.join(" "),
+            })}
+            ml={ml}
+          />
+          <Info label="Kerala Learner Test Note" value={t(enriched.keralaTestNote)} ml={ml} />
+          <Info label="Exam Memory Trick" value={t(enriched.memoryTrick)} ml={ml} />
+        </dl>
+        <div className="mt-4 rounded-lg border border-border p-3">
+          <p className={`font-semibold ${ml}`}>{t(quiz.question)}</p>
+          {quiz.options.en.map((option, i) => (
+            <p
+              key={option}
+              className={`mt-1 text-sm ${i === quiz.answer ? "text-primary font-medium" : "text-muted-foreground"}`}
+            >
+              {String.fromCharCode(65 + i)}. {lang === "en" ? option : quiz.options.ml[i]}
+            </p>
+          ))}
+          <p className={`mt-2 text-xs text-muted-foreground ${ml}`}>{t(quiz.explanation)}</p>
+        </div>
+        <div className="mt-4">
+          <p className="mb-2 text-sm font-semibold">Related Signs</p>
+          <div className="flex flex-wrap gap-2">
+            {related.map((s) => (
+              <Button
+                key={s.id}
+                size="sm"
+                variant="outline"
+                onClick={() => visit(filtered.findIndex((item) => item.id === s.id))}
+              >
+                {t(s.name)}
+              </Button>
+            ))}
+          </div>
+        </div>
+        {(bookmarks.length > 0 || recent.length > 0) && (
+          <p className="mt-3 text-xs text-muted-foreground">
+            Bookmarks: {bookmarks.length} · Recently viewed:{" "}
+            {recent
+              .map((id) => getSign(id)?.name.en)
+              .filter(Boolean)
+              .join(", ")}
+          </p>
+        )}
+      </article>
     </Card>
+  );
+}
+
+function Info({ label, value, ml }: { label: string; value: string; ml: string }) {
+  return (
+    <div>
+      <dt className="font-semibold text-primary">{label}</dt>
+      <dd className={`text-muted-foreground ${ml}`}>{value}</dd>
+    </div>
   );
 }
 
