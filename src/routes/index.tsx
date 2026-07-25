@@ -1,12 +1,218 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles, Timer, BookOpen, Trophy, Bot, Lock } from "lucide-react";
+import {
+  AlertTriangle,
+  BadgeCheck,
+  BookOpen,
+  Bot,
+  Car,
+  CheckCircle2,
+  CloudRain,
+  GraduationCap,
+  Hand,
+  Headphones,
+  HelpCircle,
+  Lock,
+  Map,
+  Moon,
+  Navigation,
+  RefreshCw,
+  ShieldCheck,
+  Signal,
+  Sparkles,
+  Timer,
+  Trophy,
+} from "lucide-react";
 import { CATEGORIES } from "@/data/categories";
+import { SIGNS } from "@/data/signs";
+import { POLICE_SIGNALS } from "@/data/police-signals";
+import { QUESTIONS } from "@/data/questions";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SiteLayout } from "@/components/site-layout";
 import { useSite } from "@/lib/site-context";
 import { AdUnit } from "@/components/ad-unit";
 import { createCanonicalLink, createOpenGraphMeta, breadcrumbJsonLd } from "@/lib/seo";
+
+const learningHubCards = [
+  {
+    title: "Traffic Signs",
+    description:
+      "Understand mandatory, warning, prohibitory and informatory signs used on Kerala roads.",
+    icon: AlertTriangle,
+    to: "/category/$slug",
+    slug: "traffic-signs",
+  },
+  {
+    title: "Traffic Signals",
+    description: "Learn red, amber, green, flashing signals and pedestrian crossing light rules.",
+    icon: Signal,
+    to: "/category/$slug",
+    slug: "traffic-signals",
+  },
+  {
+    title: "Police Hand Signals",
+    description:
+      "Recognise traffic police directions that override signals at junctions and diversions.",
+    icon: Hand,
+    to: "/category/$slug",
+    slug: "police-hand-signals",
+  },
+  {
+    title: "Road Markings",
+    description:
+      "Study zebra crossings, stop lines, lane lines and no-overtaking markings clearly.",
+    icon: Map,
+    to: "/category/$slug",
+    slug: "road-markings",
+  },
+  {
+    title: "Road Rules",
+    description:
+      "Revise right of way, overtaking, speed discipline, documents and emergency vehicle rules.",
+    icon: ShieldCheck,
+    to: "/category/$slug",
+    slug: "road-rules",
+  },
+  {
+    title: "Driving Guide",
+    description:
+      "Build safe habits for hills, rain, night driving, parking and practical road judgement.",
+    icon: Car,
+    to: "/driving-guide",
+  },
+];
+
+const safetyTips = [
+  {
+    title: "Helmet Safety",
+    icon: ShieldCheck,
+    description:
+      "Wear an ISI-marked helmet and fasten the chin strap before moving even a short distance.",
+    tip: "Replace helmets after a hard impact or visible shell damage.",
+  },
+  {
+    title: "Seat Belt",
+    icon: CheckCircle2,
+    description:
+      "Seat belts reduce injury risk by keeping occupants secure during sudden braking or collision.",
+    tip: "The driver is responsible for reminding every passenger to buckle up.",
+  },
+  {
+    title: "Night Driving",
+    icon: Moon,
+    description:
+      "Use low beam for oncoming traffic, reduce speed and scan the road edges for pedestrians.",
+    tip: "Avoid staring directly at high-beam headlights; look slightly left.",
+  },
+  {
+    title: "Rain Driving",
+    icon: CloudRain,
+    description:
+      "Kerala monsoon roads can become slippery, waterlogged and low-visibility within minutes.",
+    tip: "Double your following distance and brake gently before turns.",
+  },
+  {
+    title: "Emergency Driving",
+    icon: Headphones,
+    description:
+      "Give way quickly and safely to ambulances, fire engines and police vehicles using sirens.",
+    tip: "Move left only when it is safe; never block junctions.",
+  },
+  {
+    title: "Defensive Driving",
+    icon: Navigation,
+    description:
+      "Expect mistakes from others, maintain space and avoid aggressive acceleration or braking.",
+    tip: "Use the two-second gap in dry weather and four seconds in rain.",
+  },
+];
+
+const articles = [
+  {
+    title: "How to Pass Kerala Learner Test",
+    summary:
+      "A practical plan for revising signs, signals, documents and exam-style questions before booking your test.",
+    icon: GraduationCap,
+    to: "/quiz",
+  },
+  {
+    title: "Top Traffic Signs",
+    summary:
+      "The most commonly asked warning, mandatory and prohibitory signs with quick recognition tips.",
+    icon: AlertTriangle,
+    to: "/category/$slug",
+    slug: "traffic-signs",
+  },
+  {
+    title: "Road Markings Guide",
+    summary:
+      "Decode solid lines, broken lines, stop lines, zebra crossings and lane arrows for safer driving.",
+    icon: Map,
+    to: "/category/$slug",
+    slug: "road-markings",
+  },
+  {
+    title: "Night Driving Tips",
+    summary:
+      "Learn headlight discipline, safe speed selection and fatigue control for evening highway trips.",
+    icon: Moon,
+    to: "/driving-guide",
+  },
+  {
+    title: "Driving Licence Renewal",
+    summary:
+      "Understand renewal timing, required documents and why expired licences should be updated promptly.",
+    icon: RefreshCw,
+    to: "/category/$slug",
+    slug: "driving-licence",
+  },
+  {
+    title: "Road Safety Rules",
+    summary:
+      "Essential Kerala road safety habits covering speed, mobile phones, emergency vehicles and pedestrians.",
+    icon: ShieldCheck,
+    to: "/category/$slug",
+    slug: "road-rules",
+  },
+];
+
+const platformReasons = [
+  "Responsive Learning",
+  "Official Syllabus",
+  "Detailed Explanations",
+  "Instant Validation",
+  "AI Tutor",
+  "Mock Tests",
+  "Premium Learning",
+  "Fast Performance",
+];
+
+const homeFaqs = [
+  {
+    q: "Is this useful for the Kerala learner licence test?",
+    a: "Yes. The homepage links to signs, signals, road rules and mock tests aligned with Kerala RTO learner preparation topics.",
+  },
+  {
+    q: "Can I practise without reading lessons first?",
+    a: "Yes. Start a mock test anytime, then review explanations to understand mistakes and improve quickly.",
+  },
+  {
+    q: "Are police hand signals important for the exam?",
+    a: "Yes. Traffic police signals can override lights and signs, so learners should recognise each official gesture.",
+  },
+  {
+    q: "How should I study traffic signs?",
+    a: "Group them by shape and color: red circles restrict, red triangles warn and blue boards inform or guide.",
+  },
+  {
+    q: "Why are road markings included?",
+    a: "Markings guide lane discipline, overtaking, pedestrian priority and stopping positions at junctions.",
+  },
+  {
+    q: "Does the platform include explanations?",
+    a: "Yes. Questions and learning pages include explanations so you learn the rule, not just the answer.",
+  },
+];
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -26,6 +232,18 @@ export const Route = createFileRoute("/")({
           type: "application/ld+json",
           children: JSON.stringify(breadcrumbJsonLd([{ name: "Home", path: "/" }])),
         },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: homeFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.q,
+              acceptedAnswer: { "@type": "Answer", text: faq.a },
+            })),
+          }),
+        },
       ],
     };
   },
@@ -42,6 +260,11 @@ function Index() {
     { icon: Trophy, en: "20 Mock Test Sets", ml: "20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ" },
     { icon: Bot, en: "AI Study Tutor", ml: "AI പഠന ട്യൂട്ടർ" },
   ];
+
+  const rotationIndex = new Date().getDate();
+  const featuredSign = SIGNS[rotationIndex % SIGNS.length];
+  const featuredSignal = POLICE_SIGNALS[rotationIndex % POLICE_SIGNALS.length];
+  const todayQuestion = QUESTIONS[rotationIndex % QUESTIONS.length];
 
   return (
     <SiteLayout>
@@ -153,6 +376,338 @@ function Index() {
             </Link>
           ))}
         </div>
+
+        <section
+          className="mt-10 animate-in fade-in slide-in-from-bottom-3 duration-700"
+          aria-labelledby="learning-hub-title"
+        >
+          <div className="mb-6 flex items-end justify-between gap-3">
+            <div>
+              <h2 id="learning-hub-title" className={`text-xl font-bold sm:text-2xl ${ml}`}>
+                Kerala RTO Learning Hub
+              </h2>
+              <p className={`text-sm text-muted-foreground ${ml}`}>
+                Learn Kerala traffic rules, official road signs, driving techniques, learner licence
+                preparation and road safety with detailed educational guides.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {learningHubCards.map((item) => (
+              <Card
+                key={item.title}
+                className="group h-full p-4 transition hover:border-primary hover:shadow-lg"
+              >
+                <div className="flex h-full flex-col gap-3">
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary transition group-hover:from-primary/30 group-hover:to-accent/30">
+                    <item.icon className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold leading-snug">{item.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                  </div>
+                  {item.slug ? (
+                    <Link to="/category/$slug" params={{ slug: item.slug }}>
+                      <Button variant="secondary" className="w-full">
+                        Read More
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link to="/driving-guide">
+                      <Button variant="secondary" className="w-full">
+                        Read More
+                      </Button>
+                    </Link>
+                  )}
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10 grid grid-cols-1 gap-3 lg:grid-cols-2">
+          <Card className="p-5 transition hover:shadow-lg">
+            <h2 className="text-xl font-bold sm:text-2xl">Featured Traffic Sign</h2>
+            <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+              <div
+                className="mx-auto grid h-40 w-40 shrink-0 place-items-center rounded-2xl bg-muted p-4"
+                role="img"
+                aria-label={featuredSign.name.en}
+                dangerouslySetInnerHTML={{ __html: featuredSign.svg }}
+              />
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">{featuredSign.category}</p>
+                <h3 className="text-lg font-semibold">{featuredSign.name.en}</h3>
+                <p className="mt-2 text-sm">
+                  <strong>Meaning:</strong> {featuredSign.meaning.en}
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  <strong>Detailed Explanation:</strong> {featuredSign.explanation.en}
+                </p>
+                <p className="mt-2 text-sm">
+                  <strong>Exam Tip:</strong> Identify the sign shape first, then confirm the symbol
+                  before choosing the answer.
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  <strong>Common Mistakes:</strong> Learners often confuse similar red-bordered
+                  signs when reading too quickly.
+                </p>
+                <Link to="/category/$slug" params={{ slug: "traffic-signs" }}>
+                  <Button className="mt-4">Learn More</Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-5 transition hover:shadow-lg">
+            <h2 className="text-xl font-bold sm:text-2xl">Featured Police Hand Signal</h2>
+            <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+              <div
+                className="mx-auto grid h-44 w-36 shrink-0 place-items-center overflow-hidden rounded-2xl bg-muted"
+                role="img"
+                aria-label={featuredSignal.name.en}
+                dangerouslySetInnerHTML={{ __html: featuredSignal.svg }}
+              />
+              <div>
+                <h3 className="text-lg font-semibold">{featuredSignal.name.en}</h3>
+                <p className="mt-2 text-sm">
+                  <strong>Meaning:</strong> {featuredSignal.meaning.en}
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  <strong>Used For:</strong> {featuredSignal.usage.en}
+                </p>
+                <p className="mt-2 text-sm">
+                  <strong>Exam Note:</strong> {featuredSignal.examNote.en}
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  <strong>Common Mistakes:</strong> Do not assume traffic lights apply when an
+                  officer is actively directing vehicles.
+                </p>
+                <p className="mt-2 text-sm">
+                  <strong>Safety Note:</strong> Slow down and follow the officer only when your path
+                  is clear.
+                </p>
+                <Link to="/category/$slug" params={{ slug: "police-hand-signals" }}>
+                  <Button className="mt-4">Read More</Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        <section className="mt-10">
+          <Card className="p-5 transition hover:shadow-lg">
+            <div className="flex items-start gap-3">
+              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary">
+                <HelpCircle className="h-6 w-6" />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-xl font-bold sm:text-2xl">Today's RTO Question</h2>
+                <p className="mt-2 font-medium">{todayQuestion.question.en}</p>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {todayQuestion.options.map((option, index) => (
+                    <div key={option.en} className="rounded-xl border bg-card p-3 text-sm">
+                      {String.fromCharCode(65 + index)}. {option.en}
+                    </div>
+                  ))}
+                </div>
+                <details className="mt-4">
+                  <summary className="cursor-pointer rounded-md bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground transition hover:opacity-90">
+                    Reveal Answer
+                  </summary>
+                  <p className="mt-3 text-sm">
+                    <strong>Answer:</strong> {todayQuestion.options[todayQuestion.correct].en}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {todayQuestion.explanation.en}
+                  </p>
+                </details>
+                <Link to="/quiz">
+                  <Button variant="secondary" className="mt-4">
+                    Practice More
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Road Safety Tips</h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {safetyTips.map((tip) => (
+              <Card
+                key={tip.title}
+                className="group p-4 transition hover:border-primary hover:shadow-lg"
+              >
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary transition group-hover:from-primary/30 group-hover:to-accent/30">
+                  <tip.icon className="h-6 w-6" />
+                </div>
+                <h3 className="mt-3 font-semibold">{tip.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{tip.description}</p>
+                <p className="mt-2 text-sm">
+                  <strong>Safety Tip:</strong> {tip.tip}
+                </p>
+                <Link to="/driving-guide">
+                  <Button variant="secondary" className="mt-4 w-full">
+                    Learn More
+                  </Button>
+                </Link>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Latest Learning Articles</h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {articles.map((article) => (
+              <Card
+                key={article.title}
+                className="group p-4 transition hover:border-primary hover:shadow-lg"
+              >
+                <div className="grid aspect-video place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary">
+                  <article.icon className="h-10 w-10" aria-label={`${article.title} thumbnail`} />
+                </div>
+                <h3 className="mt-3 font-semibold">{article.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{article.summary}</p>
+                {article.slug ? (
+                  <Link to="/category/$slug" params={{ slug: article.slug }}>
+                    <Button variant="secondary" className="mt-4 w-full">
+                      Read More
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to={article.to}>
+                    <Button variant="secondary" className="mt-4 w-full">
+                      Read More
+                    </Button>
+                  </Link>
+                )}
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <Card className="p-5">
+            <h2 className="text-xl font-bold sm:text-2xl">Learning Statistics</h2>
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
+              {[
+                { n: "500+", l: "Questions" },
+                { n: "100+", l: "Traffic Signs" },
+                { n: "20+", l: "Mock Tests" },
+                { n: "AI Tutor", l: "Available" },
+                { n: "Updated", l: "Official Kerala Syllabus" },
+              ].map((stat) => (
+                <div
+                  key={stat.l}
+                  className="rounded-xl bg-muted p-4 text-center animate-in fade-in duration-700"
+                >
+                  <div className="text-2xl font-extrabold text-primary">{stat.n}</div>
+                  <div className="text-xs text-muted-foreground">{stat.l}</div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </section>
+
+        <section className="mt-10">
+          <Card className="p-5 transition hover:shadow-lg">
+            <div className="grid gap-5 sm:grid-cols-[160px_1fr]">
+              <div className="grid h-40 w-40 place-items-center rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary">
+                <BadgeCheck className="h-14 w-14" aria-label="Trainer photo placeholder" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold sm:text-2xl">Professional Driving Guidance</h2>
+                <p className="mt-2 text-sm">
+                  <strong>Experience:</strong> Practical learner preparation focused on Kerala road
+                  conditions, RTO test confidence and safe driving habits.
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  <strong>Mission:</strong> Help every learner understand rules clearly, respect
+                  other road users and become a responsible driver.
+                </p>
+                <p className="mt-2 text-sm">
+                  <strong>Guidance:</strong> Get structured support for signs, signals, parking
+                  basics, defensive driving and mock-test readiness.
+                </p>
+                <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                  <Link to="/contact">
+                    <Button>Book Training</Button>
+                  </Link>
+                  <Link to="/contact">
+                    <Button variant="secondary">Contact</Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Why Choose This Platform</h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {platformReasons.map((reason) => (
+              <Card
+                key={reason}
+                className="flex items-center gap-3 p-4 transition hover:border-primary hover:shadow-lg"
+              >
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
+                <span className="font-medium">{reason}</span>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <Card className="p-5">
+            <div className="mb-4 flex items-end justify-between gap-3">
+              <h2 className="text-xl font-bold sm:text-2xl">FAQ Preview</h2>
+              <Link to="/faq">
+                <Button variant="secondary">View All FAQs</Button>
+              </Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {homeFaqs.map((faq) => (
+                <div key={faq.q} className="rounded-xl border p-4">
+                  <h3 className="font-semibold">{faq.q}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </section>
+
+        <section className="mt-10 overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-6 text-primary-foreground shadow-lg sm:p-10">
+          <h2 className="text-2xl font-extrabold sm:text-3xl">Ready to Start Learning?</h2>
+          <p className="mt-2 max-w-2xl text-sm opacity-90 sm:text-base">
+            Practise Kerala RTO questions, revise lessons and unlock premium access when you are
+            ready for complete preparation.
+          </p>
+          <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
+            <Link to="/quiz/$setId" params={{ setId: "mock" }}>
+              <Button
+                size="lg"
+                className="h-12 w-full bg-white text-primary shadow-md hover:bg-white/90"
+              >
+                Start Mock Test
+              </Button>
+            </Link>
+            <Link to="/quiz">
+              <Button variant="secondary" size="lg" className="h-12 w-full">
+                Practice Sets
+              </Button>
+            </Link>
+            <Link to="/unlock">
+              <Button
+                size="lg"
+                className="h-12 w-full rounded-full bg-yellow-400 text-black shadow-md hover:bg-yellow-300"
+              >
+                Unlock Premium
+              </Button>
+            </Link>
+          </div>
+        </section>
       </div>
     </SiteLayout>
   );
