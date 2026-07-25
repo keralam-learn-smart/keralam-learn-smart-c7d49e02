@@ -1,4 +1,5 @@
 export type SignCategory = "mandatory" | "warning" | "prohibitory" | "informatory" | "signal";
+export type SignFilter = SignCategory | "parking" | "speed" | "safety";
 
 export type Sign = {
   id: string;
@@ -9,6 +10,20 @@ export type Sign = {
   example: { en: string; ml: string };
   /** Inline SVG markup — keeps signs crisp at any zoom level */
   svg: string;
+  keywords?: string[];
+  whereUsed?: { en: string; ml: string };
+  whyImportant?: { en: string; ml: string };
+  drivingTips?: { en: string[]; ml: string[] };
+  commonMistakes?: { en: string[]; ml: string[] };
+  keralaTestNote?: { en: string; ml: string };
+  memoryTrick?: { en: string; ml: string };
+  relatedSignIds?: string[];
+  quiz?: {
+    question: { en: string; ml: string };
+    options: { en: string[]; ml: string[] };
+    answer: number;
+    explanation: { en: string; ml: string };
+  };
 };
 
 // Reusable SVG primitives for Kerala RTO-style signs
@@ -586,6 +601,134 @@ export const SIGNS: Sign[] = [
       `<text x="100" y="152" font-size="150" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#fff" text-anchor="middle">i</text>`,
     ),
   },
+  {
+    id: "stop",
+    category: "prohibitory",
+    name: { en: "Stop", ml: "നിർത്തുക" },
+    meaning: { en: "Come to a complete stop", ml: "പൂർണ്ണമായി നിർത്തുക" },
+    explanation: {
+      en: "Stop before the line, check all directions and move only when safe.",
+      ml: "ലൈനിന് മുമ്പ് നിർത്തി എല്ലാദിശയും നോക്കി സുരക്ഷിതമെങ്കിൽ മാത്രം നീങ്ങുക.",
+    },
+    example: {
+      en: "Minor roads joining busy main roads.",
+      ml: "പ്രധാന റോഡിലേക്ക് ചേരുന്ന ചെറിയ റോഡുകൾ.",
+    },
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path d="M72 16h56l40 40v88l-40 40H72l-40-40V56z" fill="#e01f1f"/><text x="100" y="118" font-size="42" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#fff" text-anchor="middle">STOP</text></svg>`,
+  },
+  {
+    id: "give-way",
+    category: "prohibitory",
+    name: { en: "Give Way", ml: "വഴി നൽകുക" },
+    meaning: { en: "Yield to traffic on the main road", ml: "പ്രധാന റോഡിലെ വാഹനങ്ങൾക്ക് മുൻഗണന" },
+    explanation: {
+      en: "Slow down and allow vehicles or pedestrians with priority to pass first.",
+      ml: "വേഗത കുറച്ച് മുൻഗണനയുള്ള വാഹനങ്ങൾക്കും കാൽനടക്കാർക്കും ആദ്യം വഴിനൽകുക.",
+    },
+    example: {
+      en: "Roundabout entries and side roads.",
+      ml: "റൗണ്ടബൗട്ട് പ്രവേശനങ്ങളും സൈഡ് റോഡുകളും.",
+    },
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><polygon points="100,178 184,32 16,32" fill="#fff" stroke="#e01f1f" stroke-width="16" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    id: "one-way",
+    category: "informatory",
+    name: { en: "One Way", ml: "ഒറ്റ ദിശ" },
+    meaning: { en: "Traffic moves in one direction only", ml: "ഗതാഗതം ഒരേയൊരു ദിശയിൽ മാത്രം" },
+    explanation: {
+      en: "Enter and drive only in the arrow direction; never reverse into oncoming flow.",
+      ml: "അമ്പിന്റെ ദിശയിൽ മാത്രം പ്രവേശിച്ച് ഓടിക്കുക; എതിർദിശയിലേക്ക് പോകരുത്.",
+    },
+    example: { en: "City streets with limited width.", ml: "ഇടുങ്ങിയ നഗര റോഡുകൾ." },
+    svg: infoRect(`<path d="M40 88 H125 V60 L165 100 L125 140 V112 H40 Z" fill="#fff"/>`),
+  },
+  {
+    id: "keep-right",
+    category: "mandatory",
+    name: { en: "Keep Right", ml: "വലതുവശം പാലിക്കുക" },
+    meaning: { en: "Pass on the right side of divider", ml: "ഡിവൈഡറിന്റെ വലത്തുകൂടി പോകുക" },
+    explanation: {
+      en: "Follow the arrow to avoid islands, barriers or temporary works.",
+      ml: "ട്രാഫിക് ദ്വീപുകൾ, തടസ്സങ്ങൾ എന്നിവ ഒഴിവാക്കാൻ അമ്പ് പിന്തുടരുക.",
+    },
+    example: {
+      en: "Temporary diversions and islands.",
+      ml: "താൽക്കാലിക ഡൈവർഷനുകളും ട്രാഫിക് ദ്വീപുകളും.",
+    },
+    svg: mandatoryCircle(`<path d="M65 55 L145 100 L65 145 Z" fill="#fff"/>`),
+  },
+  {
+    id: "height-limit",
+    category: "prohibitory",
+    name: { en: "Height Limit", ml: "ഉയരപരിധി" },
+    meaning: {
+      en: "Vehicles above shown height prohibited",
+      ml: "കാണിച്ച ഉയരത്തിന് മുകളിലുള്ള വാഹനങ്ങൾക്ക് വിലക്ക്",
+    },
+    explanation: {
+      en: "Do not enter if your vehicle or load exceeds the posted clearance.",
+      ml: "വാഹനമോ ചരക്കോ കാണിച്ച ഉയരത്തെക്കാൾ കൂടുതലെങ്കിൽ പ്രവേശിക്കരുത്.",
+    },
+    example: { en: "Underpasses and low bridges.", ml: "അണ്ടർപാസുകളും താഴ്ന്ന പാലങ്ങളും." },
+    svg: prohibitoryCircle(
+      `<text x="100" y="118" font-size="42" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#000" text-anchor="middle">3.5m</text>`,
+    ),
+  },
+  {
+    id: "width-limit",
+    category: "prohibitory",
+    name: { en: "Width Limit", ml: "വീതിപരിധി" },
+    meaning: {
+      en: "Vehicles above shown width prohibited",
+      ml: "കാണിച്ച വീതിക്ക് മുകളിലുള്ള വാഹനങ്ങൾക്ക് വിലക്ക്",
+    },
+    explanation: {
+      en: "Wide vehicles must choose another route before a narrow bridge or lane.",
+      ml: "വീതിയേറിയ വാഹനങ്ങൾ ഇടുങ്ങിയ പാലം/റോഡിന് മുമ്പ് മറ്റുവഴി തിരഞ്ഞെടുക്കണം.",
+    },
+    example: {
+      en: "Narrow bridges and market lanes.",
+      ml: "ഇടുങ്ങിയ പാലങ്ങളും മാർക്കറ്റ് റോഡുകളും.",
+    },
+    svg: prohibitoryCircle(
+      `<text x="100" y="118" font-size="42" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#000" text-anchor="middle">2m</text>`,
+    ),
+  },
+  {
+    id: "weight-limit",
+    category: "prohibitory",
+    name: { en: "Weight Limit", ml: "ഭാരപരിധി" },
+    meaning: {
+      en: "Vehicles above shown weight prohibited",
+      ml: "കാണിച്ച ഭാരത്തിന് മുകളിലുള്ള വാഹനങ്ങൾക്ക് വിലക്ക്",
+    },
+    explanation: {
+      en: "Protects weak bridges, culverts and roads from overloaded vehicles.",
+      ml: "ദുർബല പാലങ്ങളും കല്വർട്ടുകളും ഓവർലോഡ് വാഹനങ്ങളിൽ നിന്ന് സംരക്ഷിക്കുന്നു.",
+    },
+    example: { en: "Old bridges and village roads.", ml: "പഴയ പാലങ്ങളും ഗ്രാമ റോഡുകളും." },
+    svg: prohibitoryCircle(
+      `<text x="100" y="118" font-size="44" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#000" text-anchor="middle">5T</text>`,
+    ),
+  },
+  {
+    id: "roundabout",
+    category: "mandatory",
+    name: { en: "Roundabout", ml: "റൗണ്ടബൗട്ട്" },
+    meaning: {
+      en: "Move around the central island in the indicated direction",
+      ml: "സെൻട്രൽ ഐലൻഡിന് ചുറ്റും നിർദ്ദേശിച്ച ദിശയിൽ പോകുക",
+    },
+    explanation: {
+      en: "Give way to traffic already in the circle and signal before exiting.",
+      ml: "വൃത്തത്തിനുള്ളിലുള്ള വാഹനങ്ങൾക്ക് വഴിനൽകി പുറത്തുകടക്കുമ്പോൾ സിഗ്നൽ നൽകുക.",
+    },
+    example: { en: "Large town junctions.", ml: "വലിയ പട്ടണ ജംഗ്ഷനുകൾ." },
+    svg: mandatoryCircle(
+      `<path d="M100 52a48 48 0 1 1-42 72" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"/><path d="M54 124l-8-36 34 13z" fill="#fff"/>`,
+    ),
+  },
 ];
 
 export const SIGN_CATEGORIES: { value: SignCategory | "all"; en: string; ml: string }[] = [
@@ -597,4 +740,90 @@ export const SIGN_CATEGORIES: { value: SignCategory | "all"; en: string; ml: str
   { value: "signal", en: "Signals", ml: "സിഗ്നലുകൾ" },
 ];
 
+const categoryWords = (category: SignCategory) =>
+  category === "prohibitory" ? "regulatory, mandatory, safety" : category;
+
+export const enrichedSign = (
+  sign: Sign,
+): Required<
+  Pick<
+    Sign,
+    | "keywords"
+    | "whereUsed"
+    | "whyImportant"
+    | "drivingTips"
+    | "commonMistakes"
+    | "keralaTestNote"
+    | "memoryTrick"
+    | "relatedSignIds"
+    | "quiz"
+  >
+> => ({
+  keywords: [sign.name.en, sign.meaning.en, categoryWords(sign.category), sign.example.en]
+    .join(" ")
+    .toLowerCase()
+    .split(/[\s,/-]+/),
+  whereUsed: sign.whereUsed ?? sign.example,
+  whyImportant: sign.whyImportant ?? {
+    en: `${sign.name.en} prevents confusion and helps drivers react early in Kerala's busy mixed traffic.`,
+    ml: `${sign.name.ml} തിരക്കേറിയ കേരള റോഡുകളിൽ ഡ്രൈവർമാർ നേരത്തേ പ്രതികരിക്കാൻ സഹായിക്കുന്നു.`,
+  },
+  drivingTips: sign.drivingTips ?? {
+    en: [
+      sign.explanation.en,
+      "Check mirrors, reduce speed early and obey the sign before you reach it.",
+    ],
+    ml: [
+      sign.explanation.ml,
+      "മിറർ പരിശോധിച്ച് വേഗത മുൻകൂട്ടി കുറച്ച് ചിഹ്നം എത്തും മുമ്പ് പാലിക്കുക.",
+    ],
+  },
+  commonMistakes: sign.commonMistakes ?? {
+    en: [
+      "Not reducing speed early enough.",
+      "Remembering the picture but forgetting the required driver action.",
+    ],
+    ml: ["വേഗത നേരത്തേ കുറയ്ക്കാത്തത്.", "ചിത്രം ഓർത്തിട്ടും ചെയ്യേണ്ട നടപടി മറക്കുന്നത്."],
+  },
+  keralaTestNote: sign.keralaTestNote ?? {
+    en: `In the Kerala learner test, focus on the sign shape, colour and the exact meaning: ${sign.meaning.en}.`,
+    ml: `കേരള ലേണർ ടെസ്റ്റിൽ രൂപം, നിറം, കൃത്യമായ അർത്ഥം ശ്രദ്ധിക്കുക: ${sign.meaning.ml}.`,
+  },
+  memoryTrick: sign.memoryTrick ?? {
+    en: `${sign.category === "warning" ? "Triangle means think ahead" : sign.category === "informatory" ? "Blue board gives useful information" : sign.category === "mandatory" ? "Blue circle means must do" : "Red circle means restriction"}: ${sign.name.en}.`,
+    ml: `${sign.category === "warning" ? "ത്രികോണം മുന്നറിയിപ്പ്" : sign.category === "informatory" ? "നീല ബോർഡ് വിവരം" : sign.category === "mandatory" ? "നീല വൃത്തം നിർബന്ധം" : "ചുവന്ന വൃത്തം നിയന്ത്രണം"}: ${sign.name.ml}.`,
+  },
+  relatedSignIds:
+    sign.relatedSignIds ??
+    SIGNS.filter((s) => s.id !== sign.id && s.category === sign.category)
+      .slice(0, 3)
+      .map((s) => s.id),
+  quiz: sign.quiz ?? {
+    question: {
+      en: `What should you do when you see the ${sign.name.en} sign?`,
+      ml: `${sign.name.ml} കണ്ടാൽ എന്ത് ചെയ്യണം?`,
+    },
+    options: {
+      en: [
+        sign.meaning.en,
+        "Ignore it if the road is empty",
+        "Increase speed",
+        "Stop only at night",
+      ],
+      ml: [
+        sign.meaning.ml,
+        "റോഡ് ശൂന്യമെങ്കിൽ അവഗണിക്കുക",
+        "വേഗത കൂട്ടുക",
+        "രാത്രിയിൽ മാത്രം നിർത്തുക",
+      ],
+    },
+    answer: 0,
+    explanation: sign.explanation,
+  },
+});
+
 export const getSign = (id: string) => SIGNS.find((s) => s.id === id);
+export const getRelatedSigns = (sign: Sign) =>
+  enrichedSign(sign)
+    .relatedSignIds.map((id) => getSign(id))
+    .filter(Boolean) as Sign[];
