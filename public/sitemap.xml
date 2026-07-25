@@ -43,6 +43,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://keralam-learn-smart.vercel.app/booking/confirmation</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://keralam-learn-smart.vercel.app/booking/history</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://keralam-learn-smart.vercel.app/category/defensive-driving</loc>
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -127,6 +139,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://keralam-learn-smart.vercel.app/checkout</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://keralam-learn-smart.vercel.app/contact</loc>
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -187,6 +205,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://keralam-learn-smart.vercel.app/invoice</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://keralam-learn-smart.vercel.app/login</loc>
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -199,7 +223,19 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://keralam-learn-smart.vercel.app/payment/failed</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://keralam-learn-smart.vercel.app/payment/success</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://keralam-learn-smart.vercel.app/pricing</loc>
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

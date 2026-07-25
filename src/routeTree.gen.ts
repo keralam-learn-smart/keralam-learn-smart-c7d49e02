@@ -19,8 +19,10 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReportIssueRouteImport } from './routes/report-issue'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as MockTestsRouteImport } from './routes/mock-tests'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as InvoiceRouteImport } from './routes/invoice'
 import { Route as HelpSupportRouteImport } from './routes/help-support'
 import { Route as FeeCalculatorRouteImport } from './routes/fee-calculator'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -31,6 +33,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CopyrightRouteImport } from './routes/copyright'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as AuthErrorRouteImport } from './routes/auth-error'
 import { Route as ApplicationTrackingRouteImport } from './routes/application-tracking'
 import { Route as AiAssistantRouteImport } from './routes/ai-assistant'
@@ -42,7 +45,10 @@ import { Route as QuizIndexRouteImport } from './routes/quiz.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as QuizSetIdRouteImport } from './routes/quiz.$setId'
 import { Route as PaymentSuccessRouteImport } from './routes/payment.success'
+import { Route as PaymentFailedRouteImport } from './routes/payment.failed'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as BookingHistoryRouteImport } from './routes/booking.history'
+import { Route as BookingConfirmationRouteImport } from './routes/booking.confirmation'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
 import { Route as AuthForgotPasswordRouteImport } from './routes/auth.forgot-password'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
@@ -99,6 +105,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MockTestsRoute = MockTestsRouteImport.update({
   id: '/mock-tests',
   path: '/mock-tests',
@@ -107,6 +118,11 @@ const MockTestsRoute = MockTestsRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoiceRoute = InvoiceRouteImport.update({
+  id: '/invoice',
+  path: '/invoice',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HelpSupportRoute = HelpSupportRouteImport.update({
@@ -157,6 +173,11 @@ const CookiePolicyRoute = CookiePolicyRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthErrorRoute = AuthErrorRouteImport.update({
@@ -213,9 +234,24 @@ const PaymentSuccessRoute = PaymentSuccessRouteImport.update({
   path: '/payment/success',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PaymentFailedRoute = PaymentFailedRouteImport.update({
+  id: '/payment/failed',
+  path: '/payment/failed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
   id: '/category/$slug',
   path: '/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingHistoryRoute = BookingHistoryRouteImport.update({
+  id: '/booking/history',
+  path: '/booking/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingConfirmationRoute = BookingConfirmationRouteImport.update({
+  id: '/booking/confirmation',
+  path: '/booking/confirmation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
@@ -252,6 +288,7 @@ export interface FileRoutesByFullPath {
   '/ai-assistant': typeof AiAssistantRoute
   '/application-tracking': typeof ApplicationTrackingRoute
   '/auth-error': typeof AuthErrorRoute
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
@@ -262,8 +299,10 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
+  '/invoice': typeof InvoiceRoute
   '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
@@ -278,7 +317,10 @@ export interface FileRoutesByFullPath {
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/booking/confirmation': typeof BookingConfirmationRoute
+  '/booking/history': typeof BookingHistoryRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/payment/failed': typeof PaymentFailedRoute
   '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/auth/': typeof AuthIndexRoute
@@ -292,6 +334,7 @@ export interface FileRoutesByTo {
   '/ai-assistant': typeof AiAssistantRoute
   '/application-tracking': typeof ApplicationTrackingRoute
   '/auth-error': typeof AuthErrorRoute
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
@@ -302,8 +345,10 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
+  '/invoice': typeof InvoiceRoute
   '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
@@ -318,7 +363,10 @@ export interface FileRoutesByTo {
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/booking/confirmation': typeof BookingConfirmationRoute
+  '/booking/history': typeof BookingHistoryRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/payment/failed': typeof PaymentFailedRoute
   '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/auth': typeof AuthIndexRoute
@@ -334,6 +382,7 @@ export interface FileRoutesById {
   '/ai-assistant': typeof AiAssistantRoute
   '/application-tracking': typeof ApplicationTrackingRoute
   '/auth-error': typeof AuthErrorRoute
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
@@ -344,8 +393,10 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/fee-calculator': typeof FeeCalculatorRoute
   '/help-support': typeof HelpSupportRoute
+  '/invoice': typeof InvoiceRoute
   '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
@@ -360,7 +411,10 @@ export interface FileRoutesById {
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/booking/confirmation': typeof BookingConfirmationRoute
+  '/booking/history': typeof BookingHistoryRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/payment/failed': typeof PaymentFailedRoute
   '/payment/success': typeof PaymentSuccessRoute
   '/quiz/$setId': typeof QuizSetIdRoute
   '/auth/': typeof AuthIndexRoute
@@ -376,6 +430,7 @@ export interface FileRouteTypes {
     | '/ai-assistant'
     | '/application-tracking'
     | '/auth-error'
+    | '/checkout'
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
@@ -386,8 +441,10 @@ export interface FileRouteTypes {
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
+    | '/invoice'
     | '/login'
     | '/mock-tests'
+    | '/pricing'
     | '/privacy'
     | '/refund-policy'
     | '/report-issue'
@@ -402,7 +459,10 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/auth/forgot-password'
     | '/auth/reset-password'
+    | '/booking/confirmation'
+    | '/booking/history'
     | '/category/$slug'
+    | '/payment/failed'
     | '/payment/success'
     | '/quiz/$setId'
     | '/auth/'
@@ -416,6 +476,7 @@ export interface FileRouteTypes {
     | '/ai-assistant'
     | '/application-tracking'
     | '/auth-error'
+    | '/checkout'
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
@@ -426,8 +487,10 @@ export interface FileRouteTypes {
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
+    | '/invoice'
     | '/login'
     | '/mock-tests'
+    | '/pricing'
     | '/privacy'
     | '/refund-policy'
     | '/report-issue'
@@ -442,7 +505,10 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/auth/forgot-password'
     | '/auth/reset-password'
+    | '/booking/confirmation'
+    | '/booking/history'
     | '/category/$slug'
+    | '/payment/failed'
     | '/payment/success'
     | '/quiz/$setId'
     | '/auth'
@@ -457,6 +523,7 @@ export interface FileRouteTypes {
     | '/ai-assistant'
     | '/application-tracking'
     | '/auth-error'
+    | '/checkout'
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
@@ -467,8 +534,10 @@ export interface FileRouteTypes {
     | '/faq'
     | '/fee-calculator'
     | '/help-support'
+    | '/invoice'
     | '/login'
     | '/mock-tests'
+    | '/pricing'
     | '/privacy'
     | '/refund-policy'
     | '/report-issue'
@@ -483,7 +552,10 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/auth/forgot-password'
     | '/auth/reset-password'
+    | '/booking/confirmation'
+    | '/booking/history'
     | '/category/$slug'
+    | '/payment/failed'
     | '/payment/success'
     | '/quiz/$setId'
     | '/auth/'
@@ -499,6 +571,7 @@ export interface RootRouteChildren {
   AiAssistantRoute: typeof AiAssistantRoute
   ApplicationTrackingRoute: typeof ApplicationTrackingRoute
   AuthErrorRoute: typeof AuthErrorRoute
+  CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   CopyrightRoute: typeof CopyrightRoute
@@ -509,8 +582,10 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   FeeCalculatorRoute: typeof FeeCalculatorRoute
   HelpSupportRoute: typeof HelpSupportRoute
+  InvoiceRoute: typeof InvoiceRoute
   LoginRoute: typeof LoginRoute
   MockTestsRoute: typeof MockTestsRoute
+  PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
   ReportIssueRoute: typeof ReportIssueRoute
@@ -524,7 +599,10 @@ export interface RootRouteChildren {
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute
+  BookingConfirmationRoute: typeof BookingConfirmationRoute
+  BookingHistoryRoute: typeof BookingHistoryRoute
   CategorySlugRoute: typeof CategorySlugRoute
+  PaymentFailedRoute: typeof PaymentFailedRoute
   PaymentSuccessRoute: typeof PaymentSuccessRoute
   QuizSetIdRoute: typeof QuizSetIdRoute
   AuthIndexRoute: typeof AuthIndexRoute
@@ -604,6 +682,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mock-tests': {
       id: '/mock-tests'
       path: '/mock-tests'
@@ -616,6 +701,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoice': {
+      id: '/invoice'
+      path: '/invoice'
+      fullPath: '/invoice'
+      preLoaderRoute: typeof InvoiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/help-support': {
@@ -686,6 +778,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth-error': {
@@ -765,11 +864,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PaymentSuccessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/payment/failed': {
+      id: '/payment/failed'
+      path: '/payment/failed'
+      fullPath: '/payment/failed'
+      preLoaderRoute: typeof PaymentFailedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/category/$slug': {
       id: '/category/$slug'
       path: '/category/$slug'
       fullPath: '/category/$slug'
       preLoaderRoute: typeof CategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking/history': {
+      id: '/booking/history'
+      path: '/booking/history'
+      fullPath: '/booking/history'
+      preLoaderRoute: typeof BookingHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking/confirmation': {
+      id: '/booking/confirmation'
+      path: '/booking/confirmation'
+      fullPath: '/booking/confirmation'
+      preLoaderRoute: typeof BookingConfirmationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/reset-password': {
@@ -829,6 +949,7 @@ const rootRouteChildren: RootRouteChildren = {
   AiAssistantRoute: AiAssistantRoute,
   ApplicationTrackingRoute: ApplicationTrackingRoute,
   AuthErrorRoute: AuthErrorRoute,
+  CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   CopyrightRoute: CopyrightRoute,
@@ -839,8 +960,10 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   FeeCalculatorRoute: FeeCalculatorRoute,
   HelpSupportRoute: HelpSupportRoute,
+  InvoiceRoute: InvoiceRoute,
   LoginRoute: LoginRoute,
   MockTestsRoute: MockTestsRoute,
+  PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   RefundPolicyRoute: RefundPolicyRoute,
   ReportIssueRoute: ReportIssueRoute,
@@ -854,7 +977,10 @@ const rootRouteChildren: RootRouteChildren = {
   AuthCallbackRoute: AuthCallbackRoute,
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
+  BookingConfirmationRoute: BookingConfirmationRoute,
+  BookingHistoryRoute: BookingHistoryRoute,
   CategorySlugRoute: CategorySlugRoute,
+  PaymentFailedRoute: PaymentFailedRoute,
   PaymentSuccessRoute: PaymentSuccessRoute,
   QuizSetIdRoute: QuizSetIdRoute,
   AuthIndexRoute: AuthIndexRoute,

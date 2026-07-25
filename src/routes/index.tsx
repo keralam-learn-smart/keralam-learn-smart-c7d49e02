@@ -22,6 +22,7 @@ import {
   Timer,
   Trophy,
 } from "lucide-react";
+import { useMemo, useState } from "react";
 import { CATEGORIES } from "@/data/categories";
 import { SIGNS } from "@/data/signs";
 import { POLICE_SIGNALS } from "@/data/police-signals";
@@ -265,6 +266,43 @@ function Index() {
   const featuredSign = SIGNS[rotationIndex % SIGNS.length];
   const featuredSignal = POLICE_SIGNALS[rotationIndex % POLICE_SIGNALS.length];
   const todayQuestion = QUESTIONS[rotationIndex % QUESTIONS.length];
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchResults = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase();
+    if (!q) return [];
+    const results = [
+      ...SIGNS.map((sign) => ({
+        title: sign.name.en,
+        type: "Traffic Sign",
+        text: `${sign.meaning.en} ${sign.explanation.en} ${(sign.keywords ?? []).join(" ")}`,
+        to: "/category/$slug",
+        slug: "traffic-signs",
+      })),
+      ...POLICE_SIGNALS.map((signal) => ({
+        title: signal.name.en,
+        type: "Police Hand Signal",
+        text: `${signal.meaning.en} ${signal.usage.en} ${signal.examNote.en}`,
+        to: "/category/$slug",
+        slug: "police-hand-signals",
+      })),
+      ...QUESTIONS.slice(0, 160).map((question) => ({
+        title: question.question.en,
+        type: "Learner Question",
+        text: `${question.options.map((o) => o.en).join(" ")} ${question.explanation.en}`,
+        to: "/quiz",
+      })),
+      ...CATEGORIES.map((category) => ({
+        title: category.name.en,
+        type: category.slug.includes("markings") ? "Road Marking" : "Driving Topic",
+        text: `${category.desc.en} ${category.content.en}`,
+        to: "/category/$slug",
+        slug: category.slug,
+      })),
+    ];
+    return results
+      .filter((item) => `${item.title} ${item.type} ${item.text}`.toLowerCase().includes(q))
+      .slice(0, 8);
+  }, [searchTerm]);
 
   return (
     <SiteLayout>
@@ -340,6 +378,53 @@ function Index() {
         </section>
 
         <AdUnit format="auto" className="my-4" />
+
+        <section className="mb-6" aria-labelledby="site-search-title">
+          <Card className="p-5">
+            <h2 id="site-search-title" className={`text-xl font-bold sm:text-2xl ${ml}`}>
+              {lang === "en" ? "Fast Study Search" : "വേഗത്തിലുള്ള പഠന തിരച്ചിൽ"}
+            </h2>
+            <p className={`mt-1 text-sm text-muted-foreground ${ml}`}>
+              {lang === "en"
+                ? "Search traffic signs, road rules, police hand signals, road markings, learner questions and driving topics."
+                : "ചിഹ്നങ്ങൾ, റോഡ് നിയമങ്ങൾ, പോലീസ് സിഗ്നലുകൾ, മാർക്കിംഗുകൾ, ചോദ്യങ്ങൾ, ഡ്രൈവിംഗ് വിഷയങ്ങൾ തിരയുക."}
+            </p>
+            <input
+              aria-label="Search all learning topics"
+              className="mt-4 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm"
+              placeholder="Try: zebra crossing, hand signal, helmet, overtaking, yellow light"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+            {searchTerm ? (
+              <div className="mt-4 grid gap-2 sm:grid-cols-2" aria-live="polite">
+                {searchResults.length ? (
+                  searchResults.map((result) => (
+                    <Link
+                      key={`${result.type}-${result.title}`}
+                      to={result.to}
+                      params={result.slug ? { slug: result.slug } : undefined}
+                      className="rounded-xl border bg-card p-3 transition hover:border-primary hover:shadow-sm"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                        {result.type}
+                      </p>
+                      <h3 className="mt-1 line-clamp-2 font-semibold">{result.title}</h3>
+                      <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
+                        {result.text}
+                      </p>
+                    </Link>
+                  ))
+                ) : (
+                  <p className="rounded-xl bg-muted p-4 text-sm text-muted-foreground">
+                    No exact match. Try a shorter term such as sign, rule, marking, police or
+                    licence.
+                  </p>
+                )}
+              </div>
+            ) : null}
+          </Card>
+        </section>
 
         <div className="mb-6 flex items-end justify-between gap-3">
           <div>
