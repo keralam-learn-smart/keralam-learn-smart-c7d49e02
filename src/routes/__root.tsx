@@ -15,7 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteProvider } from "../lib/site-context";
 import { AuthProvider } from "../lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
-import { createOpenGraphMeta, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { createSeoHead } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -78,37 +78,43 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Traffic Tips — Kerala RTO Learning & Test Platform" },
-      {
-        name: "description",
-        content:
-          "Bilingual (English & Malayalam) Kerala RTO learning platform for just ₹45: traffic signs, signals, road rules, 500+ practice questions, 20 mock tests and AI tutor.",
-      },
-      { name: "author", content: "Traffic Tips" },
-      { name: "theme-color", content: "#F26B1D" },
-      ...createOpenGraphMeta({
-        title: "Traffic Tips — Kerala RTO Learning & Test Platform",
-        description:
-          "Bilingual Kerala RTO learning, mock tests and AI tutor for the Learner Licence exam.",
-      }),
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "preconnect", href: "https://www.googletagmanager.com" },
-      { rel: "preconnect", href: "https://pagead2.googlesyndication.com" },
-    ],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(organizationJsonLd) },
-      { type: "application/ld+json", children: JSON.stringify(websiteJsonLd) },
-    ],
-  }),
+  head: () => {
+    const seo = createSeoHead({
+      title: "Traffic Tips — Kerala RTO Learning & Test Platform",
+      description:
+        "Bilingual (English & Malayalam) Kerala RTO learning platform for just ₹45: traffic signs, signals, road rules, 500+ practice questions, 20 mock tests and AI tutor.",
+      breadcrumbs: [{ name: "Home", path: "/" }],
+      faq: [
+        {
+          question: "What is Traffic Tips?",
+          answer:
+            "Traffic Tips is a bilingual Kerala RTO learner licence study platform with practice questions, mock tests, road rules and an AI tutor.",
+        },
+        {
+          question: "Does Traffic Tips support Malayalam?",
+          answer: "Yes. Core learning content is available in English and Malayalam.",
+        },
+      ],
+    });
+
+    return {
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        ...seo.meta,
+      ],
+      links: [
+        {
+          rel: "stylesheet",
+          href: appCss,
+        },
+        ...seo.links,
+        { rel: "preconnect", href: "https://www.googletagmanager.com" },
+        { rel: "preconnect", href: "https://pagead2.googlesyndication.com" },
+      ],
+      scripts: seo.scripts,
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
