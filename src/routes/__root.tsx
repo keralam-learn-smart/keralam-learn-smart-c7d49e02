@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteProvider } from "../lib/site-context";
 import { AuthProvider } from "../lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
+import { createOpenGraphMeta, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -89,25 +90,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Traffic Tips" },
       { name: "theme-color", content: "#F26B1D" },
-      { property: "og:title", content: "Traffic Tips — Kerala RTO Learning & Test Platform" },
-      {
-        property: "og:description",
-        content:
+      ...createOpenGraphMeta({
+        title: "Traffic Tips — Kerala RTO Learning & Test Platform",
+        description:
           "Bilingual Kerala RTO learning, mock tests and AI tutor for the Learner Licence exam.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Traffic Tips" },
-      {
-        name: "twitter:description",
-        content: "Bilingual Kerala RTO learning, mock tests and AI tutor.",
-      },
+      }),
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "preconnect", href: "https://www.googletagmanager.com" },
+      { rel: "preconnect", href: "https://pagead2.googlesyndication.com" },
+    ],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(organizationJsonLd) },
+      { type: "application/ld+json", children: JSON.stringify(websiteJsonLd) },
     ],
   }),
   shellComponent: RootShell,

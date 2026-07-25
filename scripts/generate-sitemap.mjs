@@ -10,6 +10,22 @@ const ROOT = join(__dirname, "..");
 const ROUTES_DIR = join(ROOT, "src", "routes");
 const PUBLIC_DIR = join(ROOT, "public");
 const SITE_URL = "https://keralam-learn-smart.vercel.app";
+const CATEGORY_SLUGS = [
+  "traffic-signs",
+  "traffic-signals",
+  "police-hand-signals",
+  "road-rules",
+  "road-markings",
+  "learner-licence",
+  "driving-licence",
+  "vehicle-documents",
+  "insurance",
+  "penalties",
+  "road-safety",
+  "defensive-driving",
+  "first-aid",
+  "emergency",
+];
 
 // Route segments that must never appear in a public sitemap.
 const PRIVATE_SEGMENTS = new Set(["auth", "settings", "profile"]);
@@ -53,6 +69,10 @@ const routePaths = new Set();
 for (const file of walk(ROUTES_DIR)) {
   const path = toRoutePath(file);
   if (path !== null) routePaths.add(path);
+}
+
+for (const slug of CATEGORY_SLUGS) {
+  routePaths.add(`/category/${slug}`);
 }
 
 const urls = [...routePaths].sort((a, b) => (a === "/" ? -1 : b === "/" ? 1 : a.localeCompare(b)));

@@ -45,7 +45,7 @@ export function FeedbackDialog({
     }
     setBusy(true);
     try {
-      const { error } = await (supabase as any).from("feedback").insert({
+      const { error } = await supabase.from("feedback").insert({
         kind,
         rating: rating || null,
         email: email || null,
@@ -57,8 +57,8 @@ export function FeedbackDialog({
       setRating(0);
       setEmail("");
       setMessage("");
-    } catch (e: any) {
-      toast.error(e?.message || "Failed");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed");
     } finally {
       setBusy(false);
     }
