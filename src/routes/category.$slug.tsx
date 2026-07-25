@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { SiteLayout } from "@/components/site-layout";
 import { useSite } from "@/lib/site-context";
 import { AdUnit } from "@/components/ad-unit";
+import { absoluteUrl, breadcrumbJsonLd, createCanonicalLink, createOpenGraphMeta } from "@/lib/seo";
 
 type Lang = "en" | "ml";
 
@@ -21,14 +22,45 @@ export const Route = createFileRoute("/category/$slug")({
     if (!cat) throw notFound();
     return { cat };
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.cat.name.en} — Kerala RTO Learner Licence` },
-          { name: "description", content: loaderData.cat.desc.en },
-        ]
-      : [],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) return { meta: [] };
+
+    const title = `${loaderData.cat.name.en} — Kerala RTO Learner Licence`;
+    const description = `${loaderData.cat.desc.en}. Study in English and Malayalam with sample questions for the Kerala RTO learner licence exam.`;
+    const path = `/category/${loaderData.cat.slug}`;
+    const educationalJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      name: title,
+      description,
+      url: absoluteUrl(path),
+      inLanguage: ["en-IN", "ml-IN"],
+      educationalLevel: "Learner licence preparation",
+      learningResourceType: "Study guide",
+      about: loaderData.cat.name.en,
+    };
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...createOpenGraphMeta({ title, description, path, type: "article" }),
+      ],
+      links: [createCanonicalLink(path)],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: loaderData.cat.name.en, path },
+            ]),
+          ),
+        },
+        { type: "application/ld+json", children: JSON.stringify(educationalJsonLd) },
+      ],
+    };
+  },
   errorComponent: ({ error }) => (
     <div className="p-6 text-sm text-destructive">{error.message}</div>
   ),
@@ -137,6 +169,7 @@ function CategoryPage() {
                       {sign && (
                         <div
                           className="h-16 w-16 shrink-0"
+                          role="img"
                           aria-label={sign.name.en}
                           dangerouslySetInnerHTML={{ __html: sign.svg }}
                         />
@@ -255,6 +288,7 @@ function SignLibrary() {
                     <div className="flex gap-3">
                       <div
                         className="h-20 w-20 shrink-0"
+                        role="img"
                         aria-label={s.name.en}
                         dangerouslySetInnerHTML={{ __html: s.svg }}
                       />
@@ -331,6 +365,7 @@ function SignalLibrary() {
                     <div className="flex gap-3">
                       <div
                         className="h-28 w-16 shrink-0"
+                        role="img"
                         aria-label={s.name.en}
                         dangerouslySetInnerHTML={{ __html: s.svg }}
                       />
@@ -387,6 +422,7 @@ function PoliceLibrary() {
             <div className="flex gap-3">
               <div
                 className="h-28 w-24 shrink-0"
+                role="img"
                 aria-label={s.name.en}
                 dangerouslySetInnerHTML={{ __html: s.svg }}
               />

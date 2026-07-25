@@ -82,6 +82,50 @@ function QuizRunner() {
 
   const current = questions[idx];
 
+  // Reset state and timer on question change.
+  useEffect(() => {
+    if (finished || !current) return;
+    setSelected(null);
+    setRevealed(false);
+    setSecondsLeft(SECONDS_PER_QUESTION);
+  }, [idx, current, finished]);
+
+  // Countdown timer.
+  useEffect(() => {
+    if (finished || !current || revealed) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+      return;
+    }
+    timerRef.current = setInterval(() => {
+      setSecondsLeft((s) => {
+        if (s <= 1) {
+          // Time out: mark unanswered, reveal correct answer.
+          if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+          }
+          setAnswers((prev) => {
+            const next = prev.slice();
+            next[idx] = null;
+            return next;
+          });
+          setRevealed(true);
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [idx, current, revealed, finished]);
+
   if (requiresPayment && accessState !== "ok") {
     return (
       <SiteLayout>
@@ -129,50 +173,6 @@ function QuizRunner() {
       </SiteLayout>
     );
   }
-
-  // Reset state and timer on question change.
-  useEffect(() => {
-    if (finished || !current) return;
-    setSelected(null);
-    setRevealed(false);
-    setSecondsLeft(SECONDS_PER_QUESTION);
-  }, [idx, current, finished]);
-
-  // Countdown timer.
-  useEffect(() => {
-    if (finished || !current || revealed) {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-      return;
-    }
-    timerRef.current = setInterval(() => {
-      setSecondsLeft((s) => {
-        if (s <= 1) {
-          // Time out: mark unanswered, reveal correct answer.
-          if (timerRef.current) {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
-          }
-          setAnswers((prev) => {
-            const next = prev.slice();
-            next[idx] = null;
-            return next;
-          });
-          setRevealed(true);
-          return 0;
-        }
-        return s - 1;
-      });
-    }, 1000);
-    return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-  }, [idx, current, revealed, finished]);
 
   if (!questions.length) {
     return (

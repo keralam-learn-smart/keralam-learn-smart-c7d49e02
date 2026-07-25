@@ -6,24 +6,29 @@ import { Card } from "@/components/ui/card";
 import { SiteLayout } from "@/components/site-layout";
 import { useSite } from "@/lib/site-context";
 import { AdUnit } from "@/components/ad-unit";
+import { createCanonicalLink, createOpenGraphMeta, breadcrumbJsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Kerala RTO Learner Licence Practice — Signs, Signals & Mock Tests" },
-      {
-        name: "description",
-        content:
-          "Bilingual (English & Malayalam) Kerala RTO learner licence practice for just ₹45 — traffic signs, signals, road rules and mock tests.",
-      },
-      { property: "og:title", content: "Kerala RTO Learner Licence Practice" },
-      {
-        property: "og:description",
-        content:
-          "Bilingual learner licence prep for Kerala — signs, signals and mock tests in English & Malayalam.",
-      },
-    ],
-  }),
+  head: () => {
+    const title = "Kerala RTO Learner Licence Practice — Signs, Signals & Mock Tests";
+    const description =
+      "Bilingual (English & Malayalam) Kerala RTO learner licence practice for just ₹45 — traffic signs, signals, road rules and mock tests.";
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...createOpenGraphMeta({ title, description }),
+      ],
+      links: [createCanonicalLink("/")],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(breadcrumbJsonLd([{ name: "Home", path: "/" }])),
+        },
+      ],
+    };
+  },
   component: Index,
 });
 
