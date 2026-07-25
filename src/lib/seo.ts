@@ -1,5 +1,15 @@
 export const SITE_URL = "https://keralam-learn-smart.vercel.app";
 export const SITE_NAME = "Traffic Tips";
+export const SITE_AUTHOR = "Traffic Tips";
+export const SITE_THEME_COLOR = "#F26B1D";
+export const DEFAULT_KEYWORDS = [
+  "Kerala RTO learner licence",
+  "Kerala driving test",
+  "Malayalam traffic signs",
+  "RTO mock test Kerala",
+  "learner licence practice questions",
+  "Traffic Tips",
+];
 
 export const absoluteUrl = (path = "/") => {
   const normalized = path.startsWith("/") ? path : `/${path}`;
@@ -24,6 +34,8 @@ export const createOpenGraphMeta = ({
   { property: "og:type", content: type },
   { property: "og:url", content: absoluteUrl(path) },
   { property: "og:site_name", content: SITE_NAME },
+  { property: "og:locale", content: "en_IN" },
+  { property: "og:locale:alternate", content: "ml_IN" },
   { name: "twitter:card", content: "summary" },
   { name: "twitter:title", content: title },
   { name: "twitter:description", content: description },
@@ -71,3 +83,80 @@ export const breadcrumbJsonLd = (items: { name: string; path: string }[]) => ({
     item: absoluteUrl(item.path),
   })),
 });
+
+export const articleJsonLd = ({
+  title,
+  description,
+  path = "/",
+}: {
+  title: string;
+  description: string;
+  path?: string;
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  url: absoluteUrl(path),
+  author: { "@type": "Organization", name: SITE_AUTHOR, url: SITE_URL },
+  publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+  inLanguage: ["en-IN", "ml-IN"],
+});
+
+export const faqJsonLd = (items: { question: string; answer: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+});
+
+export const createSeoHead = ({
+  title,
+  description,
+  path = "/",
+  type = "website",
+  keywords = [],
+  robots = "index, follow",
+  breadcrumbs,
+  article = type === "article",
+  faq,
+}: {
+  title: string;
+  description: string;
+  path?: string;
+  type?: "website" | "article";
+  keywords?: string[];
+  robots?: string;
+  breadcrumbs?: { name: string; path: string }[];
+  article?: boolean;
+  faq?: { question: string; answer: string }[];
+}) => {
+  const jsonLd = [
+    breadcrumbs?.length ? breadcrumbJsonLd(breadcrumbs) : null,
+    article ? articleJsonLd({ title, description, path }) : null,
+    faq?.length ? faqJsonLd(faq) : null,
+    organizationJsonLd,
+    websiteJsonLd,
+  ].filter(Boolean);
+
+  return {
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { name: "keywords", content: [...DEFAULT_KEYWORDS, ...keywords].join(", ") },
+      { name: "robots", content: robots },
+      { name: "language", content: "English, Malayalam" },
+      { name: "author", content: SITE_AUTHOR },
+      { name: "theme-color", content: SITE_THEME_COLOR },
+      ...createOpenGraphMeta({ title, description, path, type }),
+    ],
+    links: [createCanonicalLink(path)],
+    scripts: jsonLd.map((schema) => ({
+      type: "application/ld+json",
+      children: JSON.stringify(schema),
+    })),
+  };
+};

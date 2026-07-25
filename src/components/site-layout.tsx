@@ -126,6 +126,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <a href="#main-content" className="skip-to-content">
+        {t("Skip to content", "ഉള്ളടക്കത്തിലേക്ക് കടക്കുക")}
+      </a>
       <header className="sticky top-0 z-30 border-b border-border bg-card/85 backdrop-blur supports-[backdrop-filter]:bg-card/70">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2.5 sm:px-4">
           <Sheet open={open} onOpenChange={setOpen}>
@@ -134,13 +137,17 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[88vw] max-w-sm overflow-y-auto p-0">
+            <SheetContent
+              side="left"
+              className="w-[88vw] max-w-sm overflow-y-auto p-0"
+              aria-label={t("Site navigation", "സൈറ്റ് നാവിഗേഷൻ")}
+            >
               <SheetHeader className="border-b border-border p-4">
                 <SheetTitle className={ml}>
                   {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
                 </SheetTitle>
               </SheetHeader>
-              <nav className="p-4">
+              <nav className="p-4" aria-label={t("Primary navigation", "പ്രധാന നാവിഗേഷൻ")}>
                 {NAV.map((g) => (
                   <div key={g.en} className="mb-4">
                     <p
@@ -272,7 +279,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </SheetContent>
           </Sheet>
 
-          <Link to="/" className="flex min-w-0 items-center gap-2">
+          <Link
+            to="/"
+            className="flex min-w-0 items-center gap-2"
+            aria-label={t("Traffic Tips home", "ട്രാഫിക് ടിപ്സ് ഹോം")}
+          >
             <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground shadow-sm">
               T
             </div>
@@ -285,13 +296,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1" tabIndex={-1}>
+        {children}
+      </main>
 
       <div className="mx-auto w-full max-w-6xl px-4">
         <AdUnit format="auto" className="mt-8 mb-0" />
       </div>
 
-      <footer className="mt-12 border-t border-border bg-card/50">
+      <footer
+        className="mt-12 border-t border-border bg-card/50"
+        aria-label={t("Footer", "ഫൂട്ടർ")}
+      >
         <div className="mx-auto max-w-6xl px-4 py-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
@@ -481,7 +497,13 @@ function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="ml-1 rounded-full" aria-label="Account">
           <Avatar className="h-8 w-8">
-            {profile?.avatar_url ? <AvatarImage src={profile.avatar_url} alt="" /> : null}
+            {profile?.avatar_url ? (
+              <AvatarImage
+                src={profile.avatar_url}
+                alt={t("Profile picture", "പ്രൊഫൈൽ ചിത്രം")}
+                loading="lazy"
+              />
+            ) : null}
             <AvatarFallback className="text-xs">{initials}</AvatarFallback>
           </Avatar>
         </Button>
