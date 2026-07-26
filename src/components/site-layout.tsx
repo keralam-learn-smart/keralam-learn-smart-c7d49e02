@@ -83,6 +83,16 @@ const NAV: NavGroup[] = [
     ],
   },
   {
+    en: "Access",
+    ml: "ആക്സസ്",
+    items: [
+      { to: "/pricing", en: "Pricing", ml: "വില" },
+      { to: "/checkout", en: "Checkout Preview", ml: "ചെക്ക്ഔട്ട് പ്രിവ്യൂ" },
+      { to: "/booking/history", en: "Booking History", ml: "ബുക്കിംഗ് ചരിത്രം" },
+      { to: "/invoice", en: "Invoice Layout", ml: "ഇൻവോയ്സ്" },
+    ],
+  },
+  {
     en: "About",
     ml: "കുറിച്ച്",
     items: [
@@ -377,6 +387,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                     </Link>
                   </li>
                 ))}
+                {NAV[4].items.map((it) => (
+                  <li key={it.to}>
+                    <Link to={it.to} className={`text-muted-foreground hover:text-primary ${ml}`}>
+                      {lang === "en" ? it.en : it.ml}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -400,7 +417,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
 
           <div className="mt-6 border-t border-border pt-4 text-center text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Traffic Tips. All Rights Reserved.
+            © 2026 Traffic Tips. All Rights Reserved.
           </div>
         </div>
       </footer>
