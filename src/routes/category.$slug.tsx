@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { CATEGORIES, getCategory } from "@/data/categories";
 import { QUESTIONS } from "@/data/questions";
@@ -120,6 +120,10 @@ function CategoryPage() {
   const showSignLibrary = cat.slug === "traffic-signs";
   const showSignalLibrary = cat.slug === "traffic-signals";
   const showPoliceLibrary = cat.slug === "police-hand-signals";
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, [cat.slug]);
 
   return (
     <SiteLayout>
