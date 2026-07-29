@@ -242,10 +242,19 @@ function Index() {
                 <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
                   {tr("home.hero.eyebrow")}
                 </p>
-                <h2 className="mt-5 text-[clamp(2rem,10vw,3.75rem)] font-black leading-[1.16] sm:leading-tight">
-                  {tr("home.hero.title")}
+                <h2 className="mt-5 text-[clamp(1.6rem,7.5vw,2rem)] font-extrabold leading-[1.2] tracking-tight text-wrap sm:text-[clamp(2rem,10vw,3.75rem)] sm:font-black sm:leading-tight sm:tracking-normal">
+                  {lang === "ml" ? (
+                    <>
+                      <span className="block whitespace-nowrap sm:inline">
+                        ആത്മവിശ്വാസത്തോടെ<span className="hidden sm:inline"> </span>
+                      </span>
+                      <span className="block whitespace-nowrap sm:inline">ഡ്രൈവിംഗ് പഠിക്കൂ</span>
+                    </>
+                  ) : (
+                    tr("home.hero.title")
+                  )}
                 </h2>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/85 sm:text-lg">
+                <p className="mt-5 max-w-2xl text-[0.9rem] leading-7 text-white/85 sm:text-lg sm:leading-8">
                   {tr("home.hero.subtitle")}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
