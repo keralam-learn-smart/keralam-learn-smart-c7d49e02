@@ -1,5 +1,9 @@
 {
-  "language": { "label": "Language", "malayalam": "മലയാളം", "english": "English" },
+  "language": {
+    "label": "Language",
+    "malayalam": "മലയാളം",
+    "english": "English"
+  },
   "home": {
     "welcome": {
       "title": "How should you start learning to drive?",
@@ -37,10 +41,6 @@
     "benefits": {
       "title": "Why choose this academy?",
       "subtitle": "Safety, confidence, and clear guidance — the foundations of becoming a better driver."
-    },
-    "testimonials": {
-      "title": "Student Testimonials",
-      "subtitle": "Clear instruction and practical guidance help learners build real confidence."
     },
     "faq": {
       "title": "Frequently Asked Questions",
