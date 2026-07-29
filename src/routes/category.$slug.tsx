@@ -327,8 +327,8 @@ function SignLibrary() {
     const text = `Kerala RTO sign: ${name}`;
     if (typeof navigator !== "undefined" && "share" in navigator)
       await navigator.share({ title: text, text });
-    else if (typeof navigator !== "undefined" && navigator.clipboard)
-      await navigator.clipboard.writeText(text);
+    else if (typeof window !== "undefined" && window.navigator.clipboard)
+      await window.navigator.clipboard.writeText(text);
   };
 
   return (

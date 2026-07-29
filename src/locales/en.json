@@ -1,0 +1,71 @@
+{
+  "language": { "label": "Language", "malayalam": "മലയാളം", "english": "English" },
+  "home": {
+    "welcome": {
+      "title": "How should you start learning to drive?",
+      "paragraphs": [
+        "Deciding to learn driving is an important step. When you begin with the right understanding and a clear plan, the process becomes far less difficult.",
+        "The first thing to do is look for driving schools near you. Check whether the institution is approved, whether the instructors are experienced, and review the fees and course structure before choosing a school. A good school makes the entire learning experience much easier.",
+        "To get a licence, you need to pass two tests. The first is the learner’s licence test, a theory test that checks your knowledge of road rules and signals. After that comes the driving test, a practical assessment of whether you can drive a vehicle safely. With proper practice, both tests can be cleared confidently.",
+        "Driving lessons usually happen in two parts. One is classroom learning, where road rules, traffic signals, and vehicle controls are explained. The second is practical driving, where you learn to drive on real roads under a trainer’s supervision. This helps build confidence and correct mistakes early.",
+        "If you have limited time, the theory portion can also be studied online from home at your convenience. However, the practical part requires the support of a qualified instructor.",
+        "Most importantly, learn to drive safely. Safe driving matters not only for your own protection, but also for everyone else on the road."
+      ]
+    },
+    "hero": {
+      "eyebrow": "Kerala RTO Learning Platform",
+      "title": "Learn driving with confidence",
+      "subtitle": "Learner licence preparation, road rules, traffic signs, mock tests, and safe-driving guidance brought together in a premium learning experience.",
+      "primary": "Start Mock Test",
+      "secondary": "View Courses",
+      "tertiary": "Contact Us"
+    },
+    "search": {
+      "title": "Fast Study Search",
+      "subtitle": "Search signs, rules, courses, and frequently asked questions.",
+      "placeholder": "Try: zebra crossing, helmet, learner test",
+      "empty": "No results found. Try a shorter learning term."
+    },
+    "categories": {
+      "title": "Core Categories",
+      "subtitle": "Choose the key areas of driving education."
+    },
+    "courses": {
+      "title": "Courses",
+      "subtitle": "Learning packs for beginners, test-ready learners, and drivers who want to improve safety skills."
+    },
+    "benefits": {
+      "title": "Why choose this academy?",
+      "subtitle": "Safety, confidence, and clear guidance — the foundations of becoming a better driver."
+    },
+    "testimonials": {
+      "title": "Student Testimonials",
+      "subtitle": "Clear instruction and practical guidance help learners build real confidence."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "What to know before you begin learning to drive."
+    },
+    "contact": {
+      "title": "Ready to start learning?",
+      "subtitle": "Get help choosing the right course and preparing for your learner test.",
+      "name": "Name",
+      "phone": "Phone number",
+      "message": "Message",
+      "submit": "Send Enquiry"
+    },
+    "footer": {
+      "tagline": "Professional learning for safe and responsible driving.",
+      "rights": "© 2026 Traffic Tips. All Rights Reserved."
+    }
+  },
+  "common": {
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "premium": "Premium",
+    "duration": "Duration",
+    "level": "Level",
+    "fee": "Fee",
+    "included": "Included"
+  }
+}

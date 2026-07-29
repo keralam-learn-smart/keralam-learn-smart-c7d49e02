@@ -39,7 +39,7 @@ function QuizRunner() {
   const { setId } = Route.useParams();
   const { lang: initial } = Route.useSearch();
   const router = useRouter();
-  const [lang, setLang] = useState<Lang>(initial);
+  const [lang, setLang] = useState<Lang>(initial ?? "en");
   const ml = lang === "ml" ? "lang-ml" : "";
   const t = (s: { en: string; ml: string }) => s[lang];
 
