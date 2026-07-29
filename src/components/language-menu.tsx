@@ -8,10 +8,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Languages, Check } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useSite, LANGUAGES, type Lang } from "@/lib/site-context";
 
 export function LanguageMenu() {
   const { lang, setLang } = useSite();
+  const { t } = useTranslation();
   const current = LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0];
   return (
     <DropdownMenu>
@@ -20,14 +22,14 @@ export function LanguageMenu() {
           variant="outline"
           size="sm"
           className="h-9 rounded-full px-3 gap-1.5"
-          aria-label="Language"
+          aria-label={t("language.label")}
         >
           <Languages className="h-4 w-4" />
           <span className="text-sm font-medium">{current.code.toUpperCase()}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-44">
-        <DropdownMenuLabel>Language</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("language.label")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {LANGUAGES.map((l) => (
           <DropdownMenuItem key={l.code} onClick={() => setLang(l.code as Lang)}>

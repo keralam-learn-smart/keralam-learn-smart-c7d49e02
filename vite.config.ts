@@ -18,6 +18,13 @@ export default defineConfig({
     preset: "vercel",
   },
   vite: {
+    resolve: {
+      alias: {
+        i18next: "/src/vendor/i18next.ts",
+        "react-i18next": "/src/vendor/react-i18next.ts",
+        "i18next-browser-languagedetector": "/src/vendor/i18next-browser-languagedetector.ts",
+      },
+    },
     server: {
       host: "0.0.0.0",
       port: 5000,
