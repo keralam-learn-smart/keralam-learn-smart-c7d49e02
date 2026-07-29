@@ -224,7 +224,7 @@ function Index() {
               <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-orange-50 px-3 py-2 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-orange-600 sm:px-4 sm:text-xs sm:tracking-[0.2em]">
                 <Sparkles className="h-4 w-4" /> {tr("common.premium")}
               </span>
-              <h1 className="mt-5 max-w-4xl text-[clamp(1.875rem,9vw,3rem)] font-black leading-[1.18] tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.15]">
+              <h1 className="mt-5 max-w-4xl text-[clamp(1.55rem,7vw,2.35rem)] font-black leading-[1.2] tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.15]">
                 {tr("home.welcome.title")}
               </h1>
               <div className="mt-6 space-y-5 text-[0.98rem] leading-8 text-slate-700 sm:text-lg">
@@ -242,7 +242,7 @@ function Index() {
                 <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
                   {tr("home.hero.eyebrow")}
                 </p>
-                <h2 className="mt-5 text-[clamp(2rem,10vw,3.75rem)] font-black leading-[1.16] sm:leading-tight">
+                <h2 className="mt-5 text-[clamp(1.6rem,7.5vw,2.75rem)] font-black leading-[1.2] sm:text-[clamp(2rem,6vw,3.75rem)] sm:leading-tight">
                   {tr("home.hero.title")}
                 </h2>
                 <p className="mt-5 max-w-2xl text-base leading-8 text-white/85 sm:text-lg">
@@ -480,7 +480,7 @@ function SectionHeader({ id, title, subtitle }: { id?: string; title: string; su
       <p className="text-xs font-black uppercase tracking-[0.2em] text-orange-500 sm:text-sm sm:tracking-[0.25em]">
         Traffic Tips
       </p>
-      <h2 className="mt-2 text-[1.75rem] font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
+      <h2 className="mt-2 text-2xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
         {title}
       </h2>
       <p className="mt-3 leading-7 text-slate-600">{subtitle}</p>
