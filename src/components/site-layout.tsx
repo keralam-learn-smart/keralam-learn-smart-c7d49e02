@@ -33,6 +33,7 @@ import { ShareDialog } from "@/components/share-dialog";
 import { FollowDialog } from "@/components/follow-dialog";
 import { FeedbackDialog } from "@/components/feedback-dialog";
 import { AdUnit } from "@/components/ad-unit";
+import { LanguageMenu } from "@/components/language-menu";
 
 type NavItem = { to: string; en: string; ml: string };
 type NavGroup = { en: string; ml: string; items: NavItem[] };
@@ -301,6 +302,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </Link>
 
           <div className="ml-auto flex min-w-0 items-center gap-1">
+            <LanguageMenu />
             <UserMenu />
           </div>
         </div>

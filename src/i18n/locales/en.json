@@ -1,0 +1,81 @@
+{
+  "language": { "label": "Language" },
+  "home": {
+    "welcome": {
+      "eyebrow": "Premium driving academy starter guide",
+      "title": "How do you start learning to drive?",
+      "p1": "Deciding to learn driving is a big step. When you begin with the right understanding and a clear plan, it does not have to feel difficult.",
+      "p2": "The first thing to do is research nearby driving schools. Check whether the institution is approved, whether it has experienced instructors, and review the fee and course structure before fixing a school. Choosing a good school makes the learning experience much easier.",
+      "p3": "To get a licence, you must pass two tests. The first is the learner's licence test, a theory test that checks whether you know road rules and signals. After that comes the driving test, a practical test to confirm that you can drive safely. With proper practice, both can be cleared easily.",
+      "p4": "Driving lessons usually happen in two ways. One is classroom sessions, where road rules, traffic signals, and vehicle controls are taught. The second is practical driving, where you learn to drive on real roads under a trainer's supervision. This helps build confidence and correct mistakes.",
+      "p5": "If you have limited time, you can learn the theory part online from home at your convenience. However, practical training needs the support of a qualified instructor.",
+      "p6": "The most important thing is learning to drive safely — not just for your own safety, but also for everyone else on the road.",
+      "stat1": "Approved schools",
+      "stat2": "Theory + practical",
+      "stat3": "Safe habits first"
+    },
+    "hero": {
+      "badge": "Kerala RTO Official Syllabus",
+      "title": "Pass your Kerala RTO Learner Licence — first attempt",
+      "description": "Bilingual learning, 100+ traffic signs, 20 mock test sets with instant validation, and an AI tutor — just ₹45.",
+      "mock": "🚦 Start Mock Test",
+      "practice": "Practice Sets",
+      "ai": "Ask AI Tutor",
+      "unlock": "Unlock Full Access — ₹45 (one-time)"
+    },
+    "search": {
+      "title": "Fast Study Search",
+      "description": "Search traffic signs, road rules, police hand signals, road markings, learner questions and driving topics.",
+      "label": "Search all learning topics",
+      "placeholder": "Try: zebra crossing, hand signal, helmet, overtaking, yellow light",
+      "empty": "No exact match. Try a shorter term such as sign, rule, marking, police or licence."
+    },
+    "sections": {
+      "categories": "Browse Categories",
+      "categoriesDesc": "Tap any category for detailed learning content.",
+      "hub": "Kerala RTO Learning Hub",
+      "hubDesc": "Learn Kerala traffic rules, official road signs, driving techniques, learner licence preparation and road safety with detailed educational guides.",
+      "readMore": "Read More",
+      "featuredSign": "Featured Traffic Sign",
+      "featuredSignal": "Featured Police Hand Signal",
+      "question": "Today's RTO Question",
+      "reveal": "Reveal Answer",
+      "answer": "Answer:",
+      "practiceMore": "Practice More",
+      "safety": "Road Safety Tips",
+      "articles": "Latest Learning Articles",
+      "stats": "Learning Statistics",
+      "guidance": "Professional Driving Guidance",
+      "why": "Why Choose This Platform",
+      "faq": "FAQ Preview",
+      "allFaqs": "View All FAQs",
+      "cta": "Ready to Start Learning?",
+      "ctaDesc": "Practise Kerala RTO questions, revise lessons and unlock premium access when you are ready for complete preparation.",
+      "unlockPremium": "Unlock Premium"
+    }
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "siteNavigation": "Site navigation",
+    "primary": "Primary navigation",
+    "brand": "Traffic Tips",
+    "community": "Community",
+    "follow": "Follow Us",
+    "shareWebsite": "Share Website",
+    "feedback": "Feedback",
+    "reportIssue": "Report Issue",
+    "accountSettings": "Account & Settings",
+    "settings": "Settings",
+    "loginSignup": "Login / Sign Up",
+    "help": "Help & Support",
+    "legal": "Legal",
+    "footer": "Footer",
+    "signIn": "Sign In",
+    "share": "Share",
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "profile": "My Profile",
+    "signOut": "Sign Out"
+  }
+}

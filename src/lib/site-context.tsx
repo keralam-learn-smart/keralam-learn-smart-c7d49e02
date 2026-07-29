@@ -7,6 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useTranslation } from "react-i18next";
+import "@/i18n";
 
 export type Lang = "en" | "ml";
 
@@ -33,22 +35,27 @@ const LANG_KEY = "krm_lang";
 const DARK_KEY = "krm_dark";
 
 export function SiteProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const { i18n } = useTranslation();
+  const [lang, setLangState] = useState<Lang>("ml");
   const [dark, setDarkState] = useState<boolean>(false);
 
   // Hydrate from localStorage on mount (avoid SSR mismatch).
   useEffect(() => {
     try {
       const l = window.localStorage.getItem(LANG_KEY);
-      if (l && (LANG_VALUES as readonly string[]).includes(l)) setLangState(l as Lang);
+      const browserLang = navigator.language?.toLowerCase().startsWith("ml") ? "ml" : null;
+      const nextLang =
+        l && (LANG_VALUES as readonly string[]).includes(l) ? (l as Lang) : (browserLang ?? "ml");
+      setLangState(nextLang);
+      void i18n.changeLanguage(nextLang);
       const d = window.localStorage.getItem(DARK_KEY);
       const prefers =
         d === "1" || (d === null && window.matchMedia?.("(prefers-color-scheme: dark)").matches);
       setDarkState(!!prefers);
     } catch {
-      /* ignore */
+      void i18n.changeLanguage("ml");
     }
-  }, []);
+  }, [i18n]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -59,14 +66,24 @@ export function SiteProvider({ children }: { children: ReactNode }) {
     }
   }, [dark]);
 
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l);
-    try {
-      window.localStorage.setItem(LANG_KEY, l);
-    } catch {
-      /* ignore */
-    }
-  }, []);
+  const setLang = useCallback(
+    (l: Lang) => {
+      setLangState(l);
+      void i18n.changeLanguage(l);
+      document.documentElement.lang = l;
+      try {
+        window.localStorage.setItem(LANG_KEY, l);
+      } catch {
+        /* ignore */
+      }
+    },
+    [i18n],
+  );
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = "ltr";
+  }, [lang]);
 
   const value = useMemo<SiteCtx>(
     () => ({

@@ -23,6 +23,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CATEGORIES } from "@/data/categories";
 import { SIGNS } from "@/data/signs";
 import { POLICE_SIGNALS } from "@/data/police-signals";
@@ -253,6 +254,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { lang, t } = useSite();
+  const { t: tr } = useTranslation();
   const ml = lang === "ml" ? "lang-ml" : "";
 
   const features = [
@@ -270,7 +272,7 @@ function Index() {
   const searchResults = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
     if (!q) return [];
-    const results = [
+    const results: { title: string; type: string; text: string; to: string; slug?: string }[] = [
       ...SIGNS.map((sign) => ({
         title: sign.name.en,
         type: "Traffic Sign",
@@ -307,22 +309,56 @@ function Index() {
   return (
     <SiteLayout>
       <div className="mx-auto max-w-6xl px-4 py-6">
+        <section
+          className="mb-6 overflow-hidden rounded-3xl border border-white/30 bg-gradient-to-br from-card/95 via-background/90 to-secondary/15 p-4 shadow-2xl shadow-primary/10 backdrop-blur animate-in fade-in slide-in-from-bottom-4 duration-700 sm:p-6"
+          aria-labelledby="driving-welcome-title"
+        >
+          <div className="rounded-[1.35rem] border border-white/40 bg-white/55 p-5 shadow-xl backdrop-blur-xl dark:bg-white/10 sm:p-8">
+            <span
+              className={`inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary ring-1 ring-primary/15 ${ml}`}
+            >
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+              {tr("home.welcome.eyebrow")}
+            </span>
+            <h1
+              id="driving-welcome-title"
+              className={`mt-4 max-w-3xl text-3xl font-extrabold leading-tight text-foreground sm:text-4xl lg:text-5xl ${ml}`}
+            >
+              {tr("home.welcome.title")}
+            </h1>
+            <div
+              className={`mt-5 grid gap-4 text-sm leading-7 text-muted-foreground sm:text-base ${ml}`}
+            >
+              {["p1", "p2", "p3", "p4", "p5", "p6"].map((key) => (
+                <p key={key}>{tr(`home.welcome.${key}`)}</p>
+              ))}
+            </div>
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              {["stat1", "stat2", "stat3"].map((key) => (
+                <div
+                  key={key}
+                  className="rounded-2xl border border-primary/10 bg-background/70 p-4 text-center shadow-sm"
+                >
+                  <CheckCircle2 className="mx-auto h-5 w-5 text-primary" aria-hidden="true" />
+                  <p className={`mt-2 text-sm font-semibold ${ml}`}>{tr(`home.welcome.${key}`)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="mb-6 overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-6 text-primary-foreground shadow-lg sm:p-10">
           <span
             className={`inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur ${ml}`}
           >
             <Sparkles className="h-3 w-3" />
-            {lang === "en" ? "Kerala RTO Official Syllabus" : "കേരള RTO ഔദ്യോഗിക സിലബസ്"}
+            {tr("home.hero.badge")}
           </span>
           <h1 className={`mt-3 text-3xl font-extrabold leading-tight sm:text-4xl ${ml}`}>
-            {lang === "en"
-              ? "Pass your Kerala RTO Learner Licence — first attempt"
-              : "ആദ്യ ശ്രമത്തിൽ കേരള RTO ലേണർ ലൈസൻസ് നേടൂ"}
+            {tr("home.hero.title")}
           </h1>
           <p className={`mt-2 max-w-2xl text-sm opacity-90 sm:text-base ${ml}`}>
-            {lang === "en"
-              ? "Bilingual learning, 100+ traffic signs, 20 mock test sets with instant validation, and an AI tutor — just ₹45."
-              : "ദ്വിഭാഷാ പഠനം, 100+ ചിഹ്നങ്ങൾ, 20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ, AI ട്യൂട്ടർ — വെറും ₹45."}
+            {tr("home.hero.description")}
           </p>
           <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
             <Link to="/quiz/$setId" params={{ setId: "mock" }} className="w-full">
@@ -330,12 +366,12 @@ function Index() {
                 size="lg"
                 className="h-12 w-full bg-white text-primary shadow-md hover:bg-white/90"
               >
-                {lang === "en" ? "🚦 Start Mock Test" : "🚦 മോക്ക് ടെസ്റ്റ്"}
+                {tr("home.hero.mock")}
               </Button>
             </Link>
             <Link to="/quiz" className="w-full">
               <Button variant="secondary" size="lg" className="h-12 w-full">
-                {lang === "en" ? "Practice Sets" : "പരിശീലനം"}
+                {tr("home.hero.practice")}
               </Button>
             </Link>
             <Link to="/ai-assistant" className="w-full">
@@ -345,7 +381,7 @@ function Index() {
                 className="h-12 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               >
                 <Bot className="mr-1 h-4 w-4" />
-                {lang === "en" ? "Ask AI Tutor" : "AI ട്യൂട്ടറോട് ചോദിക്കൂ"}
+                {tr("home.hero.ai")}
               </Button>
             </Link>
           </div>
@@ -357,9 +393,7 @@ function Index() {
                 className="h-12 w-full rounded-full bg-yellow-400 text-black shadow-md hover:bg-yellow-300"
               >
                 <Lock className="mr-2 h-4 w-4" />
-                {lang === "en"
-                  ? "Unlock Full Access — ₹45 (one-time)"
-                  : "പൂർണ്ണ ആക്‌സസ് അൺലോക്ക് ചെയ്യൂ — ₹45"}
+                {tr("home.hero.unlock")}
               </Button>
             </Link>
           </div>
@@ -382,17 +416,15 @@ function Index() {
         <section className="mb-6" aria-labelledby="site-search-title">
           <Card className="p-5">
             <h2 id="site-search-title" className={`text-xl font-bold sm:text-2xl ${ml}`}>
-              {lang === "en" ? "Fast Study Search" : "വേഗത്തിലുള്ള പഠന തിരച്ചിൽ"}
+              {tr("home.search.title")}
             </h2>
             <p className={`mt-1 text-sm text-muted-foreground ${ml}`}>
-              {lang === "en"
-                ? "Search traffic signs, road rules, police hand signals, road markings, learner questions and driving topics."
-                : "ചിഹ്നങ്ങൾ, റോഡ് നിയമങ്ങൾ, പോലീസ് സിഗ്നലുകൾ, മാർക്കിംഗുകൾ, ചോദ്യങ്ങൾ, ഡ്രൈവിംഗ് വിഷയങ്ങൾ തിരയുക."}
+              {tr("home.search.description")}
             </p>
             <input
-              aria-label="Search all learning topics"
+              aria-label={tr("home.search.label")}
               className="mt-4 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm"
-              placeholder="Try: zebra crossing, hand signal, helmet, overtaking, yellow light"
+              placeholder={tr("home.search.placeholder")}
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
             />
@@ -417,8 +449,7 @@ function Index() {
                   ))
                 ) : (
                   <p className="rounded-xl bg-muted p-4 text-sm text-muted-foreground">
-                    No exact match. Try a shorter term such as sign, rule, marking, police or
-                    licence.
+                    {tr("home.search.empty")}
                   </p>
                 )}
               </div>
@@ -429,12 +460,10 @@ function Index() {
         <div className="mb-6 flex items-end justify-between gap-3">
           <div>
             <h2 className={`text-xl font-bold sm:text-2xl ${ml}`}>
-              {lang === "en" ? "Browse Categories" : "വിഭാഗങ്ങൾ"}
+              {tr("home.sections.categories")}
             </h2>
             <p className={`text-sm text-muted-foreground ${ml}`}>
-              {lang === "en"
-                ? "Tap any category for detailed learning content."
-                : "വിശദമായ പഠന ഉള്ളടക്കത്തിന് ഏതെങ്കിലും വിഭാഗം തിരഞ്ഞെടുക്കുക."}
+              {tr("home.sections.categoriesDesc")}
             </p>
           </div>
         </div>
@@ -469,12 +498,9 @@ function Index() {
           <div className="mb-6 flex items-end justify-between gap-3">
             <div>
               <h2 id="learning-hub-title" className={`text-xl font-bold sm:text-2xl ${ml}`}>
-                Kerala RTO Learning Hub
+                {tr("home.sections.hub")}
               </h2>
-              <p className={`text-sm text-muted-foreground ${ml}`}>
-                Learn Kerala traffic rules, official road signs, driving techniques, learner licence
-                preparation and road safety with detailed educational guides.
-              </p>
+              <p className={`text-sm text-muted-foreground ${ml}`}>{tr("home.sections.hubDesc")}</p>
             </div>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -494,13 +520,13 @@ function Index() {
                   {item.slug ? (
                     <Link to="/category/$slug" params={{ slug: item.slug }}>
                       <Button variant="secondary" className="w-full">
-                        Read More
+                        {tr("home.sections.readMore")}
                       </Button>
                     </Link>
                   ) : (
                     <Link to="/driving-guide">
                       <Button variant="secondary" className="w-full">
-                        Read More
+                        {tr("home.sections.readMore")}
                       </Button>
                     </Link>
                   )}
@@ -512,7 +538,7 @@ function Index() {
 
         <section className="mt-10 grid grid-cols-1 gap-3 lg:grid-cols-2">
           <Card className="p-5 transition hover:shadow-lg">
-            <h2 className="text-xl font-bold sm:text-2xl">Featured Traffic Sign</h2>
+            <h2 className="text-xl font-bold sm:text-2xl">{tr("home.sections.featuredSign")}</h2>
             <div className="mt-4 flex flex-col gap-4 sm:flex-row">
               <div
                 className="mx-auto grid h-40 w-40 shrink-0 place-items-center rounded-2xl bg-muted p-4"
@@ -544,7 +570,7 @@ function Index() {
             </div>
           </Card>
           <Card className="p-5 transition hover:shadow-lg">
-            <h2 className="text-xl font-bold sm:text-2xl">Featured Police Hand Signal</h2>
+            <h2 className="text-xl font-bold sm:text-2xl">{tr("home.sections.featuredSignal")}</h2>
             <div className="mt-4 flex flex-col gap-4 sm:flex-row">
               <div
                 className="mx-auto grid h-44 w-36 shrink-0 place-items-center overflow-hidden rounded-2xl bg-muted"
@@ -572,7 +598,7 @@ function Index() {
                   is clear.
                 </p>
                 <Link to="/category/$slug" params={{ slug: "police-hand-signals" }}>
-                  <Button className="mt-4">Read More</Button>
+                  <Button className="mt-4">{tr("home.sections.readMore")}</Button>
                 </Link>
               </div>
             </div>
@@ -586,7 +612,7 @@ function Index() {
                 <HelpCircle className="h-6 w-6" />
               </div>
               <div className="flex-1">
-                <h2 className="text-xl font-bold sm:text-2xl">Today's RTO Question</h2>
+                <h2 className="text-xl font-bold sm:text-2xl">{tr("home.sections.question")}</h2>
                 <p className="mt-2 font-medium">{todayQuestion.question.en}</p>
                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
                   {todayQuestion.options.map((option, index) => (
@@ -597,7 +623,7 @@ function Index() {
                 </div>
                 <details className="mt-4">
                   <summary className="cursor-pointer rounded-md bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground transition hover:opacity-90">
-                    Reveal Answer
+                    {tr("home.sections.reveal")}
                   </summary>
                   <p className="mt-3 text-sm">
                     <strong>Answer:</strong> {todayQuestion.options[todayQuestion.correct].en}
@@ -608,7 +634,7 @@ function Index() {
                 </details>
                 <Link to="/quiz">
                   <Button variant="secondary" className="mt-4">
-                    Practice More
+                    {tr("home.sections.practiceMore")}
                   </Button>
                 </Link>
               </div>
@@ -617,7 +643,7 @@ function Index() {
         </section>
 
         <section className="mt-10">
-          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Road Safety Tips</h2>
+          <h2 className="mb-6 text-xl font-bold sm:text-2xl">{tr("home.sections.safety")}</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {safetyTips.map((tip) => (
               <Card
@@ -643,7 +669,7 @@ function Index() {
         </section>
 
         <section className="mt-10">
-          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Latest Learning Articles</h2>
+          <h2 className="mb-6 text-xl font-bold sm:text-2xl">{tr("home.sections.articles")}</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
               <Card
@@ -658,13 +684,13 @@ function Index() {
                 {article.slug ? (
                   <Link to="/category/$slug" params={{ slug: article.slug }}>
                     <Button variant="secondary" className="mt-4 w-full">
-                      Read More
+                      {tr("home.sections.readMore")}
                     </Button>
                   </Link>
                 ) : (
                   <Link to={article.to}>
                     <Button variant="secondary" className="mt-4 w-full">
-                      Read More
+                      {tr("home.sections.readMore")}
                     </Button>
                   </Link>
                 )}
@@ -675,7 +701,7 @@ function Index() {
 
         <section className="mt-10">
           <Card className="p-5">
-            <h2 className="text-xl font-bold sm:text-2xl">Learning Statistics</h2>
+            <h2 className="text-xl font-bold sm:text-2xl">{tr("home.sections.stats")}</h2>
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
               {[
                 { n: "500+", l: "Questions" },
@@ -703,7 +729,7 @@ function Index() {
                 <BadgeCheck className="h-14 w-14" aria-label="Trainer photo placeholder" />
               </div>
               <div>
-                <h2 className="text-xl font-bold sm:text-2xl">Professional Driving Guidance</h2>
+                <h2 className="text-xl font-bold sm:text-2xl">{tr("home.sections.guidance")}</h2>
                 <p className="mt-2 text-sm">
                   <strong>Experience:</strong> Practical learner preparation focused on Kerala road
                   conditions, RTO test confidence and safe driving habits.
@@ -730,7 +756,7 @@ function Index() {
         </section>
 
         <section className="mt-10">
-          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Why Choose This Platform</h2>
+          <h2 className="mb-6 text-xl font-bold sm:text-2xl">{tr("home.sections.why")}</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {platformReasons.map((reason) => (
               <Card
@@ -747,9 +773,9 @@ function Index() {
         <section className="mt-10">
           <Card className="p-5">
             <div className="mb-4 flex items-end justify-between gap-3">
-              <h2 className="text-xl font-bold sm:text-2xl">FAQ Preview</h2>
+              <h2 className="text-xl font-bold sm:text-2xl">{tr("home.sections.faq")}</h2>
               <Link to="/faq">
-                <Button variant="secondary">View All FAQs</Button>
+                <Button variant="secondary">{tr("home.sections.allFaqs")}</Button>
               </Link>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -764,10 +790,9 @@ function Index() {
         </section>
 
         <section className="mt-10 overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-6 text-primary-foreground shadow-lg sm:p-10">
-          <h2 className="text-2xl font-extrabold sm:text-3xl">Ready to Start Learning?</h2>
+          <h2 className="text-2xl font-extrabold sm:text-3xl">{tr("home.sections.cta")}</h2>
           <p className="mt-2 max-w-2xl text-sm opacity-90 sm:text-base">
-            Practise Kerala RTO questions, revise lessons and unlock premium access when you are
-            ready for complete preparation.
+            {tr("home.sections.ctaDesc")}
           </p>
           <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
             <Link to="/quiz/$setId" params={{ setId: "mock" }}>
@@ -775,12 +800,12 @@ function Index() {
                 size="lg"
                 className="h-12 w-full bg-white text-primary shadow-md hover:bg-white/90"
               >
-                Start Mock Test
+                {tr("home.hero.mock")}
               </Button>
             </Link>
             <Link to="/quiz">
               <Button variant="secondary" size="lg" className="h-12 w-full">
-                Practice Sets
+                {tr("home.hero.practice")}
               </Button>
             </Link>
             <Link to="/unlock">
@@ -788,7 +813,7 @@ function Index() {
                 size="lg"
                 className="h-12 w-full rounded-full bg-yellow-400 text-black shadow-md hover:bg-yellow-300"
               >
-                Unlock Premium
+                {tr("home.sections.unlockPremium")}
               </Button>
             </Link>
           </div>
