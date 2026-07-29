@@ -1,226 +1,34 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  AlertTriangle,
   BadgeCheck,
   BookOpen,
-  Bot,
   Car,
   CheckCircle2,
-  CloudRain,
   GraduationCap,
-  Hand,
   Headphones,
   HelpCircle,
-  Lock,
   Map,
-  Moon,
-  Navigation,
-  RefreshCw,
+  MessageCircle,
+  Search,
   ShieldCheck,
   Signal,
   Sparkles,
+  Star,
   Timer,
   Trophy,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { CATEGORIES } from "@/data/categories";
-import { SIGNS } from "@/data/signs";
-import { POLICE_SIGNALS } from "@/data/police-signals";
-import { QUESTIONS } from "@/data/questions";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SiteLayout } from "@/components/site-layout";
 import { useSite } from "@/lib/site-context";
-import { AdUnit } from "@/components/ad-unit";
 import { createCanonicalLink, createOpenGraphMeta, breadcrumbJsonLd } from "@/lib/seo";
-
-const learningHubCards = [
-  {
-    title: "Traffic Signs",
-    description:
-      "Understand mandatory, warning, prohibitory and informatory signs used on Kerala roads.",
-    icon: AlertTriangle,
-    to: "/category/$slug",
-    slug: "traffic-signs",
-  },
-  {
-    title: "Traffic Signals",
-    description: "Learn red, amber, green, flashing signals and pedestrian crossing light rules.",
-    icon: Signal,
-    to: "/category/$slug",
-    slug: "traffic-signals",
-  },
-  {
-    title: "Police Hand Signals",
-    description:
-      "Recognise traffic police directions that override signals at junctions and diversions.",
-    icon: Hand,
-    to: "/category/$slug",
-    slug: "police-hand-signals",
-  },
-  {
-    title: "Road Markings",
-    description:
-      "Study zebra crossings, stop lines, lane lines and no-overtaking markings clearly.",
-    icon: Map,
-    to: "/category/$slug",
-    slug: "road-markings",
-  },
-  {
-    title: "Road Rules",
-    description:
-      "Revise right of way, overtaking, speed discipline, documents and emergency vehicle rules.",
-    icon: ShieldCheck,
-    to: "/category/$slug",
-    slug: "road-rules",
-  },
-  {
-    title: "Driving Guide",
-    description:
-      "Build safe habits for hills, rain, night driving, parking and practical road judgement.",
-    icon: Car,
-    to: "/driving-guide",
-  },
-];
-
-const safetyTips = [
-  {
-    title: "Helmet Safety",
-    icon: ShieldCheck,
-    description:
-      "Wear an ISI-marked helmet and fasten the chin strap before moving even a short distance.",
-    tip: "Replace helmets after a hard impact or visible shell damage.",
-  },
-  {
-    title: "Seat Belt",
-    icon: CheckCircle2,
-    description:
-      "Seat belts reduce injury risk by keeping occupants secure during sudden braking or collision.",
-    tip: "The driver is responsible for reminding every passenger to buckle up.",
-  },
-  {
-    title: "Night Driving",
-    icon: Moon,
-    description:
-      "Use low beam for oncoming traffic, reduce speed and scan the road edges for pedestrians.",
-    tip: "Avoid staring directly at high-beam headlights; look slightly left.",
-  },
-  {
-    title: "Rain Driving",
-    icon: CloudRain,
-    description:
-      "Kerala monsoon roads can become slippery, waterlogged and low-visibility within minutes.",
-    tip: "Double your following distance and brake gently before turns.",
-  },
-  {
-    title: "Emergency Driving",
-    icon: Headphones,
-    description:
-      "Give way quickly and safely to ambulances, fire engines and police vehicles using sirens.",
-    tip: "Move left only when it is safe; never block junctions.",
-  },
-  {
-    title: "Defensive Driving",
-    icon: Navigation,
-    description:
-      "Expect mistakes from others, maintain space and avoid aggressive acceleration or braking.",
-    tip: "Use the two-second gap in dry weather and four seconds in rain.",
-  },
-];
-
-const articles = [
-  {
-    title: "How to Pass Kerala Learner Test",
-    summary:
-      "A practical plan for revising signs, signals, documents and exam-style questions before booking your test.",
-    icon: GraduationCap,
-    to: "/quiz",
-  },
-  {
-    title: "Top Traffic Signs",
-    summary:
-      "The most commonly asked warning, mandatory and prohibitory signs with quick recognition tips.",
-    icon: AlertTriangle,
-    to: "/category/$slug",
-    slug: "traffic-signs",
-  },
-  {
-    title: "Road Markings Guide",
-    summary:
-      "Decode solid lines, broken lines, stop lines, zebra crossings and lane arrows for safer driving.",
-    icon: Map,
-    to: "/category/$slug",
-    slug: "road-markings",
-  },
-  {
-    title: "Night Driving Tips",
-    summary:
-      "Learn headlight discipline, safe speed selection and fatigue control for evening highway trips.",
-    icon: Moon,
-    to: "/driving-guide",
-  },
-  {
-    title: "Driving Licence Renewal",
-    summary:
-      "Understand renewal timing, required documents and why expired licences should be updated promptly.",
-    icon: RefreshCw,
-    to: "/category/$slug",
-    slug: "driving-licence",
-  },
-  {
-    title: "Road Safety Rules",
-    summary:
-      "Essential Kerala road safety habits covering speed, mobile phones, emergency vehicles and pedestrians.",
-    icon: ShieldCheck,
-    to: "/category/$slug",
-    slug: "road-rules",
-  },
-];
-
-const platformReasons = [
-  "Responsive Learning",
-  "Official Syllabus",
-  "Detailed Explanations",
-  "Instant Validation",
-  "AI Tutor",
-  "Mock Tests",
-  "Premium Learning",
-  "Fast Performance",
-];
-
-const homeFaqs = [
-  {
-    q: "Is this useful for the Kerala learner licence test?",
-    a: "Yes. The homepage links to signs, signals, road rules and mock tests aligned with Kerala RTO learner preparation topics.",
-  },
-  {
-    q: "Can I practise without reading lessons first?",
-    a: "Yes. Start a mock test anytime, then review explanations to understand mistakes and improve quickly.",
-  },
-  {
-    q: "Are police hand signals important for the exam?",
-    a: "Yes. Traffic police signals can override lights and signs, so learners should recognise each official gesture.",
-  },
-  {
-    q: "How should I study traffic signs?",
-    a: "Group them by shape and color: red circles restrict, red triangles warn and blue boards inform or guide.",
-  },
-  {
-    q: "Why are road markings included?",
-    a: "Markings guide lane discipline, overtaking, pedestrian priority and stopping positions at junctions.",
-  },
-  {
-    q: "Does the platform include explanations?",
-    a: "Yes. Questions and learning pages include explanations so you learn the rule, not just the answer.",
-  },
-];
 
 export const Route = createFileRoute("/")({
   head: () => {
-    const title = "Kerala RTO Learner Licence Practice — Signs, Signals & Mock Tests";
+    const title = "Traffic Tips — Kerala Driving Academy";
     const description =
-      "Bilingual (English & Malayalam) Kerala RTO learner licence practice for just ₹45 — traffic signs, signals, road rules and mock tests.";
-
+      "Premium Malayalam-first driving academy website with learner licence preparation, traffic rules, courses, FAQs and contact support.";
     return {
       meta: [
         { title },
@@ -233,567 +41,484 @@ export const Route = createFileRoute("/")({
           type: "application/ld+json",
           children: JSON.stringify(breadcrumbJsonLd([{ name: "Home", path: "/" }])),
         },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: homeFaqs.map((faq) => ({
-              "@type": "Question",
-              name: faq.q,
-              acceptedAnswer: { "@type": "Answer", text: faq.a },
-            })),
-          }),
-        },
       ],
     };
   },
   component: Index,
 });
 
+const categoryContent = {
+  ml: [
+    {
+      title: "ലേണർ ലൈസൻസ്",
+      text: "തിയറി ടെസ്റ്റ്, രേഖകൾ, ബുക്കിംഗ്, പരീക്ഷാ തയ്യാറെടുപ്പ് എന്നിവയ്ക്ക് വ്യക്തമായ മാർഗ്ഗനിർദ്ദേശം.",
+      icon: GraduationCap,
+    },
+    {
+      title: "ട്രാഫിക് ചിഹ്നങ്ങൾ",
+      text: "മുന്നറിയിപ്പ്, നിർബന്ധിതം, നിരോധനം, വിവര ചിഹ്നങ്ങൾ തിരിച്ചറിയാനുള്ള എളുപ്പമായ പഠനം.",
+      icon: Signal,
+    },
+    {
+      title: "സുരക്ഷിത ഡ്രൈവിംഗ്",
+      text: "വേഗനിയന്ത്രണം, അകലം പാലിക്കൽ, മഴയിലും രാത്രിയിലും സുരക്ഷിതമായി ഓടിക്കുന്ന ശീലങ്ങൾ.",
+      icon: ShieldCheck,
+    },
+    {
+      title: "റോഡ് മാർക്കിംഗുകൾ",
+      text: "സീബ്ര ക്രോസിംഗ്, സ്റ്റോപ്പ് ലൈൻ, ലെയ്ൻ മാർക്കിംഗ്, ഓവർടേക്കിംഗ് നിയന്ത്രണങ്ങൾ മനസ്സിലാക്കുക.",
+      icon: Map,
+    },
+  ],
+  en: [
+    {
+      title: "Learner Licence",
+      text: "Clear guidance for theory tests, documents, booking, and exam preparation.",
+      icon: GraduationCap,
+    },
+    {
+      title: "Traffic Signs",
+      text: "Simple learning for warning, mandatory, prohibitory, and information signs.",
+      icon: Signal,
+    },
+    {
+      title: "Safe Driving",
+      text: "Speed discipline, safe distance, and habits for rain, night, and daily road conditions.",
+      icon: ShieldCheck,
+    },
+    {
+      title: "Road Markings",
+      text: "Understand zebra crossings, stop lines, lane markings, and overtaking restrictions.",
+      icon: Map,
+    },
+  ],
+};
+
+const courses = {
+  ml: [
+    {
+      name: "ബിഗിനർ ഡ്രൈവിംഗ് പാക്ക്",
+      level: "തുടക്കക്കാർ",
+      duration: "21 ദിവസം",
+      fee: "₹45 പഠന ആക്സസ്",
+      detail: "വാഹന നിയന്ത്രണം, റോഡ് ബോധം, അടിസ്ഥാന നിയമങ്ങൾ, ആത്മവിശ്വാസം വളർത്തുന്ന പഠന പദ്ധതി.",
+    },
+    {
+      name: "ലേണർ ടെസ്റ്റ് തയ്യാറെടുപ്പ്",
+      level: "പരീക്ഷ",
+      duration: "സ്വന്തം സമയത്ത്",
+      fee: "₹45 ഒറ്റത്തവണ",
+      detail: "ചിഹ്നങ്ങൾ, സിഗ്നലുകൾ, റോഡ് നിയമങ്ങൾ, മോക്ക് ടെസ്റ്റുകൾ, ഉടൻ ഫീഡ്ബാക്ക്.",
+    },
+    {
+      name: "സേഫ്റ്റി റിഫ്രഷർ",
+      level: "എല്ലാവർക്കും",
+      duration: "7 ദിവസം",
+      fee: "ഉൾപ്പെടുത്തിയിരിക്കുന്നു",
+      detail: "ഡിഫൻസീവ് ഡ്രൈവിംഗ്, മഴക്കാല സുരക്ഷ, രാത്രിഡ്രൈവിംഗ്, അടിയന്തര സാഹചര്യം.",
+    },
+  ],
+  en: [
+    {
+      name: "Beginner Driving Pack",
+      level: "Beginner",
+      duration: "21 days",
+      fee: "₹45 learning access",
+      detail:
+        "Vehicle control, road awareness, essential rules, and a confidence-building learning plan.",
+    },
+    {
+      name: "Learner Test Preparation",
+      level: "Exam",
+      duration: "Self-paced",
+      fee: "₹45 one-time",
+      detail: "Signs, signals, road rules, mock tests, and instant feedback.",
+    },
+    {
+      name: "Safety Refresher",
+      level: "All learners",
+      duration: "7 days",
+      fee: "Included",
+      detail: "Defensive driving, monsoon safety, night driving, and emergency situations.",
+    },
+  ],
+};
+
+const benefits = {
+  ml: [
+    "മലയാളം ആദ്യം ലഭിക്കുന്ന പഠനാനുഭവം",
+    "സുതാര്യമായ കോഴ്സ് ഘടന",
+    "പ്രായോഗിക റോഡ് സുരക്ഷാ മാർഗ്ഗനിർദ്ദേശം",
+    "മൊബൈൽ, ടാബ്ലെറ്റ്, ഡെസ്ക്ടോപ്പ് സൗഹൃദം",
+  ],
+  en: [
+    "Malayalam-first learning experience",
+    "Transparent course structure",
+    "Practical road-safety guidance",
+    "Mobile, tablet, and desktop friendly",
+  ],
+};
+
+const testimonials = {
+  ml: [
+    {
+      name: "അനൂപ് കെ.",
+      text: "ചിഹ്നങ്ങളും നിയമങ്ങളും വ്യക്തമായി പഠിക്കാൻ കഴിഞ്ഞു. മോക്ക് ടെസ്റ്റ് ആത്മവിശ്വാസം കൂട്ടി.",
+    },
+    {
+      name: "മീര ആർ.",
+      text: "മലയാളത്തിൽ ഉള്ള വിശദീകരണം വളരെ സഹായിച്ചു. തുടക്കക്കാർക്ക് നല്ല പഠന ക്രമമാണ്.",
+    },
+    {
+      name: "ഷിബു എസ്.",
+      text: "സേഫ്റ്റി ടിപ്പുകളും റോഡ് മാർക്കിംഗുകളും ലളിതമായി മനസ്സിലാക്കാൻ സാധിച്ചു.",
+    },
+  ],
+  en: [
+    {
+      name: "Anoop K.",
+      text: "I could learn signs and rules clearly. The mock tests improved my confidence.",
+    },
+    {
+      name: "Meera R.",
+      text: "The Malayalam explanations were very helpful. The study flow is excellent for beginners.",
+    },
+    {
+      name: "Shibu S.",
+      text: "Safety tips and road markings were explained in a simple, practical way.",
+    },
+  ],
+};
+
+const faqs = {
+  ml: [
+    {
+      q: "ഡ്രൈവിംഗ് പഠനം എവിടെ നിന്ന് തുടങ്ങണം?",
+      a: "അംഗീകാരമുള്ള ഡ്രൈവിംഗ് സ്കൂൾ കണ്ടെത്തി, തിയറി ഭാഗവും പ്രാക്ടിക്കൽ പരിശീലനവും ക്രമമായി തുടങ്ങുക.",
+    },
+    {
+      q: "ലേണർ ലൈസൻസ് ടെസ്റ്റിൽ എന്താണ് ചോദിക്കുന്നത്?",
+      a: "റോഡ് നിയമങ്ങൾ, ട്രാഫിക് സിഗ്നലുകൾ, ചിഹ്നങ്ങൾ, സുരക്ഷാ ശീലങ്ങൾ എന്നിവയാണ് പ്രധാനമായി ചോദിക്കുന്നത്.",
+    },
+    {
+      q: "പ്രാക്ടിക്കൽ പരിശീലനം നിർബന്ധമാണോ?",
+      a: "അതെ. സുരക്ഷിതമായി വണ്ടി നിയന്ത്രിക്കാൻ യോഗ്യതയുള്ള ഇൻസ്ട്രക്ടറുടെ മേൽനോട്ടം ആവശ്യമാണ്.",
+    },
+  ],
+  en: [
+    {
+      q: "Where should I start learning to drive?",
+      a: "Choose an approved driving school and begin theory learning and practical training in a structured way.",
+    },
+    {
+      q: "What is asked in the learner licence test?",
+      a: "Road rules, traffic signals, signs, and safe-driving habits are the main areas tested.",
+    },
+    {
+      q: "Is practical training necessary?",
+      a: "Yes. A qualified instructor is important for learning safe vehicle control on real roads.",
+    },
+  ],
+};
+
 function Index() {
-  const { lang, t } = useSite();
-  const ml = lang === "ml" ? "lang-ml" : "";
-
-  const features = [
-    { icon: BookOpen, en: "500+ Questions", ml: "500+ ചോദ്യങ്ങൾ" },
-    { icon: Timer, en: "20s Timer Per Q", ml: "ഓരോ ചോദ്യത്തിന് 20s" },
-    { icon: Trophy, en: "20 Mock Test Sets", ml: "20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ" },
-    { icon: Bot, en: "AI Study Tutor", ml: "AI പഠന ട്യൂട്ടർ" },
-  ];
-
-  const rotationIndex = new Date().getDate();
-  const featuredSign = SIGNS[rotationIndex % SIGNS.length];
-  const featuredSignal = POLICE_SIGNALS[rotationIndex % POLICE_SIGNALS.length];
-  const todayQuestion = QUESTIONS[rotationIndex % QUESTIONS.length];
+  const { lang, tr, trArray } = useSite();
   const [searchTerm, setSearchTerm] = useState("");
-  const searchResults = useMemo(() => {
-    const q = searchTerm.trim().toLowerCase();
-    if (!q) return [];
-    const results = [
-      ...SIGNS.map((sign) => ({
-        title: sign.name.en,
-        type: "Traffic Sign",
-        text: `${sign.meaning.en} ${sign.explanation.en} ${(sign.keywords ?? []).join(" ")}`,
-        to: "/category/$slug",
-        slug: "traffic-signs",
-      })),
-      ...POLICE_SIGNALS.map((signal) => ({
-        title: signal.name.en,
-        type: "Police Hand Signal",
-        text: `${signal.meaning.en} ${signal.usage.en} ${signal.examNote.en}`,
-        to: "/category/$slug",
-        slug: "police-hand-signals",
-      })),
-      ...QUESTIONS.slice(0, 160).map((question) => ({
-        title: question.question.en,
-        type: "Learner Question",
-        text: `${question.options.map((o) => o.en).join(" ")} ${question.explanation.en}`,
-        to: "/quiz",
-      })),
-      ...CATEGORIES.map((category) => ({
-        title: category.name.en,
-        type: category.slug.includes("markings") ? "Road Marking" : "Driving Topic",
-        text: `${category.desc.en} ${category.content.en}`,
-        to: "/category/$slug",
-        slug: category.slug,
-      })),
-    ];
-    return results
-      .filter((item) => `${item.title} ${item.type} ${item.text}`.toLowerCase().includes(q))
-      .slice(0, 8);
-  }, [searchTerm]);
+  const ml = lang === "ml" ? "lang-ml" : "";
+  const categories = categoryContent[lang];
+  const courseList = courses[lang];
+  const benefitList = benefits[lang];
+  const testimonialList = testimonials[lang];
+  const faqList = faqs[lang];
+
+  const searchable = useMemo(
+    () => [
+      ...categories.map((item) => ({ title: item.title, text: item.text, href: "#categories" })),
+      ...courseList.map((item) => ({ title: item.name, text: item.detail, href: "#courses" })),
+      ...faqList.map((item) => ({ title: item.q, text: item.a, href: "#faq" })),
+    ],
+    [categories, courseList, faqList],
+  );
+  const results = searchTerm.trim()
+    ? searchable
+        .filter((item) =>
+          `${item.title} ${item.text}`.toLowerCase().includes(searchTerm.toLowerCase()),
+        )
+        .slice(0, 6)
+    : [];
 
   return (
     <SiteLayout>
-      <div className="mx-auto max-w-6xl px-4 py-6">
-        <section className="mb-6 overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-6 text-primary-foreground shadow-lg sm:p-10">
-          <span
-            className={`inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur ${ml}`}
-          >
-            <Sparkles className="h-3 w-3" />
-            {lang === "en" ? "Kerala RTO Official Syllabus" : "കേരള RTO ഔദ്യോഗിക സിലബസ്"}
-          </span>
-          <h1 className={`mt-3 text-3xl font-extrabold leading-tight sm:text-4xl ${ml}`}>
-            {lang === "en"
-              ? "Pass your Kerala RTO Learner Licence — first attempt"
-              : "ആദ്യ ശ്രമത്തിൽ കേരള RTO ലേണർ ലൈസൻസ് നേടൂ"}
-          </h1>
-          <p className={`mt-2 max-w-2xl text-sm opacity-90 sm:text-base ${ml}`}>
-            {lang === "en"
-              ? "Bilingual learning, 100+ traffic signs, 20 mock test sets with instant validation, and an AI tutor — just ₹45."
-              : "ദ്വിഭാഷാ പഠനം, 100+ ചിഹ്നങ്ങൾ, 20 മോക്ക് ടെസ്റ്റ് സെറ്റുകൾ, AI ട്യൂട്ടർ — വെറും ₹45."}
-          </p>
-          <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
-            <Link to="/quiz/$setId" params={{ setId: "mock" }} className="w-full">
-              <Button
-                size="lg"
-                className="h-12 w-full bg-white text-primary shadow-md hover:bg-white/90"
-              >
-                {lang === "en" ? "🚦 Start Mock Test" : "🚦 മോക്ക് ടെസ്റ്റ്"}
-              </Button>
-            </Link>
-            <Link to="/quiz" className="w-full">
-              <Button variant="secondary" size="lg" className="h-12 w-full">
-                {lang === "en" ? "Practice Sets" : "പരിശീലനം"}
-              </Button>
-            </Link>
-            <Link to="/ai-assistant" className="w-full">
-              <Button
-                size="lg"
-                variant="outline"
-                className="h-12 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-              >
-                <Bot className="mr-1 h-4 w-4" />
-                {lang === "en" ? "Ask AI Tutor" : "AI ട്യൂട്ടറോട് ചോദിക്കൂ"}
-              </Button>
-            </Link>
-          </div>
-
-          <div className="mt-4">
-            <Link to="/unlock" className="block">
-              <Button
-                size="lg"
-                className="h-12 w-full rounded-full bg-yellow-400 text-black shadow-md hover:bg-yellow-300"
-              >
-                <Lock className="mr-2 h-4 w-4" />
-                {lang === "en"
-                  ? "Unlock Full Access — ₹45 (one-time)"
-                  : "പൂർണ്ണ ആക്‌സസ് അൺലോക്ക് ചെയ്യൂ — ₹45"}
-              </Button>
-            </Link>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {features.map((f) => (
-              <div
-                key={f.en}
-                className="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 backdrop-blur"
-              >
-                <f.icon className="h-4 w-4 shrink-0" />
-                <span className={`text-xs font-medium ${ml}`}>{lang === "en" ? f.en : f.ml}</span>
+      <div className={`overflow-hidden bg-background ${ml}`}>
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
+          <section className="relative mb-8 overflow-hidden rounded-[2rem] border border-orange-100 bg-white/90 p-6 shadow-2xl shadow-orange-950/10 backdrop-blur sm:p-10">
+            <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-orange-200/40 blur-3xl" />
+            <div className="relative">
+              <span className="inline-flex items-center gap-2 rounded-full bg-orange-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-orange-600">
+                <Sparkles className="h-4 w-4" /> {tr("common.premium")}
+              </span>
+              <h1 className="mt-5 max-w-4xl text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">
+                {tr("home.welcome.title")}
+              </h1>
+              <div className="mt-6 space-y-5 text-base leading-8 text-slate-700 sm:text-lg">
+                {trArray("home.welcome.paragraphs").map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
 
-        <AdUnit format="auto" className="my-4" />
-
-        <section className="mb-6" aria-labelledby="site-search-title">
-          <Card className="p-5">
-            <h2 id="site-search-title" className={`text-xl font-bold sm:text-2xl ${ml}`}>
-              {lang === "en" ? "Fast Study Search" : "വേഗത്തിലുള്ള പഠന തിരച്ചിൽ"}
-            </h2>
-            <p className={`mt-1 text-sm text-muted-foreground ${ml}`}>
-              {lang === "en"
-                ? "Search traffic signs, road rules, police hand signals, road markings, learner questions and driving topics."
-                : "ചിഹ്നങ്ങൾ, റോഡ് നിയമങ്ങൾ, പോലീസ് സിഗ്നലുകൾ, മാർക്കിംഗുകൾ, ചോദ്യങ്ങൾ, ഡ്രൈവിംഗ് വിഷയങ്ങൾ തിരയുക."}
-            </p>
-            <input
-              aria-label="Search all learning topics"
-              className="mt-4 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm"
-              placeholder="Try: zebra crossing, hand signal, helmet, overtaking, yellow light"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-            />
-            {searchTerm ? (
-              <div className="mt-4 grid gap-2 sm:grid-cols-2" aria-live="polite">
-                {searchResults.length ? (
-                  searchResults.map((result) => (
-                    <Link
-                      key={`${result.type}-${result.title}`}
-                      to={result.to}
-                      params={result.slug ? { slug: result.slug } : undefined}
-                      className="rounded-xl border bg-card p-3 transition hover:border-primary hover:shadow-sm"
+          <section className="relative mb-8 overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-orange-600 p-6 text-white shadow-2xl shadow-slate-950/20 sm:p-12">
+            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+            <div className="relative grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+              <div>
+                <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
+                  {tr("home.hero.eyebrow")}
+                </p>
+                <h2 className="mt-5 text-4xl font-black leading-tight sm:text-6xl">
+                  {tr("home.hero.title")}
+                </h2>
+                <p className="mt-5 max-w-2xl text-base leading-8 text-white/85 sm:text-lg">
+                  {tr("home.hero.subtitle")}
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Link to="/quiz/$setId" params={{ setId: "mock" }}>
+                    <Button
+                      size="lg"
+                      className="h-12 rounded-full bg-orange-500 px-7 text-white hover:bg-orange-400"
                     >
-                      <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                        {result.type}
-                      </p>
-                      <h3 className="mt-1 line-clamp-2 font-semibold">{result.title}</h3>
-                      <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
-                        {result.text}
-                      </p>
-                    </Link>
+                      {tr("home.hero.primary")}
+                    </Button>
+                  </Link>
+                  <a href="#courses">
+                    <Button size="lg" variant="secondary" className="h-12 rounded-full px-7">
+                      {tr("home.hero.secondary")}
+                    </Button>
+                  </a>
+                  <a href="#contact">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="h-12 rounded-full border-white/30 bg-white/10 px-7 text-white hover:bg-white/20 hover:text-white"
+                    >
+                      {tr("home.hero.tertiary")}
+                    </Button>
+                  </a>
+                </div>
+              </div>
+              <div className="grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur-xl">
+                {[
+                  { n: "500+", l: lang === "ml" ? "ചോദ്യങ്ങൾ" : "Questions", icon: BookOpen },
+                  { n: "20", l: lang === "ml" ? "മോക്ക് ടെസ്റ്റുകൾ" : "Mock tests", icon: Trophy },
+                  {
+                    n: "₹45",
+                    l: lang === "ml" ? "ഒറ്റത്തവണ ആക്സസ്" : "One-time access",
+                    icon: BadgeCheck,
+                  },
+                  { n: "24/7", l: lang === "ml" ? "പഠന സൗകര്യം" : "Study access", icon: Timer },
+                ].map((stat) => (
+                  <div key={stat.l} className="flex items-center gap-4 rounded-2xl bg-white/10 p-4">
+                    <stat.icon className="h-6 w-6 text-orange-300" />
+                    <div>
+                      <div className="text-2xl font-black">{stat.n}</div>
+                      <div className="text-sm text-white/75">{stat.l}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-8 rounded-[2rem] bg-slate-50 p-5 shadow-sm" id="search">
+            <div className="flex items-start gap-4">
+              <Search className="mt-1 h-6 w-6 text-orange-500" />
+              <div>
+                <h2 className="text-2xl font-black text-slate-950">{tr("home.search.title")}</h2>
+                <p className="mt-1 text-slate-600">{tr("home.search.subtitle")}</p>
+              </div>
+            </div>
+            <input
+              className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm shadow-inner outline-none transition focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
+              aria-label={tr("home.search.title")}
+              placeholder={tr("home.search.placeholder")}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            {searchTerm && (
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {results.length ? (
+                  results.map((r) => (
+                    <a
+                      key={r.title}
+                      href={r.href}
+                      className="rounded-2xl border bg-white p-4 shadow-sm transition hover:border-orange-300 hover:shadow-md"
+                    >
+                      <h3 className="font-bold text-slate-950">{r.title}</h3>
+                      <p className="mt-1 text-sm text-slate-600">{r.text}</p>
+                    </a>
                   ))
                 ) : (
-                  <p className="rounded-xl bg-muted p-4 text-sm text-muted-foreground">
-                    No exact match. Try a shorter term such as sign, rule, marking, police or
-                    licence.
+                  <p className="rounded-2xl bg-white p-4 text-sm text-slate-600">
+                    {tr("home.search.empty")}
                   </p>
                 )}
               </div>
-            ) : null}
-          </Card>
-        </section>
+            )}
+          </section>
 
-        <div className="mb-6 flex items-end justify-between gap-3">
-          <div>
-            <h2 className={`text-xl font-bold sm:text-2xl ${ml}`}>
-              {lang === "en" ? "Browse Categories" : "വിഭാഗങ്ങൾ"}
-            </h2>
-            <p className={`text-sm text-muted-foreground ${ml}`}>
-              {lang === "en"
-                ? "Tap any category for detailed learning content."
-                : "വിശദമായ പഠന ഉള്ളടക്കത്തിന് ഏതെങ്കിലും വിഭാഗം തിരഞ്ഞെടുക്കുക."}
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {CATEGORIES.map((cat) => (
-            <Link
-              key={cat.slug}
-              to="/category/$slug"
-              params={{ slug: cat.slug }}
-              className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              <Card className="group h-full cursor-pointer p-4 transition hover:border-primary hover:shadow-lg">
-                <div className="flex items-start gap-3">
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-2xl transition group-hover:from-primary/30 group-hover:to-accent/30">
-                    {cat.icon}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className={`font-semibold leading-snug ${ml}`}>{t(cat.name)}</h3>
-                    <p className={`mt-1 text-sm text-muted-foreground ${ml}`}>{t(cat.desc)}</p>
-                  </div>
-                </div>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        <section
-          className="mt-10 animate-in fade-in slide-in-from-bottom-3 duration-700"
-          aria-labelledby="learning-hub-title"
-        >
-          <div className="mb-6 flex items-end justify-between gap-3">
-            <div>
-              <h2 id="learning-hub-title" className={`text-xl font-bold sm:text-2xl ${ml}`}>
-                Kerala RTO Learning Hub
-              </h2>
-              <p className={`text-sm text-muted-foreground ${ml}`}>
-                Learn Kerala traffic rules, official road signs, driving techniques, learner licence
-                preparation and road safety with detailed educational guides.
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {learningHubCards.map((item) => (
+          <SectionHeader
+            id="categories"
+            title={tr("home.categories.title")}
+            subtitle={tr("home.categories.subtitle")}
+          />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {categories.map((cat) => (
               <Card
-                key={item.title}
-                className="group h-full p-4 transition hover:border-primary hover:shadow-lg"
+                key={cat.title}
+                className="group rounded-3xl border-0 bg-white p-5 shadow-lg shadow-slate-950/5 transition hover:-translate-y-1 hover:shadow-orange-950/10"
               >
-                <div className="flex h-full flex-col gap-3">
-                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary transition group-hover:from-primary/30 group-hover:to-accent/30">
-                    <item.icon className="h-6 w-6" aria-hidden="true" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold leading-snug">{item.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
-                  </div>
-                  {item.slug ? (
-                    <Link to="/category/$slug" params={{ slug: item.slug }}>
-                      <Button variant="secondary" className="w-full">
-                        Read More
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Link to="/driving-guide">
-                      <Button variant="secondary" className="w-full">
-                        Read More
-                      </Button>
-                    </Link>
-                  )}
+                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-orange-100 text-orange-600">
+                  <cat.icon className="h-6 w-6" />
                 </div>
+                <h3 className="mt-4 text-lg font-black">{cat.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{cat.text}</p>
               </Card>
             ))}
           </div>
-        </section>
 
-        <section className="mt-10 grid grid-cols-1 gap-3 lg:grid-cols-2">
-          <Card className="p-5 transition hover:shadow-lg">
-            <h2 className="text-xl font-bold sm:text-2xl">Featured Traffic Sign</h2>
-            <div className="mt-4 flex flex-col gap-4 sm:flex-row">
-              <div
-                className="mx-auto grid h-40 w-40 shrink-0 place-items-center rounded-2xl bg-muted p-4"
-                role="img"
-                aria-label={featuredSign.name.en}
-                dangerouslySetInnerHTML={{ __html: featuredSign.svg }}
-              />
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">{featuredSign.category}</p>
-                <h3 className="text-lg font-semibold">{featuredSign.name.en}</h3>
-                <p className="mt-2 text-sm">
-                  <strong>Meaning:</strong> {featuredSign.meaning.en}
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  <strong>Detailed Explanation:</strong> {featuredSign.explanation.en}
-                </p>
-                <p className="mt-2 text-sm">
-                  <strong>Exam Tip:</strong> Identify the sign shape first, then confirm the symbol
-                  before choosing the answer.
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  <strong>Common Mistakes:</strong> Learners often confuse similar red-bordered
-                  signs when reading too quickly.
-                </p>
-                <Link to="/category/$slug" params={{ slug: "traffic-signs" }}>
-                  <Button className="mt-4">Learn More</Button>
+          <SectionHeader
+            id="courses"
+            title={tr("home.courses.title")}
+            subtitle={tr("home.courses.subtitle")}
+          />
+          <div className="grid gap-4 lg:grid-cols-3">
+            {courseList.map((course) => (
+              <Card
+                key={course.name}
+                className="rounded-3xl border border-orange-100 bg-white p-6 shadow-xl shadow-slate-950/5"
+              >
+                <Car className="h-8 w-8 text-orange-500" />
+                <h3 className="mt-4 text-xl font-black">{course.name}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{course.detail}</p>
+                <div className="mt-5 grid gap-2 text-sm">
+                  <p>
+                    <strong>{tr("common.level")}:</strong> {course.level}
+                  </p>
+                  <p>
+                    <strong>{tr("common.duration")}:</strong> {course.duration}
+                  </p>
+                  <p>
+                    <strong>{tr("common.fee")}:</strong> {course.fee}
+                  </p>
+                </div>
+                <Link to="/pricing">
+                  <Button className="mt-5 w-full rounded-full bg-orange-500 hover:bg-orange-400">
+                    {tr("common.learnMore")}
+                  </Button>
                 </Link>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-5 transition hover:shadow-lg">
-            <h2 className="text-xl font-bold sm:text-2xl">Featured Police Hand Signal</h2>
-            <div className="mt-4 flex flex-col gap-4 sm:flex-row">
-              <div
-                className="mx-auto grid h-44 w-36 shrink-0 place-items-center overflow-hidden rounded-2xl bg-muted"
-                role="img"
-                aria-label={featuredSignal.name.en}
-                dangerouslySetInnerHTML={{ __html: featuredSignal.svg }}
-              />
-              <div>
-                <h3 className="text-lg font-semibold">{featuredSignal.name.en}</h3>
-                <p className="mt-2 text-sm">
-                  <strong>Meaning:</strong> {featuredSignal.meaning.en}
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  <strong>Used For:</strong> {featuredSignal.usage.en}
-                </p>
-                <p className="mt-2 text-sm">
-                  <strong>Exam Note:</strong> {featuredSignal.examNote.en}
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  <strong>Common Mistakes:</strong> Do not assume traffic lights apply when an
-                  officer is actively directing vehicles.
-                </p>
-                <p className="mt-2 text-sm">
-                  <strong>Safety Note:</strong> Slow down and follow the officer only when your path
-                  is clear.
-                </p>
-                <Link to="/category/$slug" params={{ slug: "police-hand-signals" }}>
-                  <Button className="mt-4">Read More</Button>
-                </Link>
-              </div>
-            </div>
-          </Card>
-        </section>
+              </Card>
+            ))}
+          </div>
 
-        <section className="mt-10">
-          <Card className="p-5 transition hover:shadow-lg">
-            <div className="flex items-start gap-3">
-              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary">
-                <HelpCircle className="h-6 w-6" />
+          <SectionHeader
+            title={tr("home.benefits.title")}
+            subtitle={tr("home.benefits.subtitle")}
+          />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {benefitList.map((b) => (
+              <div key={b} className="flex items-center gap-3 rounded-3xl bg-slate-50 p-5">
+                <CheckCircle2 className="h-6 w-6 text-orange-500" />
+                <span className="font-bold text-slate-800">{b}</span>
               </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold sm:text-2xl">Today's RTO Question</h2>
-                <p className="mt-2 font-medium">{todayQuestion.question.en}</p>
-                <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                  {todayQuestion.options.map((option, index) => (
-                    <div key={option.en} className="rounded-xl border bg-card p-3 text-sm">
-                      {String.fromCharCode(65 + index)}. {option.en}
-                    </div>
+            ))}
+          </div>
+
+          <SectionHeader
+            title={tr("home.testimonials.title")}
+            subtitle={tr("home.testimonials.subtitle")}
+          />
+          <div className="grid gap-4 lg:grid-cols-3">
+            {testimonialList.map((item) => (
+              <Card key={item.name} className="rounded-3xl border-0 bg-white p-6 shadow-lg">
+                <div className="flex gap-1 text-orange-400">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <details className="mt-4">
-                  <summary className="cursor-pointer rounded-md bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground transition hover:opacity-90">
-                    Reveal Answer
-                  </summary>
-                  <p className="mt-3 text-sm">
-                    <strong>Answer:</strong> {todayQuestion.options[todayQuestion.correct].en}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {todayQuestion.explanation.en}
-                  </p>
-                </details>
-                <Link to="/quiz">
-                  <Button variant="secondary" className="mt-4">
-                    Practice More
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </Card>
-        </section>
-
-        <section className="mt-10">
-          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Road Safety Tips</h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {safetyTips.map((tip) => (
-              <Card
-                key={tip.title}
-                className="group p-4 transition hover:border-primary hover:shadow-lg"
-              >
-                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary transition group-hover:from-primary/30 group-hover:to-accent/30">
-                  <tip.icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-3 font-semibold">{tip.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{tip.description}</p>
-                <p className="mt-2 text-sm">
-                  <strong>Safety Tip:</strong> {tip.tip}
-                </p>
-                <Link to="/driving-guide">
-                  <Button variant="secondary" className="mt-4 w-full">
-                    Learn More
-                  </Button>
-                </Link>
+                <p className="mt-4 leading-7 text-slate-700">“{item.text}”</p>
+                <p className="mt-4 font-black text-slate-950">{item.name}</p>
               </Card>
             ))}
           </div>
-        </section>
 
-        <section className="mt-10">
-          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Latest Learning Articles</h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
-              <Card
-                key={article.title}
-                className="group p-4 transition hover:border-primary hover:shadow-lg"
-              >
-                <div className="grid aspect-video place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary">
-                  <article.icon className="h-10 w-10" aria-label={`${article.title} thumbnail`} />
-                </div>
-                <h3 className="mt-3 font-semibold">{article.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{article.summary}</p>
-                {article.slug ? (
-                  <Link to="/category/$slug" params={{ slug: article.slug }}>
-                    <Button variant="secondary" className="mt-4 w-full">
-                      Read More
-                    </Button>
-                  </Link>
-                ) : (
-                  <Link to={article.to}>
-                    <Button variant="secondary" className="mt-4 w-full">
-                      Read More
-                    </Button>
-                  </Link>
-                )}
+          <SectionHeader id="faq" title={tr("home.faq.title")} subtitle={tr("home.faq.subtitle")} />
+          <div className="grid gap-4 lg:grid-cols-3">
+            {faqList.map((faq) => (
+              <Card key={faq.q} className="rounded-3xl bg-slate-50 p-5">
+                <HelpCircle className="h-6 w-6 text-orange-500" />
+                <h3 className="mt-3 font-black">{faq.q}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{faq.a}</p>
               </Card>
             ))}
           </div>
-        </section>
 
-        <section className="mt-10">
-          <Card className="p-5">
-            <h2 className="text-xl font-bold sm:text-2xl">Learning Statistics</h2>
-            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
-              {[
-                { n: "500+", l: "Questions" },
-                { n: "100+", l: "Traffic Signs" },
-                { n: "20+", l: "Mock Tests" },
-                { n: "AI Tutor", l: "Available" },
-                { n: "Updated", l: "Official Kerala Syllabus" },
-              ].map((stat) => (
-                <div
-                  key={stat.l}
-                  className="rounded-xl bg-muted p-4 text-center animate-in fade-in duration-700"
-                >
-                  <div className="text-2xl font-extrabold text-primary">{stat.n}</div>
-                  <div className="text-xs text-muted-foreground">{stat.l}</div>
-                </div>
-              ))}
-            </div>
-          </Card>
-        </section>
-
-        <section className="mt-10">
-          <Card className="p-5 transition hover:shadow-lg">
-            <div className="grid gap-5 sm:grid-cols-[160px_1fr]">
-              <div className="grid h-40 w-40 place-items-center rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary">
-                <BadgeCheck className="h-14 w-14" aria-label="Trainer photo placeholder" />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold sm:text-2xl">Professional Driving Guidance</h2>
-                <p className="mt-2 text-sm">
-                  <strong>Experience:</strong> Practical learner preparation focused on Kerala road
-                  conditions, RTO test confidence and safe driving habits.
+          <section
+            id="contact"
+            className="mt-12 grid gap-6 rounded-[2rem] bg-gradient-to-br from-orange-500 to-orange-600 p-6 text-white shadow-2xl shadow-orange-950/20 lg:grid-cols-[0.9fr_1.1fr] sm:p-10"
+          >
+            <div>
+              <Headphones className="h-10 w-10" />
+              <h2 className="mt-4 text-3xl font-black">{tr("home.contact.title")}</h2>
+              <p className="mt-3 leading-7 text-white/85">{tr("home.contact.subtitle")}</p>
+              <div className="mt-6 space-y-2 text-sm">
+                <p>renjithraj154@gmail.com</p>
+                <p>+91 94474 80651</p>
+                <p>
+                  Plavarthala Line, Thamalam, Karamana, Thiruvananthapuram – 695012, Kerala, India
                 </p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  <strong>Mission:</strong> Help every learner understand rules clearly, respect
-                  other road users and become a responsible driver.
-                </p>
-                <p className="mt-2 text-sm">
-                  <strong>Guidance:</strong> Get structured support for signs, signals, parking
-                  basics, defensive driving and mock-test readiness.
-                </p>
-                <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                  <Link to="/contact">
-                    <Button>Book Training</Button>
-                  </Link>
-                  <Link to="/contact">
-                    <Button variant="secondary">Contact</Button>
-                  </Link>
-                </div>
               </div>
             </div>
-          </Card>
-        </section>
-
-        <section className="mt-10">
-          <h2 className="mb-6 text-xl font-bold sm:text-2xl">Why Choose This Platform</h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {platformReasons.map((reason) => (
-              <Card
-                key={reason}
-                className="flex items-center gap-3 p-4 transition hover:border-primary hover:shadow-lg"
-              >
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
-                <span className="font-medium">{reason}</span>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-10">
-          <Card className="p-5">
-            <div className="mb-4 flex items-end justify-between gap-3">
-              <h2 className="text-xl font-bold sm:text-2xl">FAQ Preview</h2>
-              <Link to="/faq">
-                <Button variant="secondary">View All FAQs</Button>
-              </Link>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {homeFaqs.map((faq) => (
-                <div key={faq.q} className="rounded-xl border p-4">
-                  <h3 className="font-semibold">{faq.q}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{faq.a}</p>
-                </div>
-              ))}
-            </div>
-          </Card>
-        </section>
-
-        <section className="mt-10 overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-6 text-primary-foreground shadow-lg sm:p-10">
-          <h2 className="text-2xl font-extrabold sm:text-3xl">Ready to Start Learning?</h2>
-          <p className="mt-2 max-w-2xl text-sm opacity-90 sm:text-base">
-            Practise Kerala RTO questions, revise lessons and unlock premium access when you are
-            ready for complete preparation.
-          </p>
-          <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
-            <Link to="/quiz/$setId" params={{ setId: "mock" }}>
-              <Button
-                size="lg"
-                className="h-12 w-full bg-white text-primary shadow-md hover:bg-white/90"
-              >
-                Start Mock Test
-              </Button>
-            </Link>
-            <Link to="/quiz">
-              <Button variant="secondary" size="lg" className="h-12 w-full">
-                Practice Sets
-              </Button>
-            </Link>
-            <Link to="/unlock">
-              <Button
-                size="lg"
-                className="h-12 w-full rounded-full bg-yellow-400 text-black shadow-md hover:bg-yellow-300"
-              >
-                Unlock Premium
-              </Button>
-            </Link>
-          </div>
-        </section>
+            <form
+              className="rounded-3xl bg-white/15 p-4 backdrop-blur"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <div className="grid gap-3">
+                <input
+                  required
+                  className="rounded-2xl border border-white/20 bg-white px-4 py-3 text-slate-950"
+                  placeholder={tr("home.contact.name")}
+                />
+                <input
+                  required
+                  className="rounded-2xl border border-white/20 bg-white px-4 py-3 text-slate-950"
+                  placeholder={tr("home.contact.phone")}
+                />
+                <textarea
+                  required
+                  className="min-h-28 rounded-2xl border border-white/20 bg-white px-4 py-3 text-slate-950"
+                  placeholder={tr("home.contact.message")}
+                />
+                <Button className="h-12 rounded-full bg-slate-950 text-white hover:bg-slate-800">
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  {tr("home.contact.submit")}
+                </Button>
+              </div>
+            </form>
+          </section>
+        </div>
       </div>
     </SiteLayout>
+  );
+}
+
+function SectionHeader({ id, title, subtitle }: { id?: string; title: string; subtitle: string }) {
+  return (
+    <div id={id} className="mb-5 mt-12 max-w-3xl">
+      <p className="text-sm font-black uppercase tracking-[0.25em] text-orange-500">Traffic Tips</p>
+      <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+        {title}
+      </h2>
+      <p className="mt-3 leading-7 text-slate-600">{subtitle}</p>
+    </div>
   );
 }
