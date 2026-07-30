@@ -135,11 +135,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const t = (en: string, m: string) => (lang === "en" ? en : m);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div className="premium-page-shell flex min-h-screen flex-col bg-background text-foreground">
+      <div className="premium-bg-blob one" aria-hidden="true" />
+      <div className="premium-bg-blob two" aria-hidden="true" />
+      <div className="premium-bg-blob three" aria-hidden="true" />
       <a href="#main-content" className="skip-to-content">
         {t("Skip to content", "ഉള്ളടക്കത്തിലേക്ക് കടക്കുക")}
       </a>
-      <header className="sticky top-0 z-30 border-b border-border bg-card/85 backdrop-blur supports-[backdrop-filter]:bg-card/70">
+      <header className="sticky top-0 z-30 border-b border-white/30 bg-card/70 shadow-lg shadow-primary/5 backdrop-blur-2xl supports-[backdrop-filter]:bg-card/60">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2.5 sm:px-4">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -294,7 +297,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             className="flex min-w-0 items-center gap-2"
             aria-label={t("Traffic Tips home", "ട്രാഫിക് ടിപ്സ് ഹോം")}
           >
-            <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground shadow-sm">
+            <div className="premium-icon grid h-8 w-8 shrink-0 place-items-center rounded-xl text-base font-bold">
               T
             </div>
             <span className="sr-only">{lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}</span>
@@ -315,14 +318,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       </div>
 
       <footer
-        className="mt-12 border-t border-border bg-card/50"
+        className="mt-12 border-t border-white/30 bg-card/55 shadow-[0_-24px_70px_oklch(0.45_0.18_280/8%)] backdrop-blur-xl"
         aria-label={t("Footer", "ഫൂട്ടർ")}
       >
         <div className="mx-auto max-w-6xl px-4 py-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-center gap-2">
-                <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground">
+                <div className="premium-icon grid h-9 w-9 place-items-center rounded-xl text-base font-bold">
                   T
                 </div>
                 <p className={`font-bold ${ml}`}>
