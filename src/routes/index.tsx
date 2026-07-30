@@ -52,21 +52,25 @@ const categoryContent = {
       title: "ലേണർ ലൈസൻസ്",
       text: "തിയറി ടെസ്റ്റ്, രേഖകൾ, ബുക്കിംഗ്, പരീക്ഷാ തയ്യാറെടുപ്പ് എന്നിവയ്ക്ക് വ്യക്തമായ മാർഗ്ഗനിർദ്ദേശം.",
       icon: GraduationCap,
+      slug: "learner-licence",
     },
     {
       title: "ട്രാഫിക് ചിഹ്നങ്ങൾ",
       text: "മുന്നറിയിപ്പ്, നിർബന്ധിതം, നിരോധനം, വിവര ചിഹ്നങ്ങൾ തിരിച്ചറിയാനുള്ള എളുപ്പമായ പഠനം.",
       icon: Signal,
+      slug: "traffic-signs",
     },
     {
       title: "സുരക്ഷിത ഡ്രൈവിംഗ്",
       text: "വേഗനിയന്ത്രണം, അകലം പാലിക്കൽ, മഴയിലും രാത്രിയിലും സുരക്ഷിതമായി ഓടിക്കുന്ന ശീലങ്ങൾ.",
       icon: ShieldCheck,
+      slug: "road-safety",
     },
     {
       title: "റോഡ് മാർക്കിംഗുകൾ",
       text: "സീബ്ര ക്രോസിംഗ്, സ്റ്റോപ്പ് ലൈൻ, ലെയ്ൻ മാർക്കിംഗ്, ഓവർടേക്കിംഗ് നിയന്ത്രണങ്ങൾ മനസ്സിലാക്കുക.",
       icon: Map,
+      slug: "road-markings",
     },
   ],
   en: [
@@ -74,21 +78,25 @@ const categoryContent = {
       title: "Learner Licence",
       text: "Clear guidance for theory tests, documents, booking, and exam preparation.",
       icon: GraduationCap,
+      slug: "learner-licence",
     },
     {
       title: "Traffic Signs",
       text: "Simple learning for warning, mandatory, prohibitory, and information signs.",
       icon: Signal,
+      slug: "traffic-signs",
     },
     {
       title: "Safe Driving",
       text: "Speed discipline, safe distance, and habits for rain, night, and daily road conditions.",
       icon: ShieldCheck,
+      slug: "road-safety",
     },
     {
       title: "Road Markings",
       text: "Understand zebra crossings, stop lines, lane markings, and overtaking restrictions.",
       icon: Map,
+      slug: "road-markings",
     },
   ],
 };
@@ -200,7 +208,11 @@ function Index() {
 
   const searchable = useMemo(
     () => [
-      ...categories.map((item) => ({ title: item.title, text: item.text, href: "#categories" })),
+      ...categories.map((item) => ({
+        title: item.title,
+        text: item.text,
+        href: `/category/${item.slug}`,
+      })),
       ...courseList.map((item) => ({ title: item.name, text: item.detail, href: "#courses" })),
       ...faqList.map((item) => ({ title: item.q, text: item.a, href: "#faq" })),
     ],
@@ -352,16 +364,20 @@ function Index() {
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {categories.map((cat) => (
-              <Card
+              <Link
                 key={cat.title}
-                className="group min-w-0 rounded-3xl border-0 bg-white p-5 shadow-lg shadow-slate-950/5 transition hover:-translate-y-1 hover:shadow-orange-950/10"
+                to="/category/$slug"
+                params={{ slug: cat.slug }}
+                className="block min-w-0 rounded-3xl"
               >
-                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-orange-100 text-orange-600">
-                  <cat.icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-4 text-lg font-black">{cat.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{cat.text}</p>
-              </Card>
+                <Card className="group min-w-0 rounded-3xl border-0 bg-white p-5 shadow-lg shadow-slate-950/5 transition hover:-translate-y-1 hover:shadow-orange-950/10">
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-orange-100 text-orange-600">
+                    <cat.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-black">{cat.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{cat.text}</p>
+                </Card>
+              </Link>
             ))}
           </div>
 
