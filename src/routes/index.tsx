@@ -257,7 +257,7 @@ function Index() {
                 <h2 className="mt-5 text-[clamp(1.6rem,7.5vw,2.75rem)] font-black leading-[1.2] sm:text-[clamp(2rem,6vw,3.75rem)] sm:leading-tight">
                   {tr("home.hero.title")}
                 </h2>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/85 sm:text-lg">
+                <p className="mt-5 max-w-2xl text-[0.9rem] leading-7 text-white/85 sm:text-lg sm:leading-8">
                   {tr("home.hero.subtitle")}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
