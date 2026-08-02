@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /auth
+Disallow: /settings
+Disallow: /api/
+
 Sitemap: https://keralam-learn-smart.vercel.app/sitemap.xml
