@@ -13,9 +13,7 @@ export const Route = createFileRoute("/disclaimer")({
         content: "We are not affiliated with Kerala MVD or parivahan.gov.in.",
       },
     ],
-    links: [
-      { rel: "canonical", href: "https://keralam-learn-smart.vercel.app/disclaimer" },
-    ],
+    links: [{ rel: "canonical", href: "https://keralam-learn-smart.vercel.app/disclaimer" }],
   }),
   component: DisclaimerPage,
 });

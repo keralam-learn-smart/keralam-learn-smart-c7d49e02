@@ -83,19 +83,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Traffic Tips — Kerala RTO Learning & Test Platform" },
-      { name: "description", content: "Free bilingual (English & Malayalam) Kerala RTO learning platform: traffic signs, signals, road rules, 1000+ practice questions, 10 mock tests and AI tutor." },
+      {
+        name: "description",
+        content:
+          "Free bilingual (English & Malayalam) Kerala RTO learning platform: traffic signs, signals, road rules, 1000+ practice questions, 10 mock tests and AI tutor.",
+      },
       { name: "author", content: "Traffic Tips" },
       { name: "theme-color", content: "#F26B1D" },
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: "Traffic Tips — Kerala RTO Learning & Test Platform" },
-      { property: "og:description", content: "Bilingual Kerala RTO learning, mock tests and AI tutor for the Learner Licence exam." },
+      {
+        property: "og:description",
+        content:
+          "Bilingual Kerala RTO learning, mock tests and AI tutor for the Learner Licence exam.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://keralam-learn-smart.vercel.app" },
       { property: "og:site_name", content: "Traffic Tips" },
       { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Traffic Tips — Kerala RTO Learning & Test Platform" },
-      { name: "twitter:description", content: "Bilingual Kerala RTO learning, mock tests and AI tutor." },
+      {
+        name: "twitter:description",
+        content: "Bilingual Kerala RTO learning, mock tests and AI tutor.",
+      },
     ],
     links: [
       {
