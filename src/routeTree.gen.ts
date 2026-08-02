@@ -13,6 +13,7 @@ import { Route as UserAgreementRouteImport } from './routes/user-agreement'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShippingDeliveryRouteImport } from './routes/shipping-delivery'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReportIssueRouteImport } from './routes/report-issue'
@@ -72,6 +73,11 @@ const TrustRoute = TrustRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShippingDeliveryRoute = ShippingDeliveryRouteImport.update({
@@ -302,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/shipping-delivery': typeof ShippingDeliveryRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -347,6 +354,7 @@ export interface FileRoutesByTo {
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/shipping-delivery': typeof ShippingDeliveryRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -394,6 +402,7 @@ export interface FileRoutesById {
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
   '/shipping-delivery': typeof ShippingDeliveryRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -441,6 +450,7 @@ export interface FileRouteTypes {
     | '/report-issue'
     | '/settings'
     | '/shipping-delivery'
+    | '/signup'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -486,6 +496,7 @@ export interface FileRouteTypes {
     | '/report-issue'
     | '/settings'
     | '/shipping-delivery'
+    | '/signup'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -532,6 +543,7 @@ export interface FileRouteTypes {
     | '/report-issue'
     | '/settings'
     | '/shipping-delivery'
+    | '/signup'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -579,6 +591,7 @@ export interface RootRouteChildren {
   ReportIssueRoute: typeof ReportIssueRoute
   SettingsRoute: typeof SettingsRoute
   ShippingDeliveryRoute: typeof ShippingDeliveryRoute
+  SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
   TrustRoute: typeof TrustRoute
   UnlockRoute: typeof UnlockRoute
@@ -625,6 +638,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shipping-delivery': {
@@ -949,6 +969,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReportIssueRoute: ReportIssueRoute,
   SettingsRoute: SettingsRoute,
   ShippingDeliveryRoute: ShippingDeliveryRoute,
+  SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
   TrustRoute: TrustRoute,
   UnlockRoute: UnlockRoute,
