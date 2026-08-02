@@ -1,14 +1,23 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Moon, Sun, LogIn, User as UserIcon, LogOut, Share2, Heart, MessageSquare, Settings, LifeBuoy, AlertTriangle } from "lucide-react";
+import {
+  Menu,
+  Moon,
+  Sun,
+  LogIn,
+  User as UserIcon,
+  LogOut,
+  Share2,
+  Heart,
+  MessageSquare,
+  Settings,
+  Languages,
+  Check,
+  LifeBuoy,
+  AlertTriangle,
+} from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,12 +27,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSite } from "@/lib/site-context";
+import { LANGUAGES, useSite } from "@/lib/site-context";
 import { useAuth } from "@/lib/auth-context";
 import { ShareDialog } from "@/components/share-dialog";
 import { FollowDialog } from "@/components/follow-dialog";
 import { FeedbackDialog } from "@/components/feedback-dialog";
-import { LanguageMenu } from "@/components/language-menu";
 import { AdUnit } from "@/components/ad-unit";
 
 type NavItem = { to: string; en: string; ml: string };
@@ -75,6 +83,16 @@ const NAV: NavGroup[] = [
     ],
   },
   {
+    en: "Access",
+    ml: "ആക്സസ്",
+    items: [
+      { to: "/pricing", en: "Pricing", ml: "വില" },
+      { to: "/checkout", en: "Checkout Preview", ml: "ചെക്ക്ഔട്ട് പ്രിവ്യൂ" },
+      { to: "/booking/history", en: "Booking History", ml: "ബുക്കിംഗ് ചരിത്രം" },
+      { to: "/invoice", en: "Invoice Layout", ml: "ഇൻവോയ്സ്" },
+    ],
+  },
+  {
     en: "About",
     ml: "കുറിച്ച്",
     items: [
@@ -110,15 +128,21 @@ const LEGAL_LINKS: NavItem[] = [
 ];
 
 export function SiteLayout({ children }: { children: ReactNode }) {
-  const { lang, dark, toggleDark } = useSite();
+  const { lang } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
   const [open, setOpen] = useState(false);
   const closeSheet = () => setOpen(false);
   const t = (en: string, m: string) => (lang === "en" ? en : m);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-30 border-b border-border bg-card/85 backdrop-blur supports-[backdrop-filter]:bg-card/70">
+    <div className="premium-page-shell flex min-h-screen flex-col bg-background text-foreground">
+      <div className="premium-bg-blob one" aria-hidden="true" />
+      <div className="premium-bg-blob two" aria-hidden="true" />
+      <div className="premium-bg-blob three" aria-hidden="true" />
+      <a href="#main-content" className="skip-to-content">
+        {t("Skip to content", "ഉള്ളടക്കത്തിലേക്ക് കടക്കുക")}
+      </a>
+      <header className="sticky top-0 z-30 border-b border-white/30 bg-card/70 shadow-lg shadow-primary/5 backdrop-blur-2xl supports-[backdrop-filter]:bg-card/60">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2.5 sm:px-4">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -126,16 +150,22 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[88vw] max-w-sm overflow-y-auto p-0">
+            <SheetContent
+              side="left"
+              className="w-[88vw] max-w-sm overflow-y-auto p-0"
+              aria-label={t("Site navigation", "സൈറ്റ് നാവിഗേഷൻ")}
+            >
               <SheetHeader className="border-b border-border p-4">
                 <SheetTitle className={ml}>
                   {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
                 </SheetTitle>
               </SheetHeader>
-              <nav className="p-4">
+              <nav className="p-4" aria-label={t("Primary navigation", "പ്രധാന നാവിഗേഷൻ")}>
                 {NAV.map((g) => (
                   <div key={g.en} className="mb-4">
-                    <p className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}>
+                    <p
+                      className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}
+                    >
                       {lang === "en" ? g.en : g.ml}
                     </p>
                     <ul className="space-y-1">
@@ -154,68 +184,104 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   </div>
                 ))}
                 <div className="mb-4">
-                  <p className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}>
+                  <p
+                    className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}
+                  >
                     {t("Community", "കമ്മ്യൂണിറ്റി")}
                   </p>
                   <ul className="space-y-1">
                     <li>
                       <FollowDialog>
-                        <button onClick={closeSheet} className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                        <button
+                          onClick={closeSheet}
+                          className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                        >
                           <Heart className="h-4 w-4" /> {t("Follow Us", "പിന്തുടരുക")}
                         </button>
                       </FollowDialog>
                     </li>
                     <li>
                       <ShareDialog>
-                        <button onClick={closeSheet} className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                        <button
+                          onClick={closeSheet}
+                          className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                        >
                           <Share2 className="h-4 w-4" /> {t("Share Website", "വെബ്സൈറ്റ് പങ്കിടുക")}
                         </button>
                       </ShareDialog>
                     </li>
                     <li>
                       <FeedbackDialog kind="feedback">
-                        <button onClick={closeSheet} className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                        <button
+                          onClick={closeSheet}
+                          className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                        >
                           <MessageSquare className="h-4 w-4" /> {t("Feedback", "അഭിപ്രായം")}
                         </button>
                       </FeedbackDialog>
                     </li>
                     <li>
-                      <Link to="/report-issue" onClick={closeSheet} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
-                        <AlertTriangle className="h-4 w-4" /> {t("Report Issue", "പ്രശ്നം റിപ്പോർട്ട്")}
+                      <Link
+                        to="/report-issue"
+                        onClick={closeSheet}
+                        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                      >
+                        <AlertTriangle className="h-4 w-4" />{" "}
+                        {t("Report Issue", "പ്രശ്നം റിപ്പോർട്ട്")}
                       </Link>
                     </li>
                   </ul>
                 </div>
                 <div className="mb-4">
-                  <p className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}>
+                  <p
+                    className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}
+                  >
                     {t("Account & Settings", "അക്കൗണ്ട് & സജ്ജീകരണങ്ങൾ")}
                   </p>
                   <ul className="space-y-1">
                     <li>
-                      <Link to="/settings" onClick={closeSheet} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                      <Link
+                        to="/settings"
+                        onClick={closeSheet}
+                        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                      >
                         <Settings className="h-4 w-4" /> {t("Settings", "സജ്ജീകരണങ്ങൾ")}
                       </Link>
                     </li>
                     <li>
-                      <Link to="/auth" onClick={closeSheet} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                      <Link
+                        to="/auth"
+                        onClick={closeSheet}
+                        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                      >
                         <LogIn className="h-4 w-4" /> {t("Login / Sign Up", "ലോഗിൻ / സൈൻ അപ്പ്")}
                       </Link>
                     </li>
                     <li>
-                      <Link to="/help-support" onClick={closeSheet} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                      <Link
+                        to="/help-support"
+                        onClick={closeSheet}
+                        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                      >
                         <LifeBuoy className="h-4 w-4" /> {t("Help & Support", "സഹായം")}
                       </Link>
                     </li>
                   </ul>
                 </div>
                 <div className="mb-4">
-                  <p className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}>
+                  <p
+                    className={`mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground ${ml}`}
+                  >
                     {t("Legal", "നിയമപരം")}
                   </p>
                   <ul className="space-y-1">
                     {LEGAL_LINKS.map((it) => (
                       <li key={it.to}>
-                        <Link to={it.to} onClick={closeSheet} className={`block rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}>
+                        <Link
+                          to={it.to}
+                          onClick={closeSheet}
+                          className={`block rounded-md px-3 py-2 text-sm transition hover:bg-primary/10 hover:text-primary ${ml}`}
+                        >
                           {lang === "en" ? it.en : it.ml}
                         </Link>
                       </li>
@@ -226,48 +292,41 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </SheetContent>
           </Sheet>
 
-          <Link to="/" className="flex min-w-0 items-center gap-2">
-            <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground shadow-sm">
+          <Link
+            to="/"
+            className="flex min-w-0 items-center gap-2"
+            aria-label={t("Traffic Tips home", "ട്രാഫിക് ടിപ്സ് ഹോം")}
+          >
+            <div className="premium-icon grid h-8 w-8 shrink-0 place-items-center rounded-xl text-base font-bold">
               T
             </div>
-            <span className="sr-only">
-              {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
-            </span>
+            <span className="sr-only">{lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}</span>
           </Link>
 
-          <div className="ml-auto flex items-center gap-1">
-            <ShareDialog>
-              <Button variant="ghost" size="icon" aria-label="Share">
-                <Share2 className="h-5 w-5" />
-              </Button>
-            </ShareDialog>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleDark}
-              aria-label="Toggle dark mode"
-            >
-              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-            <LanguageMenu />
+          <div className="ml-auto flex min-w-0 items-center gap-1">
             <UserMenu />
           </div>
         </div>
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1" tabIndex={-1}>
+        {children}
+      </main>
 
       <div className="mx-auto w-full max-w-6xl px-4">
         <AdUnit format="auto" className="mt-8 mb-0" />
       </div>
 
-      <footer className="mt-12 border-t border-border bg-card/50">
+      <footer
+        className="mt-12 border-t border-white/30 bg-card/55 shadow-[0_-24px_70px_oklch(0.45_0.18_280/8%)] backdrop-blur-xl"
+        aria-label={t("Footer", "ഫൂട്ടർ")}
+      >
         <div className="mx-auto max-w-6xl px-4 py-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-center gap-2">
-                <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-base font-bold text-primary-foreground">
-              T
+                <div className="premium-icon grid h-9 w-9 place-items-center rounded-xl text-base font-bold">
+                  T
                 </div>
                 <p className={`font-bold ${ml}`}>
                   {lang === "en" ? "Traffic Tips" : "ട്രാഫിക് ടിപ്സ്"}
@@ -275,8 +334,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </div>
               <p className={`mt-2 text-xs text-muted-foreground ${ml}`}>
                 {lang === "en"
-                  ? "Free bilingual learning, mock tests and AI tutor for the Kerala RTO Learner Licence exam."
-                  : "കേരള RTO ലേണർ ലൈസൻസ് പരീക്ഷയ്ക്ക് സൗജന്യ ദ്വിഭാഷാ പഠനം, മോക്ക് ടെസ്റ്റുകൾ, AI ട്യൂട്ടർ."}
+                  ? "Learn • Practice • AI Tutor — Prepare for the Kerala RTO Learner Licence Exam. Only ₹45!"
+                  : "കേരള RTO ലേണർ ലൈസൻസ് പരീക്ഷയ്ക്ക് വെറും ₹45-ന് ദ്വിഭാഷാ പഠനം, മോക്ക് ടെസ്റ്റുകൾ, AI ട്യൂട്ടർ."}
               </p>
               <address className="mt-4 space-y-1.5 text-xs not-italic text-muted-foreground">
                 <p>
@@ -331,6 +390,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                     </Link>
                   </li>
                 ))}
+                {NAV[4].items.map((it) => (
+                  <li key={it.to}>
+                    <Link to={it.to} className={`text-muted-foreground hover:text-primary ${ml}`}>
+                      {lang === "en" ? it.en : it.ml}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -339,7 +405,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 {lang === "en" ? "Company" : "കമ്പനി"}
               </p>
               <ul className="space-y-1 text-sm">
-                {[...FOOTER_LINKS, ...LEGAL_LINKS.filter(l => !FOOTER_LINKS.some(f => f.to === l.to))].map((it) => (
+                {[
+                  ...FOOTER_LINKS,
+                  ...LEGAL_LINKS.filter((l) => !FOOTER_LINKS.some((f) => f.to === l.to)),
+                ].map((it) => (
                   <li key={it.to}>
                     <Link to={it.to} className={`text-muted-foreground hover:text-primary ${ml}`}>
                       {lang === "en" ? it.en : it.ml}
@@ -351,7 +420,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
 
           <div className="mt-6 border-t border-border pt-4 text-center text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Traffic Tips. All Rights Reserved.
+            © 2026 Traffic Tips. All Rights Reserved.
           </div>
         </div>
       </footer>
@@ -361,7 +430,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 function UserMenu() {
   const { user, profile, signOut, loading } = useAuth();
-  const { lang } = useSite();
+  const { lang, setLang, dark, toggleDark } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
   const t = (en: string, m: string) => (lang === "en" ? en : m);
 
@@ -369,47 +438,109 @@ function UserMenu() {
     return <div className="h-9 w-9" aria-hidden />;
   }
 
+  const menuContentClass = "w-72 max-w-[calc(100vw-1rem)] rounded-2xl p-2 shadow-xl";
+  const menuItemClass = `min-h-11 rounded-xl px-3 py-2.5 text-sm transition-colors ${ml}`;
+  const menuIconClass = "mr-3 h-4 w-4 text-muted-foreground";
+
+  const accountTools = (
+    <>
+      <DropdownMenuLabel className={`flex items-center gap-3 px-3 py-2 text-xs ${ml}`}>
+        <Languages className="h-4 w-4 text-muted-foreground" />
+        {t("Language", "ഭാഷ")}
+      </DropdownMenuLabel>
+      {LANGUAGES.map((language) => (
+        <DropdownMenuItem
+          key={language.code}
+          onClick={() => setLang(language.code)}
+          className={`min-h-10 rounded-xl py-2 pl-10 pr-3 ${ml}`}
+        >
+          <span className="flex-1">{language.native}</span>
+          {lang === language.code ? <Check className="h-4 w-4" /> : null}
+        </DropdownMenuItem>
+      ))}
+      <DropdownMenuItem onClick={toggleDark} className={menuItemClass}>
+        {dark ? <Sun className={menuIconClass} /> : <Moon className={menuIconClass} />}
+        {dark ? t("Light mode", "ലൈറ്റ് മോഡ്") : t("Dark mode", "ഡാർക്ക് മോഡ്")}
+      </DropdownMenuItem>
+      <ShareDialog>
+        <DropdownMenuItem onSelect={(event) => event.preventDefault()} className={menuItemClass}>
+          <Share2 className={menuIconClass} />
+          {t("Share", "പങ്കിടുക")}
+        </DropdownMenuItem>
+      </ShareDialog>
+      <DropdownMenuItem asChild>
+        <Link to="/settings" className={menuItemClass}>
+          <Settings className={menuIconClass} />
+          {t("Settings", "സജ്ജീകരണങ്ങൾ")}
+        </Link>
+      </DropdownMenuItem>
+      <DropdownMenuSeparator className="my-2" />
+      <DropdownMenuLabel className={`px-3 py-2 text-xs ${ml}`}>
+        {t("Legal", "നിയമപരം")}
+      </DropdownMenuLabel>
+      {LEGAL_LINKS.map((item) => (
+        <DropdownMenuItem key={item.to} asChild>
+          <Link to={item.to} className={`min-h-9 rounded-xl px-3 py-2 text-sm ${ml}`}>
+            {lang === "en" ? item.en : item.ml}
+          </Link>
+        </DropdownMenuItem>
+      ))}
+    </>
+  );
+
   if (!user) {
     return (
-      <Button asChild size="sm" className="ml-1 h-9 rounded-full px-4">
-        <Link to="/auth">
-          <LogIn className="mr-1.5 h-4 w-4" />
-          <span className={ml}>{t("Sign In", "സൈൻ ഇൻ")}</span>
-        </Link>
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button size="sm" className="ml-1 h-9 rounded-full px-4" aria-label="Sign in menu">
+            <LogIn className="mr-1.5 h-4 w-4" />
+            <span className={ml}>{t("Sign In", "സൈൻ ഇൻ")}</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className={menuContentClass}>
+          {accountTools}
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   }
 
   const name = profile?.full_name || user.email || "U";
-  const initials = name.split(" ").map((s) => s[0]).join("").slice(0, 2).toUpperCase();
+  const initials = name
+    .split(" ")
+    .map((s) => s[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="ml-1 rounded-full" aria-label="Account">
           <Avatar className="h-8 w-8">
-            {profile?.avatar_url ? <AvatarImage src={profile.avatar_url} alt="" /> : null}
+            {profile?.avatar_url ? (
+              <AvatarImage
+                src={profile.avatar_url}
+                alt={t("Profile picture", "പ്രൊഫൈൽ ചിത്രം")}
+                loading="lazy"
+              />
+            ) : null}
             <AvatarFallback className="text-xs">{initials}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel className="truncate">
-          <p className={`truncate text-sm font-medium ${ml}`}>{name}</p>
-          <p className="truncate text-xs font-normal text-muted-foreground">{user.email}</p>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent align="end" className={menuContentClass}>
         <DropdownMenuItem asChild>
-          <Link to="/profile" className={ml}>
-            <UserIcon className="mr-2 h-4 w-4" />
+          <Link to="/profile" className={menuItemClass}>
+            <UserIcon className={menuIconClass} />
             {t("My Profile", "എന്റെ പ്രൊഫൈൽ")}
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()} className={ml}>
-          <LogOut className="mr-2 h-4 w-4" />
-          {t("Sign out", "സൈൻ ഔട്ട്")}
+        <DropdownMenuItem onClick={() => signOut()} className={menuItemClass}>
+          <LogOut className={menuIconClass} />
+          {t("Sign Out", "സൈൻ ഔട്ട്")}
         </DropdownMenuItem>
+        <DropdownMenuSeparator className="my-2" />
+        {accountTools}
       </DropdownMenuContent>
     </DropdownMenu>
   );

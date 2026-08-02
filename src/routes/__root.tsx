@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteProvider } from "../lib/site-context";
 import { AuthProvider } from "../lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
+import { createSeoHead } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (

@@ -17,18 +17,12 @@ const searchSchema = z.object({
 export const Route = createFileRoute("/payment/success")({
   validateSearch: (s: Record<string, unknown>) => searchSchema.parse(s),
   head: () => ({
-    meta: [
-      { title: "Payment Status — Kerala RTO" },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: "Payment Status — Kerala RTO" }, { name: "robots", content: "noindex" }],
   }),
   component: PaymentSuccessPage,
 });
 
-type State =
-  | { kind: "verifying" }
-  | { kind: "success" }
-  | { kind: "failed"; message: string };
+type State = { kind: "verifying" } | { kind: "success" } | { kind: "failed"; message: string };
 
 function PaymentSuccessPage() {
   const { payment_id, payment_request_id, payment_status } = Route.useSearch();
@@ -83,7 +77,9 @@ function PaymentSuccessPage() {
             </p>
             <div className="mt-5 flex flex-col gap-2 sm:flex-row">
               <Link to="/quiz" className="flex-1">
-                <Button size="lg" className="w-full rounded-full">Start Practice Tests</Button>
+                <Button size="lg" className="w-full rounded-full">
+                  Start Practice Tests
+                </Button>
               </Link>
               <Link to="/" className="flex-1">
                 <Button size="lg" variant="outline" className="w-full rounded-full">
@@ -102,7 +98,9 @@ function PaymentSuccessPage() {
             <p className="mt-2 text-sm text-muted-foreground">{state.message}</p>
             <div className="mt-5 flex flex-col gap-2 sm:flex-row">
               <Link to="/unlock" className="flex-1">
-                <Button size="lg" className="w-full rounded-full">Try again</Button>
+                <Button size="lg" className="w-full rounded-full">
+                  Try again
+                </Button>
               </Link>
               <Link to="/contact" className="flex-1">
                 <Button size="lg" variant="outline" className="w-full rounded-full">

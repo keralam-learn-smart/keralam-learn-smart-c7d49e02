@@ -44,7 +44,9 @@ function UnlockPage() {
     setName(profile?.full_name ?? "");
     setEmail(user.email ?? "");
     setPhone(profile?.phone ?? "");
-    checkAccess().then((r) => setAlreadyPaid(r.hasAccess)).catch(() => {});
+    checkAccess()
+      .then((r) => setAlreadyPaid(r.hasAccess))
+      .catch(() => {});
   }, [user, profile, checkAccess]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -73,9 +75,7 @@ function UnlockPage() {
   if (loading) {
     return (
       <SiteLayout>
-        <div className="mx-auto max-w-2xl px-4 py-10 text-sm text-muted-foreground">
-          Loading…
-        </div>
+        <div className="mx-auto max-w-2xl px-4 py-10 text-sm text-muted-foreground">Loading…</div>
       </SiteLayout>
     );
   }
@@ -91,7 +91,9 @@ function UnlockPage() {
               Create a free account or sign in to purchase and save your access.
             </p>
             <Link to="/auth" className="mt-4 inline-block">
-              <Button size="lg" className="rounded-full px-6">Sign in / Sign up</Button>
+              <Button size="lg" className="rounded-full px-6">
+                Sign in / Sign up
+              </Button>
             </Link>
           </Card>
         </div>
@@ -110,7 +112,9 @@ function UnlockPage() {
               All mock tests and premium content are unlocked.
             </p>
             <Link to="/quiz" className="mt-4 inline-block">
-              <Button size="lg" className="rounded-full px-6">Go to Practice Tests</Button>
+              <Button size="lg" className="rounded-full px-6">
+                Go to Practice Tests
+              </Button>
             </Link>
           </Card>
         </div>
@@ -131,9 +135,7 @@ function UnlockPage() {
           </p>
           <p className="mt-4 text-4xl font-extrabold">
             ₹{PRICE}
-            <span className="ml-2 align-middle text-sm font-medium opacity-80">
-              one-time
-            </span>
+            <span className="ml-2 align-middle text-sm font-medium opacity-80">one-time</span>
           </p>
         </Card>
 
@@ -146,18 +148,34 @@ function UnlockPage() {
             </div>
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="+91 9XXXXXXXXX" />
+              <Input
+                id="phone"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+                placeholder="+91 9XXXXXXXXX"
+              />
             </div>
             <Button type="submit" size="lg" className="w-full rounded-full" disabled={submitting}>
               {submitting ? "Redirecting to Instamojo…" : `Pay ₹${PRICE} & Unlock`}
             </Button>
             <p className="text-center text-xs text-muted-foreground">
               You'll be redirected to Instamojo's secure page. All purchases are final (see{" "}
-              <Link to="/refund-policy" className="underline">Refund Policy</Link>).
+              <Link to="/refund-policy" className="underline">
+                Refund Policy
+              </Link>
+              ).
             </p>
           </form>
         </Card>

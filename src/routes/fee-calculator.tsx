@@ -17,7 +17,11 @@ type Service = "ll" | "dl_test" | "dl_issue" | "renewal" | "duplicate" | "endors
 const SERVICE_LABELS: Record<Service, { en: string; ml: string; fee: number }> = {
   ll: { en: "Learner Licence (LL) — application + test", ml: "ലേണർ ലൈസൻസ് (LL)", fee: 350 },
   dl_test: { en: "Driving Licence — Driving Test", ml: "ഡ്രൈവിങ് ടെസ്റ്റ്", fee: 300 },
-  dl_issue: { en: "Driving Licence — Issue (smart card)", ml: "DL ഇഷ്യൂ (സ്മാർട്ട് കാർഡ്)", fee: 200 },
+  dl_issue: {
+    en: "Driving Licence — Issue (smart card)",
+    ml: "DL ഇഷ്യൂ (സ്മാർട്ട് കാർഡ്)",
+    fee: 200,
+  },
   renewal: { en: "DL Renewal", ml: "DL പുതുക്കൽ", fee: 200 },
   duplicate: { en: "Duplicate DL", ml: "ഡ്യൂപ്ലിക്കേറ്റ് DL", fee: 200 },
   endorsement: { en: "Add another class (endorsement)", ml: "ക്ലാസ് കൂട്ടിച്ചേർക്കൽ", fee: 500 },
@@ -27,9 +31,16 @@ export const Route = createFileRoute("/fee-calculator")({
   head: () => ({
     meta: [
       { title: "RTO Fee Calculator — Traffic Tips" },
-      { name: "description", content: "Estimate Kerala RTO fees for learner licence, driving test, DL issue, renewal and more." },
+      {
+        name: "description",
+        content:
+          "Estimate Kerala RTO fees for learner licence, driving test, DL issue, renewal and more.",
+      },
       { property: "og:title", content: "Kerala RTO Fee Calculator" },
-      { property: "og:description", content: "Quick fee estimates for common Kerala RTO services." },
+      {
+        property: "og:description",
+        content: "Quick fee estimates for common Kerala RTO services.",
+      },
     ],
   }),
   component: FeeCalculator,
@@ -41,7 +52,10 @@ function FeeCalculator() {
   const [service, setService] = useState<Service>("ll");
   const [classes, setClasses] = useState(1);
 
-  const total = useMemo(() => SERVICE_LABELS[service].fee * Math.max(1, classes), [service, classes]);
+  const total = useMemo(
+    () => SERVICE_LABELS[service].fee * Math.max(1, classes),
+    [service, classes],
+  );
 
   return (
     <SiteLayout>

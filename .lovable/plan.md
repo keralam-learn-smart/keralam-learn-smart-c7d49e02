@@ -18,6 +18,7 @@ Home page (`src/routes/index.tsx`) keeps its current design. Category cards beco
 ## Category Detail Page
 
 Single template reads from an expanded `CATEGORIES` entry. Sections (all bilingual):
+
 - Overview / detailed explanation
 - Examples
 - Important notes

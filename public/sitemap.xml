@@ -126,7 +126,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
+  <url>i
     <loc>https://keralam-learn-smart.vercel.app/report-issue</loc>
     <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>

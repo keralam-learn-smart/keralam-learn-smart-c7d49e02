@@ -11,7 +11,10 @@ export const CATEGORIES: Category[] = [
     slug: "traffic-signs",
     icon: "⚠️",
     name: { en: "Traffic Signs", ml: "ഗതാഗത ചിഹ്നങ്ങൾ" },
-    desc: { en: "Warning, mandatory, prohibitory & informatory signs", ml: "മുന്നറിയിപ്പ്, നിർബന്ധിത, നിരോധന, വിവര ചിഹ്നങ്ങൾ" },
+    desc: {
+      en: "Warning, mandatory, prohibitory & informatory signs",
+      ml: "മുന്നറിയിപ്പ്, നിർബന്ധിത, നിരോധന, വിവര ചിഹ്നങ്ങൾ",
+    },
     content: {
       en: "Traffic signs are visual symbols placed on roads to guide, warn or regulate drivers. Kerala RTO follows the Indian Road Congress (IRC) standard. There are four main families: Mandatory (red circle), Cautionary/Warning (red triangle), Informatory (blue rectangle) and Direction signs. Every driver must recognise each sign at a glance and respond before reaching it.",
       ml: "റോഡിൽ ഡ്രൈവർമാർക്ക് മാർഗ്ഗനിർദ്ദേശം നൽകുവാനും മുന്നറിയിപ്പ് നൽകുവാനും നിയന്ത്രിക്കുവാനും ഉപയോഗിക്കുന്ന ദൃശ്യ ചിഹ്നങ്ങളാണ് ഗതാഗത ചിഹ്നങ്ങൾ. കേരള RTO ഇന്ത്യൻ റോഡ് കോൺഗ്രസ്സ് (IRC) മാനദണ്ഡം പിന്തുടരുന്നു. നാല് പ്രധാന വിഭാഗങ്ങൾ ഉണ്ട്: നിർബന്ധിത (ചുവന്ന വൃത്തം), മുന്നറിയിപ്പ് (ചുവന്ന ത്രികോണം), വിവര (നീല ദീർഘചതുരം), ദിശാ ചിഹ്നങ്ങൾ.",
@@ -31,7 +34,10 @@ export const CATEGORIES: Category[] = [
     slug: "police-hand-signals",
     icon: "👮",
     name: { en: "Police Hand Signals", ml: "പോലീസ് കൈ സിഗ്നലുകൾ" },
-    desc: { en: "Stop, go, slow down signals by traffic police", ml: "ട്രാഫിക് പോലീസിന്റെ കൈ സിഗ്നലുകൾ" },
+    desc: {
+      en: "Stop, go, slow down signals by traffic police",
+      ml: "ട്രാഫിക് പോലീസിന്റെ കൈ സിഗ്നലുകൾ",
+    },
     content: {
       en: "Traffic police hand signals override traffic lights and signs. Key signals: arm raised straight up = stop traffic from all directions; arm extended sideways with palm out = stop traffic approaching from that side; both arms raised palm forward = stop traffic from front and back; arm swinging from front to side = signal to proceed; one arm bent at elbow with light/baton waved = warning/slow down. Always obey a traffic officer.",
       ml: "ട്രാഫിക് പോലീസിന്റെ കൈ സിഗ്നലുകൾ ട്രാഫിക് ലൈറ്റിനെക്കാളും അടയാളങ്ങളെക്കാളും മുൻഗണനയുള്ളവയാണ്. കൈ നേരെ മുകളിലേക്ക് ഉയർത്തുമ്പോൾ എല്ലാ വശത്തുനിന്നുമുള്ള ഗതാഗതം നിർത്തണം. കൈ വശത്തേക്ക് നീട്ടി ഉള്ളംകൈ പുറത്തേക്ക് കാട്ടുമ്പോൾ ആ വശത്തുനിന്നുള്ള വാഹനങ്ങൾ നിർത്തണം. പോലീസ് ഉദ്യോഗസ്ഥനെ എപ്പോഴും അനുസരിക്കണം.",
@@ -41,7 +47,10 @@ export const CATEGORIES: Category[] = [
     slug: "road-rules",
     icon: "🛣️",
     name: { en: "Road Rules", ml: "റോഡ് നിയമങ്ങൾ" },
-    desc: { en: "Lane discipline, overtaking, right of way", ml: "ലെയ്ൻ അച്ചടക്കം, ഓവർടേക്കിങ്, പ്രഥമ അവകാശം" },
+    desc: {
+      en: "Lane discipline, overtaking, right of way",
+      ml: "ലെയ്ൻ അച്ചടക്കം, ഓവർടേക്കിങ്, പ്രഥമ അവകാശം",
+    },
     content: {
       en: "Always drive on the left in India. Overtake only from the right. Maintain a 2-second following gap (4 seconds in rain). Give right of way to ambulances, fire engines and police vehicles. At an unmarked intersection, give way to the vehicle on your right.",
       ml: "ഇന്ത്യയിൽ എപ്പോഴും ഇടതുവശത്തുകൂടി വാഹനമോടിക്കുക. വലത്തുവശത്തുകൂടി മാത്രം ഓവർടേക്ക് ചെയ്യുക. 2 സെക്കൻഡ് അകലം പാലിക്കുക (മഴയിൽ 4 സെക്കൻഡ്). ആംബുലൻസ്, ഫയർ ഫോഴ്സ്, പോലീസ് വാഹനങ്ങൾക്ക് വഴി നൽകുക.",
@@ -71,7 +80,10 @@ export const CATEGORIES: Category[] = [
     slug: "driving-licence",
     icon: "🪪",
     name: { en: "Driving Licence (DL) Guide", ml: "ഡ്രൈവിങ് ലൈസൻസ്" },
-    desc: { en: "How to apply, fees, validity, renewal", ml: "എങ്ങനെ അപേക്ഷിക്കാം, ഫീസ്, പുതുക്കൽ" },
+    desc: {
+      en: "How to apply, fees, validity, renewal",
+      ml: "എങ്ങനെ അപേക്ഷിക്കാം, ഫീസ്, പുതുക്കൽ",
+    },
     content: {
       en: "Apply for a permanent DL after 30 days of holding a Learner Licence, within its 6-month validity. You must pass a practical driving test at the RTO. DL is valid for 20 years or until age 50 (whichever is earlier); transport DL is valid for 3 years. Renew within 1 year of expiry without penalty. Online application: parivahan.gov.in.",
       ml: "ലേണർ ലൈസൻസ് നേടി 30 ദിവസത്തിന് ശേഷം, 6 മാസ കാലാവധിക്കുള്ളിൽ പെർമനന്റ് DL ന് അപേക്ഷിക്കാം. RTO യിൽ പ്രായോഗിക ഡ്രൈവിങ് ടെസ്റ്റ് ജയിക്കണം. DL ന് 20 വർഷം അല്ലെങ്കിൽ 50 വയസ്സ് വരെ സാധുത (ഏതാണ് നേരത്തെ). ട്രാൻസ്പോർട്ട് DL ന് 3 വർഷം. പുതുക്കൽ: parivahan.gov.in.",

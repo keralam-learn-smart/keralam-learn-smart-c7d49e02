@@ -32,8 +32,7 @@ export const askTutor = createServerFn({ method: "POST" })
     const key = process.env.LOVABLE_API_KEY;
     if (!key) {
       return {
-        reply:
-          "AI service is not configured yet. Please ask the site owner to enable Lovable AI.",
+        reply: "AI service is not configured yet. Please ask the site owner to enable Lovable AI.",
       };
     }
     const gateway = createLovableAiGatewayProvider(key);

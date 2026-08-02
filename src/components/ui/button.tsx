@@ -5,16 +5,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold cursor-pointer transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        default:
+          "bg-[linear-gradient(115deg,#f97316,#ec4899,#7c3aed,#2563eb,#06b6d4)] bg-[length:220%_220%] text-white shadow-lg shadow-primary/20 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25 hover:[animation:premium-gradient-shift_4s_ease_infinite]",
+        destructive:
+          "bg-destructive text-destructive-foreground shadow-lg shadow-destructive/20 hover:-translate-y-0.5 hover:bg-destructive/90",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+          "border border-transparent bg-[linear-gradient(var(--color-background),var(--color-background))_padding-box,linear-gradient(115deg,#f97316,#ec4899,#2563eb,#06b6d4)_border-box] shadow-sm hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/15",
+        secondary:
+          "bg-[linear-gradient(135deg,oklch(0.95_0.03_286/85%),oklch(0.96_0.04_210/78%))] text-secondary-foreground shadow-sm hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/15",
+        ghost: "hover:-translate-y-0.5 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
