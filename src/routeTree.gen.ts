@@ -13,6 +13,7 @@ import { Route as UserAgreementRouteImport } from './routes/user-agreement'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ShippingDeliveryRouteImport } from './routes/shipping-delivery'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReportIssueRouteImport } from './routes/report-issue'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
@@ -63,6 +64,11 @@ const TrustRoute = TrustRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShippingDeliveryRoute = ShippingDeliveryRouteImport.update({
+  id: '/shipping-delivery',
+  path: '/shipping-delivery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -242,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
+  '/shipping-delivery': typeof ShippingDeliveryRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -278,6 +285,7 @@ export interface FileRoutesByTo {
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
+  '/shipping-delivery': typeof ShippingDeliveryRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -316,6 +324,7 @@ export interface FileRoutesById {
   '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
+  '/shipping-delivery': typeof ShippingDeliveryRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
   '/unlock': typeof UnlockRoute
@@ -354,6 +363,7 @@ export interface FileRouteTypes {
     | '/refund-policy'
     | '/report-issue'
     | '/settings'
+    | '/shipping-delivery'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -390,6 +400,7 @@ export interface FileRouteTypes {
     | '/refund-policy'
     | '/report-issue'
     | '/settings'
+    | '/shipping-delivery'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -427,6 +438,7 @@ export interface FileRouteTypes {
     | '/refund-policy'
     | '/report-issue'
     | '/settings'
+    | '/shipping-delivery'
     | '/terms'
     | '/trust'
     | '/unlock'
@@ -465,6 +477,7 @@ export interface RootRouteChildren {
   RefundPolicyRoute: typeof RefundPolicyRoute
   ReportIssueRoute: typeof ReportIssueRoute
   SettingsRoute: typeof SettingsRoute
+  ShippingDeliveryRoute: typeof ShippingDeliveryRoute
   TermsRoute: typeof TermsRoute
   TrustRoute: typeof TrustRoute
   UnlockRoute: typeof UnlockRoute
@@ -508,6 +521,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shipping-delivery': {
+      id: '/shipping-delivery'
+      path: '/shipping-delivery'
+      fullPath: '/shipping-delivery'
+      preLoaderRoute: typeof ShippingDeliveryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -763,6 +783,7 @@ const rootRouteChildren: RootRouteChildren = {
   RefundPolicyRoute: RefundPolicyRoute,
   ReportIssueRoute: ReportIssueRoute,
   SettingsRoute: SettingsRoute,
+  ShippingDeliveryRoute: ShippingDeliveryRoute,
   TermsRoute: TermsRoute,
   TrustRoute: TrustRoute,
   UnlockRoute: UnlockRoute,
