@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Bot, Send, User } from "lucide-react";
+import { Bot, Send, User, RotateCcw } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteLayout } from "@/components/site-layout";
 import { Card } from "@/components/ui/card";
@@ -65,8 +67,15 @@ function AssistantPage() {
       const res = await ask({ data: { message: text, lang, history } });
       setMessages((m) => [...m, { role: "assistant", content: res.reply }]);
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Network error";
-      setMessages((m) => [...m, { role: "assistant", content: `Sorry — ${msg}` }]);
+      const raw = e instanceof Error ? e.message : "Network error";
+      const friendly = /unauthor/i.test(raw)
+        ? lang === "en"
+          ? "Your session expired. Please sign in again to keep chatting."
+          : "നിങ്ങളുടെ സെഷൻ കാലഹരണപ്പെട്ടു. വീണ്ടും സൈൻ ഇൻ ചെയ്യുക."
+        : lang === "en"
+          ? `Sorry, I couldn't answer that. Please try again. (${raw})`
+          : `ക്ഷമിക്കണം, ഉത്തരം നൽകാനായില്ല. വീണ്ടും ശ്രമിക്കുക. (${raw})`;
+      setMessages((m) => [...m, { role: "assistant", content: friendly }]);
     } finally {
       setLoading(false);
     }
@@ -89,6 +98,17 @@ function AssistantPage() {
                 : "കേരള RTO നിയമങ്ങൾ, ചിഹ്നങ്ങൾ, പിഴകൾ — എന്തും ചോദിക്കാം."}
             </p>
           </div>
+          {messages.length > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="ml-auto gap-1 rounded-full"
+              onClick={() => setMessages([])}
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+              {lang === "en" ? "New chat" : "പുതിയ ചാറ്റ്"}
+            </Button>
+          )}
         </div>
 
         {!authLoading && !user && (
@@ -141,11 +161,17 @@ function AssistantPage() {
                 {m.role === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
               </div>
               <Card
-                className={`max-w-[80%] whitespace-pre-wrap p-3 text-sm leading-relaxed ${ml} ${
+                className={`max-w-[80%] animate-in fade-in slide-in-from-bottom-1 p-3 text-sm leading-relaxed duration-300 ${ml} ${
                   m.role === "user" ? "bg-primary/10" : ""
                 }`}
               >
-                {m.content}
+                {m.role === "user" ? (
+                  <span className="whitespace-pre-wrap">{m.content}</span>
+                ) : (
+                  <div className="prose prose-sm dark:prose-invert max-w-none [&_h1]:text-base [&_h2]:text-sm [&_h3]:text-sm [&_li]:my-0.5 [&_p]:my-1.5 [&_strong]:text-foreground [&_ul]:my-1.5 [&_ul]:list-disc [&_ul]:pl-4">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
+                  </div>
+                )}
               </Card>
             </div>
           ))}
