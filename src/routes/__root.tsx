@@ -118,24 +118,6 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NX5N97S4');`,
-          }}
-        />
-        {/* End Google Tag Manager */}
-        {/* Google AdSense Auto Ads */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7684149874357678"
-          crossOrigin="anonymous"
-        />
-        {/* End Google AdSense Auto Ads */}
         <HeadContent />
       </head>
       <body>
@@ -160,6 +142,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Third-party tags are injected after hydration so the server and client
+  // markup stay identical (they mutate <head> and break hydration otherwise).
+  useEffect(() => {
+    if (document.getElementById("gtm-loader")) return;
+
+    const w = window as unknown as { dataLayer?: unknown[] };
+    w.dataLayer = w.dataLayer || [];
+    w.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+
+    const gtm = document.createElement("script");
+    gtm.id = "gtm-loader";
+    gtm.async = true;
+    gtm.src = "https://www.googletagmanager.com/gtm.js?id=GTM-NX5N97S4";
+    document.head.appendChild(gtm);
+
+    const ads = document.createElement("script");
+    ads.id = "adsense-loader";
+    ads.async = true;
+    ads.crossOrigin = "anonymous";
+    ads.src =
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7684149874357678";
+    document.head.appendChild(ads);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
