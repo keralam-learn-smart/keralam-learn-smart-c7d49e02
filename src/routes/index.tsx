@@ -52,21 +52,25 @@ const categoryContent = {
       title: "ലേണർ ലൈസൻസ്",
       text: "തിയറി ടെസ്റ്റ്, രേഖകൾ, ബുക്കിംഗ്, പരീക്ഷാ തയ്യാറെടുപ്പ് എന്നിവയ്ക്ക് വ്യക്തമായ മാർഗ്ഗനിർദ്ദേശം.",
       icon: GraduationCap,
+      slug: "learner-licence",
     },
     {
       title: "ട്രാഫിക് ചിഹ്നങ്ങൾ",
       text: "മുന്നറിയിപ്പ്, നിർബന്ധിതം, നിരോധനം, വിവര ചിഹ്നങ്ങൾ തിരിച്ചറിയാനുള്ള എളുപ്പമായ പഠനം.",
       icon: Signal,
+      slug: "traffic-signs",
     },
     {
       title: "സുരക്ഷിത ഡ്രൈവിംഗ്",
       text: "വേഗനിയന്ത്രണം, അകലം പാലിക്കൽ, മഴയിലും രാത്രിയിലും സുരക്ഷിതമായി ഓടിക്കുന്ന ശീലങ്ങൾ.",
       icon: ShieldCheck,
+      slug: "road-safety",
     },
     {
       title: "റോഡ് മാർക്കിംഗുകൾ",
       text: "സീബ്ര ക്രോസിംഗ്, സ്റ്റോപ്പ് ലൈൻ, ലെയ്ൻ മാർക്കിംഗ്, ഓവർടേക്കിംഗ് നിയന്ത്രണങ്ങൾ മനസ്സിലാക്കുക.",
       icon: Map,
+      slug: "road-markings",
     },
   ],
   en: [
@@ -74,21 +78,25 @@ const categoryContent = {
       title: "Learner Licence",
       text: "Clear guidance for theory tests, documents, booking, and exam preparation.",
       icon: GraduationCap,
+      slug: "learner-licence",
     },
     {
       title: "Traffic Signs",
       text: "Simple learning for warning, mandatory, prohibitory, and information signs.",
       icon: Signal,
+      slug: "traffic-signs",
     },
     {
       title: "Safe Driving",
       text: "Speed discipline, safe distance, and habits for rain, night, and daily road conditions.",
       icon: ShieldCheck,
+      slug: "road-safety",
     },
     {
       title: "Road Markings",
       text: "Understand zebra crossings, stop lines, lane markings, and overtaking restrictions.",
       icon: Map,
+      slug: "road-markings",
     },
   ],
 };
@@ -200,7 +208,11 @@ function Index() {
 
   const searchable = useMemo(
     () => [
-      ...categories.map((item) => ({ title: item.title, text: item.text, href: "#categories" })),
+      ...categories.map((item) => ({
+        title: item.title,
+        text: item.text,
+        href: `/category/${item.slug}`,
+      })),
       ...courseList.map((item) => ({ title: item.name, text: item.detail, href: "#courses" })),
       ...faqList.map((item) => ({ title: item.q, text: item.a, href: "#faq" })),
     ],
@@ -224,7 +236,7 @@ function Index() {
               <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-orange-50 px-3 py-2 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-orange-600 sm:px-4 sm:text-xs sm:tracking-[0.2em]">
                 <Sparkles className="h-4 w-4" /> {tr("common.premium")}
               </span>
-              <h1 className="mt-5 max-w-4xl text-[clamp(1.875rem,9vw,3rem)] font-black leading-[1.18] tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.15]">
+              <h1 className="mt-5 max-w-4xl text-[clamp(1.55rem,7vw,2.35rem)] font-black leading-[1.2] tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.15]">
                 {tr("home.welcome.title")}
               </h1>
               <div className="mt-6 space-y-5 text-[0.98rem] leading-8 text-slate-700 sm:text-lg">
@@ -242,17 +254,8 @@ function Index() {
                 <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
                   {tr("home.hero.eyebrow")}
                 </p>
-                <h2 className="mt-5 text-[clamp(1.6rem,7.5vw,2rem)] font-extrabold leading-[1.2] tracking-tight text-wrap sm:text-[clamp(2rem,10vw,3.75rem)] sm:font-black sm:leading-tight sm:tracking-normal">
-                  {lang === "ml" ? (
-                    <>
-                      <span className="block whitespace-nowrap sm:inline">
-                        ആത്മവിശ്വാസത്തോടെ<span className="hidden sm:inline"> </span>
-                      </span>
-                      <span className="block whitespace-nowrap sm:inline">ഡ്രൈവിംഗ് പഠിക്കൂ</span>
-                    </>
-                  ) : (
-                    tr("home.hero.title")
-                  )}
+                <h2 className="mt-5 text-[clamp(1.6rem,7.5vw,2.75rem)] font-black leading-[1.2] sm:text-[clamp(2rem,6vw,3.75rem)] sm:leading-tight">
+                  {tr("home.hero.title")}
                 </h2>
                 <p className="mt-5 max-w-2xl text-[0.9rem] leading-7 text-white/85 sm:text-lg sm:leading-8">
                   {tr("home.hero.subtitle")}
@@ -361,16 +364,20 @@ function Index() {
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {categories.map((cat) => (
-              <Card
+              <Link
                 key={cat.title}
-                className="group min-w-0 rounded-3xl border-0 bg-white p-5 shadow-lg shadow-slate-950/5 transition hover:-translate-y-1 hover:shadow-orange-950/10"
+                to="/category/$slug"
+                params={{ slug: cat.slug }}
+                className="block min-w-0 rounded-3xl"
               >
-                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-orange-100 text-orange-600">
-                  <cat.icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-4 text-lg font-black">{cat.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{cat.text}</p>
-              </Card>
+                <Card className="group min-w-0 rounded-3xl border-0 bg-white p-5 shadow-lg shadow-slate-950/5 transition hover:-translate-y-1 hover:shadow-orange-950/10">
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-orange-100 text-orange-600">
+                    <cat.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-black">{cat.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{cat.text}</p>
+                </Card>
+              </Link>
             ))}
           </div>
 
@@ -489,7 +496,7 @@ function SectionHeader({ id, title, subtitle }: { id?: string; title: string; su
       <p className="text-xs font-black uppercase tracking-[0.2em] text-orange-500 sm:text-sm sm:tracking-[0.25em]">
         Traffic Tips
       </p>
-      <h2 className="mt-2 text-[1.75rem] font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
+      <h2 className="mt-2 text-2xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
         {title}
       </h2>
       <p className="mt-3 leading-7 text-slate-600">{subtitle}</p>
