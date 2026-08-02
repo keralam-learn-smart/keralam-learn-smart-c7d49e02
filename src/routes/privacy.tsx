@@ -10,9 +10,7 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "Privacy Policy — Traffic Tips" },
       { property: "og:description", content: "Our privacy practices, in plain language." },
     ],
-    links: [
-      { rel: "canonical", href: "https://keralam-learn-smart.vercel.app/privacy" },
-    ],
+    links: [{ rel: "canonical", href: "https://keralam-learn-smart.vercel.app/privacy" }],
   }),
   component: PrivacyPage,
 });

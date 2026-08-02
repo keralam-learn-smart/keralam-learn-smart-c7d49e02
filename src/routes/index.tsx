@@ -230,16 +230,16 @@ function Index() {
     <SiteLayout>
       <div className={`overflow-hidden bg-background ${ml}`}>
         <div className="mx-auto max-w-6xl px-3 py-6 sm:px-4 sm:py-10">
-          <section className="relative mb-8 overflow-hidden rounded-[1.5rem] border border-orange-100 bg-white/90 p-4 shadow-2xl shadow-orange-950/10 backdrop-blur sm:rounded-[2rem] sm:p-10">
+          <section className="relative mb-8 overflow-hidden rounded-[1.5rem] border border-orange-100 dark:border-border bg-white/90 dark:bg-card/90 p-4 shadow-2xl shadow-orange-950/10 backdrop-blur sm:rounded-[2rem] sm:p-10">
             <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-orange-200/40 blur-3xl" />
             <div className="relative">
               <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-orange-50 px-3 py-2 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-orange-600 sm:px-4 sm:text-xs sm:tracking-[0.2em]">
                 <Sparkles className="h-4 w-4" /> {tr("common.premium")}
               </span>
-              <h1 className="mt-5 max-w-4xl text-[clamp(1.55rem,7vw,2.35rem)] font-black leading-[1.2] tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.15]">
+              <h1 className="mt-5 max-w-4xl text-[clamp(1.55rem,7vw,2.35rem)] font-black leading-[1.2] tracking-tight text-slate-950 dark:text-foreground sm:text-5xl sm:leading-[1.15]">
                 {tr("home.welcome.title")}
               </h1>
-              <div className="mt-6 space-y-5 text-[0.98rem] leading-8 text-slate-700 sm:text-lg">
+              <div className="mt-6 space-y-5 text-[0.98rem] leading-8 text-slate-700 dark:text-muted-foreground sm:text-lg">
                 {trArray("home.welcome.paragraphs").map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -316,20 +316,22 @@ function Index() {
           </section>
 
           <section
-            className="mb-8 rounded-[1.5rem] bg-slate-50 p-4 shadow-sm sm:rounded-[2rem] sm:p-5"
+            className="mb-8 rounded-[1.5rem] bg-slate-50 dark:bg-muted/40 p-4 shadow-sm sm:rounded-[2rem] sm:p-5"
             id="search"
           >
             <div className="flex min-w-0 items-start gap-3 sm:gap-4">
               <Search className="mt-1 h-6 w-6 text-orange-500" />
               <div>
-                <h2 className="text-[1.35rem] font-black leading-tight text-slate-950 sm:text-2xl">
+                <h2 className="text-[1.35rem] font-black leading-tight text-slate-950 dark:text-foreground sm:text-2xl">
                   {tr("home.search.title")}
                 </h2>
-                <p className="mt-1 text-slate-600">{tr("home.search.subtitle")}</p>
+                <p className="mt-1 text-slate-600 dark:text-muted-foreground">
+                  {tr("home.search.subtitle")}
+                </p>
               </div>
             </div>
             <input
-              className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm shadow-inner outline-none transition focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
+              className="mt-5 w-full rounded-2xl border border-slate-200 dark:border-border bg-white dark:bg-card px-5 py-4 text-sm shadow-inner outline-none transition focus:border-orange-400 focus:ring-4 focus:ring-orange-100"
               aria-label={tr("home.search.title")}
               placeholder={tr("home.search.placeholder")}
               value={searchTerm}
@@ -342,14 +344,16 @@ function Index() {
                     <a
                       key={r.title}
                       href={r.href}
-                      className="rounded-2xl border bg-white p-4 shadow-sm transition hover:border-orange-300 hover:shadow-md"
+                      className="rounded-2xl border bg-white dark:bg-card p-4 shadow-sm transition hover:border-orange-300 hover:shadow-md"
                     >
-                      <h3 className="font-bold text-slate-950">{r.title}</h3>
-                      <p className="mt-1 text-sm text-slate-600">{r.text}</p>
+                      <h3 className="font-bold text-slate-950 dark:text-foreground">{r.title}</h3>
+                      <p className="mt-1 text-sm text-slate-600 dark:text-muted-foreground">
+                        {r.text}
+                      </p>
                     </a>
                   ))
                 ) : (
-                  <p className="rounded-2xl bg-white p-4 text-sm text-slate-600">
+                  <p className="rounded-2xl bg-white dark:bg-card p-4 text-sm text-slate-600 dark:text-muted-foreground">
                     {tr("home.search.empty")}
                   </p>
                 )}
@@ -370,7 +374,7 @@ function Index() {
                 params={{ slug: cat.slug }}
                 className="block min-w-0 rounded-3xl"
               >
-                <Card className="group min-w-0 rounded-3xl border-0 bg-white p-5 shadow-lg shadow-slate-950/5 transition hover:-translate-y-1 hover:shadow-orange-950/10">
+                <Card className="group min-w-0 rounded-3xl border-0 bg-white dark:bg-card p-5 shadow-lg shadow-slate-950/5 transition hover:-translate-y-1 hover:shadow-orange-950/10">
                   <div className="grid h-12 w-12 place-items-center rounded-2xl bg-orange-100 text-orange-600">
                     <cat.icon className="h-6 w-6" />
                   </div>
@@ -390,11 +394,13 @@ function Index() {
             {courseList.map((course) => (
               <Card
                 key={course.name}
-                className="min-w-0 rounded-3xl border border-orange-100 bg-white p-5 shadow-xl shadow-slate-950/5 sm:p-6"
+                className="min-w-0 rounded-3xl border border-orange-100 dark:border-border bg-white dark:bg-card p-5 shadow-xl shadow-slate-950/5 sm:p-6"
               >
                 <Car className="h-8 w-8 text-orange-500" />
                 <h3 className="mt-4 text-xl font-black">{course.name}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{course.detail}</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-muted-foreground">
+                  {course.detail}
+                </p>
                 <div className="mt-5 grid gap-2 text-sm">
                   <p>
                     <strong>{tr("common.level")}:</strong> {course.level}
@@ -421,9 +427,12 @@ function Index() {
           />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {benefitList.map((b) => (
-              <div key={b} className="flex min-w-0 items-start gap-3 rounded-3xl bg-slate-50 p-5">
+              <div
+                key={b}
+                className="flex min-w-0 items-start gap-3 rounded-3xl bg-slate-50 dark:bg-muted/40 p-5"
+              >
                 <CheckCircle2 className="h-6 w-6 shrink-0 text-orange-500" />
-                <span className="font-bold text-slate-800">{b}</span>
+                <span className="font-bold text-slate-800 dark:text-foreground">{b}</span>
               </div>
             ))}
           </div>
@@ -431,10 +440,12 @@ function Index() {
           <SectionHeader id="faq" title={tr("home.faq.title")} subtitle={tr("home.faq.subtitle")} />
           <div className="grid gap-4 lg:grid-cols-3">
             {faqList.map((faq) => (
-              <Card key={faq.q} className="min-w-0 rounded-3xl bg-slate-50 p-5">
+              <Card key={faq.q} className="min-w-0 rounded-3xl bg-slate-50 dark:bg-muted/40 p-5">
                 <HelpCircle className="h-6 w-6 text-orange-500" />
                 <h3 className="mt-3 font-black">{faq.q}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{faq.a}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-muted-foreground">
+                  {faq.a}
+                </p>
               </Card>
             ))}
           </div>
@@ -464,17 +475,17 @@ function Index() {
               <div className="grid gap-3">
                 <input
                   required
-                  className="rounded-2xl border border-white/20 bg-white px-4 py-3 text-slate-950"
+                  className="rounded-2xl border border-white/20 bg-white dark:bg-card px-4 py-3 text-slate-950 dark:text-foreground"
                   placeholder={tr("home.contact.name")}
                 />
                 <input
                   required
-                  className="rounded-2xl border border-white/20 bg-white px-4 py-3 text-slate-950"
+                  className="rounded-2xl border border-white/20 bg-white dark:bg-card px-4 py-3 text-slate-950 dark:text-foreground"
                   placeholder={tr("home.contact.phone")}
                 />
                 <textarea
                   required
-                  className="min-h-28 rounded-2xl border border-white/20 bg-white px-4 py-3 text-slate-950"
+                  className="min-h-28 rounded-2xl border border-white/20 bg-white dark:bg-card px-4 py-3 text-slate-950 dark:text-foreground"
                   placeholder={tr("home.contact.message")}
                 />
                 <Button className="min-h-12 h-auto whitespace-normal rounded-full bg-slate-950 px-5 py-3 leading-6 text-white hover:bg-slate-800">
@@ -496,10 +507,10 @@ function SectionHeader({ id, title, subtitle }: { id?: string; title: string; su
       <p className="text-xs font-black uppercase tracking-[0.2em] text-orange-500 sm:text-sm sm:tracking-[0.25em]">
         Traffic Tips
       </p>
-      <h2 className="mt-2 text-2xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
+      <h2 className="mt-2 text-2xl font-black leading-tight tracking-tight text-slate-950 dark:text-foreground sm:text-4xl">
         {title}
       </h2>
-      <p className="mt-3 leading-7 text-slate-600">{subtitle}</p>
+      <p className="mt-3 leading-7 text-slate-600 dark:text-muted-foreground">{subtitle}</p>
     </div>
   );
 }

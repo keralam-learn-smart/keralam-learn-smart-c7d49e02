@@ -16,9 +16,7 @@ export const Route = createFileRoute("/refund-policy")({
         content: "All digital purchases on Traffic Tips are final and non-refundable.",
       },
     ],
-    links: [
-      { rel: "canonical", href: "https://keralam-learn-smart.vercel.app/refund-policy" },
-    ],
+    links: [{ rel: "canonical", href: "https://keralam-learn-smart.vercel.app/refund-policy" }],
   }),
   component: () => (
     <LegalPage titleEn="Refund & Cancellation Policy" titleMl="റീഫണ്ട് & റദ്ദാക്കൽ നയം">
@@ -58,10 +56,10 @@ export const Route = createFileRoute("/refund-policy")({
 
       <h2>4. Duplicate payment refunds</h2>
       <p>
-        If you are charged twice for the same order due to a technical error or payment
-        gateway issue, please contact us within 7 days of the transaction with your
-        payment reference details. Verified duplicate transactions will be reversed to
-        the original payment method within <strong>7–14 business days</strong>.
+        If you are charged twice for the same order due to a technical error or payment gateway
+        issue, please contact us within 7 days of the transaction with your payment reference
+        details. Verified duplicate transactions will be reversed to the original payment method
+        within <strong>7–14 business days</strong>.
       </p>
       <ul>
         <li>Include your transaction ID, date and amount in your email</li>
@@ -71,10 +69,10 @@ export const Route = createFileRoute("/refund-policy")({
 
       <h2>5. Failed payment refunds</h2>
       <p>
-        If your payment is debited from your bank account but you do not receive access
-        to the purchased content, please contact us within 7 days with your payment
-        reference. Verified failed transactions will be reversed to the original payment
-        method within <strong>7–14 business days</strong>.
+        If your payment is debited from your bank account but you do not receive access to the
+        purchased content, please contact us within 7 days with your payment reference. Verified
+        failed transactions will be reversed to the original payment method within{" "}
+        <strong>7–14 business days</strong>.
       </p>
       <ul>
         <li>Provide the transaction ID and proof of deduction</li>
@@ -84,9 +82,9 @@ export const Route = createFileRoute("/refund-policy")({
 
       <h2>6. Refund processing time</h2>
       <p>
-        All approved refunds are processed within <strong>7–14 business days</strong> from
-        the date of verification. The time taken for the refund to reflect in your account
-        may vary depending on your bank or card issuer.
+        All approved refunds are processed within <strong>7–14 business days</strong> from the date
+        of verification. The time taken for the refund to reflect in your account may vary depending
+        on your bank or card issuer.
       </p>
 
       <h2>7. Service disruptions</h2>
@@ -96,17 +94,23 @@ export const Route = createFileRoute("/refund-policy")({
       </p>
 
       <h2>8. Contact us</h2>
-      <p>
-        For questions about this policy or payment-related concerns, please reach us at:
-      </p>
+      <p>For questions about this policy or payment-related concerns, please reach us at:</p>
       <ul>
-        <li><strong>Email:</strong> renjithraj154@gmail.com</li>
-        <li><strong>Phone:</strong> +91 94474 80651</li>
-        <li><strong>Address:</strong> Plavarthala Lane, Thamalam, Karamana, Thiruvananthapuram – 695012, Kerala, India</li>
+        <li>
+          <strong>Email:</strong> renjithraj154@gmail.com
+        </li>
+        <li>
+          <strong>Phone:</strong> +91 94474 80651
+        </li>
+        <li>
+          <strong>Address:</strong> Plavarthala Lane, Thamalam, Karamana, Thiruvananthapuram –
+          695012, Kerala, India
+        </li>
       </ul>
       <p>
         Our support team aims to respond to all queries within <strong>48 hours</strong> during
-        business days. Please include relevant transaction details in your email for faster resolution.
+        business days. Please include relevant transaction details in your email for faster
+        resolution.
       </p>
     </LegalPage>
   ),

@@ -114,12 +114,19 @@ export const checkPaidAccess = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { supabase, userId } = context;
-    const { data, error } = await supabase.rpc("has_paid_access", { _user_id: userId });
+    // Read the caller's own purchases under RLS instead of the security-definer
+    // helper, so a signed-in user can never probe another account's status.
+    const { data, error } = await supabase
+      .from("purchases")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("status", "completed")
+      .limit(1);
     if (error) {
-      console.error("[has_paid_access]", error);
+      console.error("[checkPaidAccess]", error);
       return { hasAccess: false };
     }
-    return { hasAccess: Boolean(data) };
+    return { hasAccess: (data?.length ?? 0) > 0 };
   });
 
 export const verifyPaymentStatus = createServerFn({ method: "POST" })
