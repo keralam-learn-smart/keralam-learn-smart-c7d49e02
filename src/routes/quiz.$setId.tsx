@@ -30,7 +30,15 @@ export const Route = createFileRoute("/quiz/$setId")({
     meta: [{ title: "Practice Test — Kerala RTO" }],
   }),
   errorComponent: ({ error }) => (
-    <div className="p-6 text-sm text-destructive">{error.message}</div>
+    <SiteLayout>
+      <div className="mx-auto max-w-md px-4 py-16 text-center">
+        <h1 className="text-xl font-semibold">This test didn't load</h1>
+        <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+        <Link to="/quiz" className="mt-6 inline-block">
+          <Button className="rounded-full">Back to tests</Button>
+        </Link>
+      </div>
+    </SiteLayout>
   ),
   component: QuizRunner,
 });
@@ -176,14 +184,30 @@ function QuizRunner() {
 
   if (!questions.length) {
     return (
-      <div className="p-6">
-        <p className="mb-4 text-sm text-muted-foreground">
-          {lang === "en" ? "Invalid set." : "അസാധുവായ സെറ്റ്."}
-        </p>
-        <Link to="/quiz" search={{ lang }} className="text-primary underline">
-          {lang === "en" ? "Back to tests" : "ടെസ്റ്റുകളിലേക്ക് മടങ്ങുക"}
-        </Link>
-      </div>
+      <SiteLayout>
+        <div className="mx-auto max-w-md px-4 py-16 text-center">
+          <h1 className={`text-xl font-semibold ${ml}`}>
+            {lang === "en" ? "This test set doesn't exist" : "ഈ ടെസ്റ്റ് സെറ്റ് നിലവിലില്ല"}
+          </h1>
+          <p className={`mt-2 text-sm text-muted-foreground ${ml}`}>
+            {lang === "en"
+              ? `Choose any set from 1 to ${TOTAL_SETS}, or take the full mock test.`
+              : `1 മുതൽ ${TOTAL_SETS} വരെയുള്ള സെറ്റ് തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ മോക്ക് ടെസ്റ്റ് എടുക്കുക.`}
+          </p>
+          <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
+            <Link to="/quiz" search={{ lang }}>
+              <Button className="w-full rounded-full sm:w-auto">
+                {lang === "en" ? "Back to tests" : "ടെസ്റ്റുകളിലേക്ക് മടങ്ങുക"}
+              </Button>
+            </Link>
+            <Link to="/quiz/$setId" params={{ setId: "1" }} search={{ lang }} reloadDocument>
+              <Button variant="outline" className="w-full rounded-full sm:w-auto">
+                {lang === "en" ? "Start free Set 1" : "സൗജന്യ സെറ്റ് 1"}
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </SiteLayout>
     );
   }
 
