@@ -54,6 +54,7 @@ import { Route as AuthForgotPasswordRouteImport } from './routes/auth.forgot-pas
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as ApiPublicInstamojoWebhookRouteImport } from './routes/api/public/instamojo-webhook'
+import { Route as ApiPublicAiHealthRouteImport } from './routes/api/public/ai-health'
 
 const UserAgreementRoute = UserAgreementRouteImport.update({
   id: '/user-agreement',
@@ -280,6 +281,11 @@ const ApiPublicInstamojoWebhookRoute =
     path: '/api/public/instamojo-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicAiHealthRoute = ApiPublicAiHealthRouteImport.update({
+  id: '/api/public/ai-health',
+  path: '/api/public/ai-health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -325,6 +331,7 @@ export interface FileRoutesByFullPath {
   '/quiz/$setId': typeof QuizSetIdRoute
   '/auth/': typeof AuthIndexRoute
   '/quiz/': typeof QuizIndexRoute
+  '/api/public/ai-health': typeof ApiPublicAiHealthRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -371,6 +378,7 @@ export interface FileRoutesByTo {
   '/quiz/$setId': typeof QuizSetIdRoute
   '/auth': typeof AuthIndexRoute
   '/quiz': typeof QuizIndexRoute
+  '/api/public/ai-health': typeof ApiPublicAiHealthRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
 }
 export interface FileRoutesById {
@@ -419,6 +427,7 @@ export interface FileRoutesById {
   '/quiz/$setId': typeof QuizSetIdRoute
   '/auth/': typeof AuthIndexRoute
   '/quiz/': typeof QuizIndexRoute
+  '/api/public/ai-health': typeof ApiPublicAiHealthRoute
   '/api/public/instamojo-webhook': typeof ApiPublicInstamojoWebhookRoute
 }
 export interface FileRouteTypes {
@@ -467,6 +476,7 @@ export interface FileRouteTypes {
     | '/quiz/$setId'
     | '/auth/'
     | '/quiz/'
+    | '/api/public/ai-health'
     | '/api/public/instamojo-webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -513,6 +523,7 @@ export interface FileRouteTypes {
     | '/quiz/$setId'
     | '/auth'
     | '/quiz'
+    | '/api/public/ai-health'
     | '/api/public/instamojo-webhook'
   id:
     | '__root__'
@@ -560,6 +571,7 @@ export interface FileRouteTypes {
     | '/quiz/$setId'
     | '/auth/'
     | '/quiz/'
+    | '/api/public/ai-health'
     | '/api/public/instamojo-webhook'
   fileRoutesById: FileRoutesById
 }
@@ -607,6 +619,7 @@ export interface RootRouteChildren {
   QuizSetIdRoute: typeof QuizSetIdRoute
   AuthIndexRoute: typeof AuthIndexRoute
   QuizIndexRoute: typeof QuizIndexRoute
+  ApiPublicAiHealthRoute: typeof ApiPublicAiHealthRoute
   ApiPublicInstamojoWebhookRoute: typeof ApiPublicInstamojoWebhookRoute
 }
 
@@ -927,6 +940,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicInstamojoWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/ai-health': {
+      id: '/api/public/ai-health'
+      path: '/api/public/ai-health'
+      fullPath: '/api/public/ai-health'
+      preLoaderRoute: typeof ApiPublicAiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -985,6 +1005,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuizSetIdRoute: QuizSetIdRoute,
   AuthIndexRoute: AuthIndexRoute,
   QuizIndexRoute: QuizIndexRoute,
+  ApiPublicAiHealthRoute: ApiPublicAiHealthRoute,
   ApiPublicInstamojoWebhookRoute: ApiPublicInstamojoWebhookRoute,
 }
 export const routeTree = rootRouteImport
