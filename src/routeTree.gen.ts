@@ -30,6 +30,7 @@ import { Route as DrivingGuideRouteImport } from './routes/driving-guide'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as DataProtectionRouteImport } from './routes/data-protection'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CourseRouteImport } from './routes/course'
 import { Route as CopyrightRouteImport } from './routes/copyright'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -159,6 +160,11 @@ const DataProtectionRoute = DataProtectionRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CourseRoute = CourseRouteImport.update({
+  id: '/course',
+  path: '/course',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CopyrightRoute = CopyrightRouteImport.update({
@@ -298,6 +304,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
+  '/course': typeof CourseRoute
   '/dashboard': typeof DashboardRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -345,6 +352,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
+  '/course': typeof CourseRoute
   '/dashboard': typeof DashboardRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -394,6 +402,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/copyright': typeof CopyrightRoute
+  '/course': typeof CourseRoute
   '/dashboard': typeof DashboardRoute
   '/data-protection': typeof DataProtectionRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -443,6 +452,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
+    | '/course'
     | '/dashboard'
     | '/data-protection'
     | '/disclaimer'
@@ -490,6 +500,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
+    | '/course'
     | '/dashboard'
     | '/data-protection'
     | '/disclaimer'
@@ -538,6 +549,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookie-policy'
     | '/copyright'
+    | '/course'
     | '/dashboard'
     | '/data-protection'
     | '/disclaimer'
@@ -587,6 +599,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   CopyrightRoute: typeof CopyrightRoute
+  CourseRoute: typeof CourseRoute
   DashboardRoute: typeof DashboardRoute
   DataProtectionRoute: typeof DataProtectionRoute
   DisclaimerRoute: typeof DisclaimerRoute
@@ -770,6 +783,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/course': {
+      id: '/course'
+      path: '/course'
+      fullPath: '/course'
+      preLoaderRoute: typeof CourseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/copyright': {
@@ -973,6 +993,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   CopyrightRoute: CopyrightRoute,
+  CourseRoute: CourseRoute,
   DashboardRoute: DashboardRoute,
   DataProtectionRoute: DataProtectionRoute,
   DisclaimerRoute: DisclaimerRoute,
@@ -1011,3 +1032,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
