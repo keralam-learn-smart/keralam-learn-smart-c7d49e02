@@ -2,8 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   BadgeCheck,
   BookOpen,
+  Bot,
   Car,
   CheckCircle2,
+  ClipboardCheck,
   GraduationCap,
   Headphones,
   HelpCircle,
@@ -15,6 +17,7 @@ import {
   Sparkles,
   Timer,
   Trophy,
+  type LucideIcon,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -243,6 +246,28 @@ function Index() {
                 {trArray("home.welcome.paragraphs").map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-8">
+            <div className="rounded-[1.5rem] bg-gradient-to-br from-orange-50 via-background to-purple-50 p-4 shadow-lg dark:from-slate-900 dark:via-background dark:to-orange-950/40 sm:rounded-[2rem] sm:p-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <QuickActionCard
+                  to="/mock-tests"
+                  icon={ClipboardCheck}
+                  label={tr("home.quickActions.mockTest")}
+                />
+                <QuickActionCard
+                  to="/ai-assistant"
+                  icon={Bot}
+                  label={tr("home.quickActions.aiAssistant")}
+                />
+                <QuickActionCard
+                  to="/course"
+                  icon={GraduationCap}
+                  label={tr("home.quickActions.course")}
+                />
               </div>
             </div>
           </section>
@@ -498,6 +523,28 @@ function Index() {
         </div>
       </div>
     </SiteLayout>
+  );
+}
+
+function QuickActionCard({
+  to,
+  icon: Icon,
+  label,
+}: {
+  to: string;
+  icon: LucideIcon;
+  label: string;
+}) {
+  return (
+    <Link
+      to={to}
+      className="group flex min-h-[5.5rem] items-center gap-4 overflow-hidden rounded-2xl border border-border bg-white/80 p-4 shadow-sm backdrop-blur transition-all duration-200 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg active:scale-[0.97] dark:border-border dark:bg-card/80 dark:hover:border-orange-400"
+    >
+      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md transition-transform duration-200 group-hover:scale-110">
+        <Icon className="h-6 w-6" />
+      </div>
+      <span className="text-lg font-bold text-foreground">{label}</span>
+    </Link>
   );
 }
 

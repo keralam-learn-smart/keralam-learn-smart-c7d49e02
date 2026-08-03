@@ -24,6 +24,11 @@
       "secondary": "View Courses",
       "tertiary": "Contact Us"
     },
+    "quickActions": {
+      "mockTest": "Mock Test",
+      "aiAssistant": "AI Assistant",
+      "course": "Course"
+    },
     "search": {
       "title": "Fast Study Search",
       "subtitle": "Search signs, rules, courses, and frequently asked questions.",
