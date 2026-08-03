@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { generateText } from "ai";
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "./ai-gateway.server";
+import { getServerEnv } from "./server-env.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const SYSTEM = `You are the Traffic Tips AI Tutor. You help learners pass the Kerala RTO Learner Licence (LL) test.
@@ -29,12 +30,8 @@ export const askTutor = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => ChatInput.parse(input))
   .handler(async ({ data }) => {
-    const key = process.env.LOVABLE_API_KEY;
-    if (!key) {
-      return {
-        reply: "AI service is not configured yet. Please ask the site owner to enable Lovable AI.",
-      };
-    }
+    const key = await getServerEnv("LOVABLE_API_KEY");
+    if (!key) throw new Error("LOVABLE_API_KEY missing on the server");
     const gateway = createLovableAiGatewayProvider(key);
     const langHint =
       data.lang === "ml"
@@ -78,8 +75,8 @@ export const analyzePerformance = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => AnalyzeInput.parse(input))
   .handler(async ({ data }) => {
-    const key = process.env.LOVABLE_API_KEY;
-    if (!key) return { analysis: "AI service not configured." };
+    const key = await getServerEnv("LOVABLE_API_KEY");
+    if (!key) throw new Error("LOVABLE_API_KEY missing on the server");
     const gateway = createLovableAiGatewayProvider(key);
     const prompt = `Learner result on a Kerala RTO mock test:
 - Total: ${data.total}
