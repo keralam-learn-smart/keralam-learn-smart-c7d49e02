@@ -6,7 +6,7 @@ export async function getServerEnv(name: string): Promise<string | undefined> {
   if (fromProcess) return fromProcess;
 
   try {
-    const mod = (await import(/* @vite-ignore */ "cloudflare:workers")) as {
+    const mod = (await (import(/* @vite-ignore */ "cloudflare:workers") as Promise<unknown>)) as {
       env?: Record<string, unknown>;
     };
     const value = mod.env?.[name];
