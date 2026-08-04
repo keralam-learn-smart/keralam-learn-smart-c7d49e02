@@ -83,16 +83,6 @@ const NAV: NavGroup[] = [
     ],
   },
   {
-    en: "Access",
-    ml: "ആക്സസ്",
-    items: [
-      { to: "/pricing", en: "Pricing", ml: "വില" },
-      { to: "/checkout", en: "Checkout Preview", ml: "ചെക്ക്ഔട്ട് പ്രിവ്യൂ" },
-      { to: "/booking/history", en: "Booking History", ml: "ബുക്കിംഗ് ചരിത്രം" },
-      { to: "/invoice", en: "Invoice Layout", ml: "ഇൻവോയ്സ്" },
-    ],
-  },
-  {
     en: "About",
     ml: "കുറിച്ച്",
     items: [

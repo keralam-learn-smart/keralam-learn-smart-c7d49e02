@@ -437,7 +437,7 @@ function Index() {
                     <strong>{tr("common.fee")}:</strong> {course.fee}
                   </p>
                 </div>
-                <Link to="/pricing">
+                <Link to="/course">
                   <Button className="mt-5 w-full rounded-full bg-orange-500 hover:bg-orange-400">
                     <span className="whitespace-normal leading-6">{tr("common.learnMore")}</span>
                   </Button>
