@@ -12,8 +12,8 @@ const FAQS: { q: { en: string; ml: string }; a: { en: string; ml: string } }[] =
   {
     q: { en: "How much does Traffic Tips cost?", ml: "ട്രാഫിക് ടിപ്സിന് എത്ര ചെലവാണ്?" },
     a: {
-      en: "Traffic Tips is available for a one-time ₹45 unlock, including learning content, practice questions and mock tests.",
-      ml: "പഠന ഉള്ളടക്കം, പരിശീലന ചോദ്യങ്ങൾ, മോക്ക് ടെസ്റ്റുകൾ എന്നിവ ഉൾപ്പെടെ ട്രാഫിക് ടിപ്സ് ഒറ്റത്തവണ ₹45 അൺലോക്കായി ലഭ്യമാണ്.",
+      en: "Traffic Tips is completely free — all learning content, practice questions and mock tests are available at no cost.",
+      ml: "ട്രാഫിക് ടിപ്സ് പൂർണ്ണമായും സൗജന്യമാണ് — എല്ലാ പഠന ഉള്ളടക്കവും ചോദ്യങ്ങളും മോക്ക് ടെസ്റ്റുകളും സൗജന്യമായി ലഭ്യമാണ്.",
     },
   },
   {
