@@ -28,9 +28,9 @@ import { createCanonicalLink, createOpenGraphMeta, breadcrumbJsonLd } from "@/li
 
 export const Route = createFileRoute("/")({
   head: () => {
-    const title = "Traffic Tips — Kerala Driving Academy";
+    const title = "Traffic Tips — 100% Free Learning Platform";
     const description =
-      "Premium Malayalam-first driving academy website with learner licence preparation, traffic rules, courses, FAQs and contact support.";
+      "Learn completely FREE with unlimited Question & Answers, Mock Tests and Study Materials for the Kerala RTO learner licence.";
     return {
       meta: [
         { title },
@@ -110,14 +110,14 @@ const courses = {
       name: "ബിഗിനർ ഡ്രൈവിംഗ് പാക്ക്",
       level: "തുടക്കക്കാർ",
       duration: "21 ദിവസം",
-      fee: "₹45 പഠന ആക്സസ്",
+      fee: "പൂർണ്ണമായും സൗജന്യം",
       detail: "വാഹന നിയന്ത്രണം, റോഡ് ബോധം, അടിസ്ഥാന നിയമങ്ങൾ, ആത്മവിശ്വാസം വളർത്തുന്ന പഠന പദ്ധതി.",
     },
     {
       name: "ലേണർ ടെസ്റ്റ് തയ്യാറെടുപ്പ്",
       level: "പരീക്ഷ",
       duration: "സ്വന്തം സമയത്ത്",
-      fee: "₹45 ഒറ്റത്തവണ",
+      fee: "സൗജന്യം",
       detail: "ചിഹ്നങ്ങൾ, സിഗ്നലുകൾ, റോഡ് നിയമങ്ങൾ, മോക്ക് ടെസ്റ്റുകൾ, ഉടൻ ഫീഡ്ബാക്ക്.",
     },
     {
@@ -133,7 +133,7 @@ const courses = {
       name: "Beginner Driving Pack",
       level: "Beginner",
       duration: "21 days",
-      fee: "₹45 learning access",
+      fee: "Completely Free",
       detail:
         "Vehicle control, road awareness, essential rules, and a confidence-building learning plan.",
     },
@@ -141,7 +141,7 @@ const courses = {
       name: "Learner Test Preparation",
       level: "Exam",
       duration: "Self-paced",
-      fee: "₹45 one-time",
+      fee: "Free",
       detail: "Signs, signals, road rules, mock tests, and instant feedback.",
     },
     {
@@ -285,6 +285,14 @@ function Index() {
                 <p className="mt-5 max-w-2xl text-[0.9rem] leading-7 text-white/85 sm:text-lg sm:leading-8">
                   {tr("home.hero.subtitle")}
                 </p>
+                <ul className="mt-6 grid gap-2 sm:grid-cols-2">
+                  {trArray("home.hero.features").map((feature) => (
+                    <li key={feature} className="flex items-center gap-2 text-sm text-white/90">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-orange-300" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Link className="w-full sm:w-auto" to="/quiz/$setId" params={{ setId: "mock" }}>
                     <Button
@@ -319,8 +327,8 @@ function Index() {
                   { n: "500+", l: lang === "ml" ? "ചോദ്യങ്ങൾ" : "Questions", icon: BookOpen },
                   { n: "20", l: lang === "ml" ? "മോക്ക് ടെസ്റ്റുകൾ" : "Mock tests", icon: Trophy },
                   {
-                    n: "₹45",
-                    l: lang === "ml" ? "ഒറ്റത്തവണ ആക്സസ്" : "One-time access",
+                    n: lang === "ml" ? "സൗജന്യം" : "FREE",
+                    l: lang === "ml" ? "പരിധിയില്ലാത്ത ആക്സസ്" : "Unlimited access",
                     icon: BadgeCheck,
                   },
                   { n: "24/7", l: lang === "ml" ? "പഠന സൗകര്യം" : "Study access", icon: Timer },
