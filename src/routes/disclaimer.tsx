@@ -13,7 +13,7 @@ export const Route = createFileRoute("/disclaimer")({
         content: "We are not affiliated with Kerala MVD or parivahan.gov.in.",
       },
     ],
-    links: [{ rel: "canonical", href: "https://keralam-learn-smart.vercel.app/disclaimer" }],
+    links: [{ rel: "canonical", href: "https://keralam-learn-smart.lovable.app/disclaimer" }],
   }),
   component: DisclaimerPage,
 });
@@ -27,29 +27,34 @@ function DisclaimerPage() {
         <h1 className="text-3xl font-bold">{lang === "en" ? "Disclaimer" : "നിരാകരണം"}</h1>
         <div className="prose prose-sm mt-6 max-w-none dark:prose-invert">
           <p>
-            {lang === "en"
-              ? "Traffic Tips is an independent educational website. It is not affiliated with, endorsed by or sponsored by the Kerala Motor Vehicles Department (MVD), Kerala Regional Transport Office (RTO), parivahan.gov.in or any government body."
-              : "ട്രാഫിക് ടിപ്സ് ഒരു സ്വതന്ത്ര വിദ്യാഭ്യാസ വെബ്സൈറ്റാണ്. ഇത് കേരള മോട്ടോർ വാഹന വകുപ്പ് (MVD), കേരള RTO, parivahan.gov.in അല്ലെങ്കിൽ ഏതെങ്കിലും സർക്കാർ സ്ഥാപനവുമായി ബന്ധപ്പെട്ടതല്ല."}
+            ട്രാഫിക് ടിപ്സ് ഒരു സ്വതന്ത്ര വിദ്യാഭ്യാസ (Educational) വെബ്സൈറ്റാണ്. ഈ
+            വെബ്സൈറ്റ് കേരള മോട്ടോർ വാഹന വകുപ്പ് (MVD), കേരള RTO, ഭാരത സർക്കാരിന്റെ
+            പരിവാഹൻ (Parivahan) സേവനം, അല്ലെങ്കിൽ ഏതെങ്കിലും സർക്കാർ വകുപ്പുമായി
+            ബന്ധപ്പെട്ടതോ, അംഗീകരിക്കപ്പെട്ടതോ, ഔദ്യോഗികമായി പ്രവർത്തിക്കുന്നതോ അല്ല.
           </p>
           <p>
-            {lang === "en"
-              ? "All names, logos, trademarks and brand names mentioned on this website — including Kerala MVD, Kerala RTO and Parivahan — belong to their respective owners. They are used on this website solely for educational and reference purposes."
-              : "ഈ വെബ്സൈറ്റിൽ പരാമർശിക്കുന്ന കേരള MVD, കേരള RTO, പരിവാഹൻ എന്നിവയുൾപ്പെടെയുള്ള എല്ലാ പേരുകളും, ലോഗോകളും, ട്രേഡ്മാർക്കുകളും അവയുടെ ഉടമസ്ഥർക്കാണ്. അവ വിദ്യാഭ്യാസ ആവശ്യങ്ങൾക്കും റഫറൻസിനും മാത്രമാണ് ഉപയോഗിക്കുന്നത്."}
+            ഈ വെബ്സൈറ്റിൽ പരാമർശിക്കുന്ന <strong>കേരള MVD</strong>,{" "}
+            <strong>കേരള RTO</strong>, <strong>Parivahan</strong> എന്നീ പേരുകൾ,
+            ലോഗോകൾ, ട്രേഡ്മാർക്കുകൾ എന്നിവ അവയുടെ യഥാർത്ഥ ഉടമസ്ഥരുടെ സ്വത്താണ്. അവ
+            തിരിച്ചറിയൽ, വിദ്യാഭ്യാസം, റഫറൻസ് ആവശ്യങ്ങൾക്കായി മാത്രമാണ്
+            ഉപയോഗിച്ചിരിക്കുന്നത്.
           </p>
           <p>
-            {lang === "en"
-              ? "This website is not affiliated with, endorsed by, or sponsored by any government organization. All information is provided in good faith for educational purposes only."
-              : "ഈ വെബ്സൈറ്റ് ഒരു സർക്കാർ സ്ഥാപനവുമായും ബന്ധപ്പെട്ടതല്ല, അംഗീകരിക്കപ്പെട്ടതല്ല. വിദ്യാഭ്യാസ ആവശ്യങ്ങൾക്ക് മാത്രം നൽകപ്പെടുന്ന വിവരങ്ങളാണ്."}
+            ഈ വെബ്സൈറ്റിലെ ചോദ്യങ്ങൾ, ഉത്തരങ്ങൾ, പരിശീലന ടെസ്റ്റുകൾ, പഠന സാമഗ്രികൾ
+            എന്നിവ പഠനത്തിനും പരീക്ഷാ തയ്യാറെടുപ്പിനുമായി തയ്യാറാക്കിയ വിദ്യാഭ്യാസ
+            ഉള്ളടക്കമാണ്. ഇവ ഔദ്യോഗിക RTO പരീക്ഷാ ചോദ്യങ്ങളോ സർക്കാർ
+            പ്രസിദ്ധീകരണങ്ങളോ അല്ല.
           </p>
           <p>
-            {lang === "en"
-              ? "Practice tests do not reflect actual RTO exam questions. They are based on publicly available Motor Vehicles Act provisions and the Kerala RTO syllabus and are intended as study aids only."
-              : "പരിശീലന ടെസ്റ്റുകൾ യഥാർത്ഥ RTO പരീക്ഷാ ചോദ്യങ്ങളല്ല. മോട്ടോർ വാഹന നിയമത്തിന്റെ പൊതുവായി ലഭ്യമായ വ്യവസ്ഥകളും കേരള RTO സിലബസും അടിസ്ഥാനമാക്കിയ പഠന സഹായികൾ മാത്രമാണ്."}
+            നിയമങ്ങൾ, പിഴകൾ, നടപടിക്രമങ്ങൾ, ലൈസൻസ് സംബന്ധമായ വിവരങ്ങൾ എന്നിവയിൽ
+            മാറ്റങ്ങൾ ഉണ്ടായേക്കാം. അതിനാൽ ഏറ്റവും പുതിയ ഔദ്യോഗിക വിവരങ്ങൾക്കായി
+            കേരള മോട്ടോർ വാഹന വകുപ്പിന്റെയോ Parivahan-ന്റെയോ ഔദ്യോഗിക വെബ്സൈറ്റ്
+            പരിശോധിക്കുക.
           </p>
           <p>
-            {lang === "en"
-              ? "Always verify rules, fines and procedures with the official RTO or parivahan.gov.in before acting on them."
-              : "നിയമങ്ങൾ, പിഴകൾ, നടപടികൾ എപ്പോഴും ഔദ്യോഗിക RTO അല്ലെങ്കിൽ parivahan.gov.in ൽ പരിശോധിക്കുക."}
+            ഈ വെബ്സൈറ്റ് നൽകുന്ന വിവരങ്ങൾ വിദ്യാഭ്യാസ ആവശ്യങ്ങൾക്ക് മാത്രമാണ്.
+            ഔദ്യോഗിക സർക്കാർ അറിയിപ്പുകൾക്കും സേവനങ്ങൾക്കും ബന്ധപ്പെട്ട സർക്കാർ
+            വകുപ്പുകളുടെ ഔദ്യോഗിക ഉറവിടങ്ങളെയാണ് ആശ്രയിക്കേണ്ടത്.
           </p>
         </div>
       </article>
