@@ -17,6 +17,34 @@ const FAQS: { q: { en: string; ml: string }; a: { en: string; ml: string } }[] =
     },
   },
   {
+    q: { en: "Is this website free?", ml: "ഈ വെബ്സൈറ്റ് സൗജന്യമാണോ?" },
+    a: {
+      en: "Yes. Everything on this website is completely FREE.",
+      ml: "അതെ. ഈ വെബ്സൈറ്റിലെ എല്ലാം പൂർണ്ണമായും സൗജന്യമാണ്.",
+    },
+  },
+  {
+    q: { en: "Do I need to pay anything?", ml: "എന്തെങ്കിലും പണം നൽകേണ്ടതുണ്ടോ?" },
+    a: {
+      en: "No. Yes — everything on this website is completely FREE. There are no fees, no subscription and no hidden charges.",
+      ml: "ഇല്ല. ഈ വെബ്സൈറ്റിലെ എല്ലാം പൂർണ്ണമായും സൗജന്യമാണ്. ഫീസോ സബ്സ്ക്രിപ്ഷനോ മറഞ്ഞ ചാർജുകളോ ഇല്ല.",
+    },
+  },
+  {
+    q: { en: "Can I access all questions and answers?", ml: "എല്ലാ ചോദ്യോത്തരങ്ങളും ലഭിക്കുമോ?" },
+    a: {
+      en: "Yes. Everything on this website is completely FREE — every question and answer is open to all learners with unlimited practice.",
+      ml: "അതെ. എല്ലാ ചോദ്യങ്ങളും ഉത്തരങ്ങളും എല്ലാവർക്കും പൂർണ്ണമായും സൗജന്യമായി, പരിധിയില്ലാതെ ലഭ്യമാണ്.",
+    },
+  },
+  {
+    q: { en: "Are all mock tests free?", ml: "എല്ലാ മോക്ക് ടെസ്റ്റുകളും സൗജന്യമാണോ?" },
+    a: {
+      en: "Yes. Everything on this website is completely FREE — all 20 mock test sets and study materials are open to everyone.",
+      ml: "അതെ. 20 മോക്ക് ടെസ്റ്റ് സെറ്റുകളും പഠന സാമഗ്രികളും എല്ലാവർക്കും പൂർണ്ണമായും സൗജന്യമാണ്.",
+    },
+  },
+  {
     q: {
       en: "What is the minimum age for a learner licence in Kerala?",
       ml: "ലേണർ ലൈസൻസിന് ഏറ്റവും കുറഞ്ഞ പ്രായം?",

@@ -77,54 +77,6 @@ export type Database = {
         }
         Relationships: []
       }
-      purchases: {
-        Row: {
-          amount: number
-          buyer_email: string | null
-          buyer_name: string | null
-          buyer_phone: string | null
-          created_at: string
-          currency: string
-          id: string
-          payment_id: string | null
-          payment_request_id: string | null
-          purpose: string
-          status: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          amount: number
-          buyer_email?: string | null
-          buyer_name?: string | null
-          buyer_phone?: string | null
-          created_at?: string
-          currency?: string
-          id?: string
-          payment_id?: string | null
-          payment_request_id?: string | null
-          purpose?: string
-          status?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          amount?: number
-          buyer_email?: string | null
-          buyer_name?: string | null
-          buyer_phone?: string | null
-          created_at?: string
-          currency?: string
-          id?: string
-          payment_id?: string | null
-          payment_request_id?: string | null
-          purpose?: string
-          status?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       user_roles: {
         Row: {
           created_at: string
@@ -151,7 +103,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      has_paid_access: { Args: { _user_id: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

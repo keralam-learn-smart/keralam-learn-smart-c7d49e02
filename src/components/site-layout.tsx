@@ -106,8 +106,6 @@ const FOOTER_LINKS: NavItem[] = [
 const LEGAL_LINKS: NavItem[] = [
   { to: "/privacy", en: "Privacy Policy", ml: "സ്വകാര്യതാ നയം" },
   { to: "/terms", en: "Terms & Conditions", ml: "നിബന്ധനകൾ" },
-  { to: "/refund-policy", en: "Refund & Cancellation Policy", ml: "റീഫണ്ട് നയം" },
-  { to: "/shipping-delivery", en: "Shipping & Delivery Policy", ml: "ഷിപ്പിംഗ് & ഡെലിവറി നയം" },
   { to: "/disclaimer", en: "Disclaimer", ml: "നിരാകരണം" },
   { to: "/cookie-policy", en: "Cookie Policy", ml: "കുക്കി നയം" },
   { to: "/copyright", en: "Copyright Policy", ml: "പകർപ്പവകാശ നയം" },
@@ -324,8 +322,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </div>
               <p className={`mt-2 text-xs text-muted-foreground ${ml}`}>
                 {lang === "en"
-                  ? "Learn • Practice • AI Tutor — Prepare for the Kerala RTO Learner Licence Exam. Only ₹45!"
-                  : "കേരള RTO ലേണർ ലൈസൻസ് പരീക്ഷയ്ക്ക് വെറും ₹45-ന് ദ്വിഭാഷാ പഠനം, മോക്ക് ടെസ്റ്റുകൾ, AI ട്യൂട്ടർ."}
+                  ? "Learn • Practice • AI Tutor — Prepare for the Kerala RTO Learner Licence Exam. 100% FREE!"
+                  : "കേരള RTO ലേണർ ലൈസൻസ് പരീക്ഷയ്ക്ക് പൂർണ്ണമായും സൗജന്യമായ ദ്വിഭാഷാ പഠനം, മോക്ക് ടെസ്റ്റുകൾ, AI ട്യൂട്ടർ."}
               </p>
               <address className="mt-4 space-y-1.5 text-xs not-italic text-muted-foreground">
                 <p>

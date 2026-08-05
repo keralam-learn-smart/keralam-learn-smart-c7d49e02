@@ -10,7 +10,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Traffic Tips is a bilingual learning platform for the Kerala RTO Learner Licence (LL) test, available for just ₹45.",
+          "Traffic Tips is a bilingual learning platform for the Kerala RTO Learner Licence (LL) test — completely free.",
       },
       { property: "og:title", content: "About Traffic Tips" },
       {
@@ -33,8 +33,8 @@ function AboutPage() {
         </h1>
         <p className={`mt-3 text-muted-foreground ${ml}`}>
           {lang === "en"
-            ? "Traffic Tips is a bilingual (English & Malayalam) learning and testing platform built for aspirants of the Kerala RTO Learner Licence (LL) and Driving Licence (DL) tests, available for just ₹45."
-            : "കേരള RTO ലേണർ ലൈസൻസ്, ഡ്രൈവിങ് ലൈസൻസ് പരീക്ഷാ ഉദ്യോഗാർത്ഥികൾക്കായി വെറും ₹45-ന് ലഭ്യമാകുന്ന ദ്വിഭാഷാ പഠന-പരീക്ഷാ പ്ലാറ്റ്ഫോമാണ് ട്രാഫിക് ടിപ്സ്."}
+            ? "Traffic Tips is a bilingual (English & Malayalam) learning and testing platform built for aspirants of the Kerala RTO Learner Licence (LL) and Driving Licence (DL) tests, completely free with no subscription required."
+            : "കേരള RTO ലേണർ ലൈസൻസ്, ഡ്രൈവിങ് ലൈസൻസ് പരീക്ഷാ ഉദ്യോഗാർത്ഥികൾക്കായി പൂർണ്ണമായും സൗജന്യമായ ദ്വിഭാഷാ പഠന-പരീക്ഷാ പ്ലാറ്റ്ഫോമാണ് ട്രാഫിക് ടിപ്സ്."}
         </p>
 
         <Card className="mt-6 p-6">

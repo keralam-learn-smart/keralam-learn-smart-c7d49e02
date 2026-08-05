@@ -163,7 +163,7 @@ export const Route = createFileRoute("/driving-guide")({
       {
         name: "description",
         content:
-          "A complete driving learning guide covering driver training, vehicle laws, traffic rules, penalties and road safety — expandable, bilingual and included with ₹45 access.",
+          "A complete driving learning guide covering driver training, vehicle laws, traffic rules, penalties and road safety — expandable, bilingual and completely free.",
       },
       { property: "og:title", content: "Driving Learning Guide — Traffic Tips" },
       {

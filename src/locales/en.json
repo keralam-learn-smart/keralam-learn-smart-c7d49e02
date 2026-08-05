@@ -19,10 +19,18 @@
     "hero": {
       "eyebrow": "Kerala RTO Learning Platform",
       "title": "Learn driving with confidence",
-      "subtitle": "Learner licence preparation, road rules, traffic signs, mock tests, and safe-driving guidance brought together in a premium learning experience.",
+      "subtitle": "Learner licence preparation, road rules, traffic signs, mock tests, and safe-driving guidance — everything completely free.",
       "primary": "Start Mock Test",
       "secondary": "View Courses",
-      "tertiary": "Contact Us"
+      "tertiary": "Contact Us",
+      "features": [
+        "Free Question & Answers",
+        "Free Mock Tests",
+        "Free Practice",
+        "Free Study Materials",
+        "Unlimited Access",
+        "No Payment Required"
+      ]
     },
     "quickActions": {
       "mockTest": "Mock Test",
@@ -60,17 +68,17 @@
       "submit": "Send Enquiry"
     },
     "footer": {
-      "tagline": "Professional learning for safe and responsible driving.",
+      "tagline": "This platform provides completely FREE learning resources for everyone.",
       "rights": "© 2026 Traffic Tips. All Rights Reserved."
     }
   },
   "common": {
     "readMore": "Read More",
     "learnMore": "Learn More",
-    "premium": "Premium",
     "duration": "Duration",
     "level": "Level",
     "fee": "Fee",
-    "included": "Included"
+    "included": "Included",
+    "free": "100% FREE Learning"
   }
 }
