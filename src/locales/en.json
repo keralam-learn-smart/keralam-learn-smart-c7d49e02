@@ -75,10 +75,10 @@
   "common": {
     "readMore": "Read More",
     "learnMore": "Learn More",
-    "premium": "100% FREE Learning",
     "duration": "Duration",
     "level": "Level",
     "fee": "Fee",
-    "included": "Included"
+    "included": "Included",
+    "free": "100% FREE Learning"
   }
 }

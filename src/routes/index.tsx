@@ -237,7 +237,7 @@ function Index() {
             <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-orange-200/40 blur-3xl" />
             <div className="relative">
               <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-orange-50 px-3 py-2 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-orange-600 sm:px-4 sm:text-xs sm:tracking-[0.2em]">
-                <Sparkles className="h-4 w-4" /> {tr("common.premium")}
+                <Sparkles className="h-4 w-4" /> {tr("common.free")}
               </span>
               <h1 className="mt-5 max-w-4xl text-[clamp(1.55rem,7vw,2.35rem)] font-black leading-[1.2] tracking-tight text-slate-950 dark:text-foreground sm:text-5xl sm:leading-[1.15]">
                 {tr("home.welcome.title")}
