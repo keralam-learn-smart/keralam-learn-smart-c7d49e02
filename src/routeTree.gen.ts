@@ -13,10 +13,8 @@ import { Route as UserAgreementRouteImport } from './routes/user-agreement'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SignupRouteImport } from './routes/signup'
-import { Route as ShippingDeliveryRouteImport } from './routes/shipping-delivery'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReportIssueRouteImport } from './routes/report-issue'
-import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MockTestsRouteImport } from './routes/mock-tests'
 import { Route as LoginRouteImport } from './routes/login'
@@ -68,11 +66,6 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ShippingDeliveryRoute = ShippingDeliveryRouteImport.update({
-  id: '/shipping-delivery',
-  path: '/shipping-delivery',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -81,11 +74,6 @@ const SettingsRoute = SettingsRouteImport.update({
 const ReportIssueRoute = ReportIssueRouteImport.update({
   id: '/report-issue',
   path: '/report-issue',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RefundPolicyRoute = RefundPolicyRouteImport.update({
-  id: '/refund-policy',
-  path: '/refund-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -259,10 +247,8 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
-  '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
-  '/shipping-delivery': typeof ShippingDeliveryRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
@@ -298,10 +284,8 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
-  '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
-  '/shipping-delivery': typeof ShippingDeliveryRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
@@ -339,10 +323,8 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/privacy': typeof PrivacyRoute
-  '/refund-policy': typeof RefundPolicyRoute
   '/report-issue': typeof ReportIssueRoute
   '/settings': typeof SettingsRoute
-  '/shipping-delivery': typeof ShippingDeliveryRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRoute
@@ -380,10 +362,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/mock-tests'
     | '/privacy'
-    | '/refund-policy'
     | '/report-issue'
     | '/settings'
-    | '/shipping-delivery'
     | '/signup'
     | '/terms'
     | '/trust'
@@ -419,10 +399,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/mock-tests'
     | '/privacy'
-    | '/refund-policy'
     | '/report-issue'
     | '/settings'
-    | '/shipping-delivery'
     | '/signup'
     | '/terms'
     | '/trust'
@@ -459,10 +437,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/mock-tests'
     | '/privacy'
-    | '/refund-policy'
     | '/report-issue'
     | '/settings'
-    | '/shipping-delivery'
     | '/signup'
     | '/terms'
     | '/trust'
@@ -500,10 +476,8 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MockTestsRoute: typeof MockTestsRoute
   PrivacyRoute: typeof PrivacyRoute
-  RefundPolicyRoute: typeof RefundPolicyRoute
   ReportIssueRoute: typeof ReportIssueRoute
   SettingsRoute: typeof SettingsRoute
-  ShippingDeliveryRoute: typeof ShippingDeliveryRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
   TrustRoute: typeof TrustRoute
@@ -548,13 +522,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/shipping-delivery': {
-      id: '/shipping-delivery'
-      path: '/shipping-delivery'
-      fullPath: '/shipping-delivery'
-      preLoaderRoute: typeof ShippingDeliveryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -567,13 +534,6 @@ declare module '@tanstack/react-router' {
       path: '/report-issue'
       fullPath: '/report-issue'
       preLoaderRoute: typeof ReportIssueRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/refund-policy': {
-      id: '/refund-policy'
-      path: '/refund-policy'
-      fullPath: '/refund-policy'
-      preLoaderRoute: typeof RefundPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -822,10 +782,8 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MockTestsRoute: MockTestsRoute,
   PrivacyRoute: PrivacyRoute,
-  RefundPolicyRoute: RefundPolicyRoute,
   ReportIssueRoute: ReportIssueRoute,
   SettingsRoute: SettingsRoute,
-  ShippingDeliveryRoute: ShippingDeliveryRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
   TrustRoute: TrustRoute,
