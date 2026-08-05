@@ -40,16 +40,16 @@ function TermsPage() {
               ? "We strive to keep all content accurate and aligned with Kerala RTO and the Motor Vehicles Act. However, rules may change — always confirm with the official RTO or parivahan.gov.in."
               : "എല്ലാ ഉള്ളടക്കവും കേരള RTO യ്ക്കും MV നിയമത്തിനും അനുസരിച്ച് നിലനിർത്താൻ ഞങ്ങൾ ശ്രമിക്കുന്നു. നിയമങ്ങൾ മാറാം — ഔദ്യോഗിക RTO അല്ലെങ്കിൽ parivahan.gov.in ൽ ഉറപ്പാക്കുക."}
           </p>
-          <h2>{lang === "en" ? "3. Payments" : "3. പേയ്മെന്റുകൾ"}</h2>
+          <h2>{lang === "en" ? "3. Free access" : "3. സൗജന്യ ആക്സസ്"}</h2>
           <p>
             {lang === "en"
-              ? "All payments on Traffic Tips are securely processed through PayU. By making a purchase on this website, you agree to PayU's payment terms and conditions, as well as the policies of your bank or card issuer."
-              : "ട്രാഫിക് ടിപ്സിലെ എല്ലാ പേയ്മെന്റുകളും PayU വഴി സുരക്ഷിതമായി പ്രോസസ് ചെയ്യപ്പെടുന്നു. വാങ്കൽ നടത്തുന്നതിലൂടെ, നിങ്ങൾ PayU-യുടെ പേയ്മെന്റ് നിബന്ധനകൾ അംഗീകരിക്കുന്നു."}
+              ? "Traffic Tips is completely free. There are no fees, no subscriptions and no hidden charges. Every question, answer, mock test and study material is available to everyone at no cost."
+              : "ട്രാഫിക് ടിപ്സ് പൂർണ്ണമായും സൗജന്യമാണ്. ഫീസോ സബ്സ്ക്രിപ്ഷനോ മറഞ്ഞിരിക്കുന്ന ചാർജുകളോ ഇല്ല. എല്ലാ ചോദ്യങ്ങളും ഉത്തരങ്ങളും മോക്ക് ടെസ്റ്റുകളും പഠന സാമഗ്രികളും എല്ലാവർക്കും സൗജന്യമാണ്."}
           </p>
           <p>
             {lang === "en"
-              ? "We do not store your card or banking details on our servers. All sensitive payment information is handled directly by PayU on their secure payment gateway."
-              : "നിങ്ങളുടെ കാർഡ് അല്ലെങ്കിൽ ബാങ്കിംഗ് വിവരങ്ങൾ ഞങ്ങളുടെ സെർവറുകളിൽ സൂക്ഷിക്കുന്നില്ല. എല്ലാ സെൻസിറ്റീവ് പേയ്മെന്റ് വിവരങ്ങളും PayU അവരുടെ സുരക്ഷിത പേയ്മെന്റ് ഗേറ്റ്‌വേയിൽ നേരിട്ട് കൈകാര്യം ചെയ്യുന്നു."}
+              ? "We never ask for card or banking details. The site is supported by advertising only."
+              : "ഞങ്ങൾ ഒരിക്കലും കാർഡ് അല്ലെങ്കിൽ ബാങ്കിംഗ് വിവരങ്ങൾ ചോദിക്കുന്നില്ല. പരസ്യങ്ങളിലൂടെ മാത്രമാണ് സൈറ്റ് നിലനിർത്തുന്നത്."}
           </p>
 
           <h2>{lang === "en" ? "4. Limitation of liability" : "4. ബാധ്യതാ പരിമിതി"}</h2>
