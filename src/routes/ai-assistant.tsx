@@ -1,19 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Bot, Send, User, RotateCcw } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useRef, useState } from "react";
+import { Bot, Send, User, RotateCcw, Square, RefreshCw, Paperclip, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useServerFn } from "@tanstack/react-start";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 import { SiteLayout } from "@/components/site-layout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useSite } from "@/lib/site-context";
 import { useAuth } from "@/lib/auth-context";
-import { askTutor } from "@/lib/ai.functions";
-import { Link } from "@tanstack/react-router";
-
-type Msg = { role: "user" | "assistant"; content: string };
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/ai-assistant")({
   head: () => ({
@@ -29,6 +27,8 @@ export const Route = createFileRoute("/ai-assistant")({
         property: "og:description",
         content: "AI-powered Malayalam + English tutor for the Kerala RTO LL test.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AssistantPage,
@@ -50,35 +50,42 @@ const SUGGESTIONS = [
 function AssistantPage() {
   const { lang } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
-  const ask = useServerFn(askTutor);
   const { user, loading: authLoading } = useAuth();
-  const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  // Do NOT auto-scroll after responses — keep the user's current reading position.
+  const [files, setFiles] = useState<FileList | undefined>(undefined);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const langRef = useRef(lang);
+  langRef.current = lang;
 
-  async function send(text: string) {
-    const userMsg: Msg = { role: "user", content: text };
-    const history = messages.slice(-10);
-    setMessages((m) => [...m, userMsg]);
+  const [transport] = useState(
+    () =>
+      new DefaultChatTransport({
+        api: "/api/chat",
+        prepareSendMessagesRequest: async ({ messages, body }) => {
+          const { data } = await supabase.auth.getSession();
+          const token = data.session?.access_token;
+          const headers: Record<string, string> = {};
+          if (token) headers["Authorization"] = `Bearer ${token}`;
+          return {
+            body: { ...body, messages, lang: langRef.current },
+            headers,
+          };
+        },
+      }),
+  );
+
+  const { messages, sendMessage, status, error, stop, regenerate, setMessages, clearError } =
+    useChat({ transport });
+
+  const busy = status === "submitted" || status === "streaming";
+
+  function submit(text: string) {
+    if (!text.trim() && !files?.length) return;
+    clearError();
+    void sendMessage({ text: text.trim(), files });
     setInput("");
-    setLoading(true);
-    try {
-      const res = await ask({ data: { message: text, lang, history } });
-      setMessages((m) => [...m, { role: "assistant", content: res.reply }]);
-    } catch (e: unknown) {
-      const raw = e instanceof Error ? e.message : "Network error";
-      const friendly = /unauthor/i.test(raw)
-        ? lang === "en"
-          ? "Your session expired. Please sign in again to keep chatting."
-          : "നിങ്ങളുടെ സെഷൻ കാലഹരണപ്പെട്ടു. വീണ്ടും സൈൻ ഇൻ ചെയ്യുക."
-        : lang === "en"
-          ? `Sorry, I couldn't answer that. Please try again. (${raw})`
-          : `ക്ഷമിക്കണം, ഉത്തരം നൽകാനായില്ല. വീണ്ടും ശ്രമിക്കുക. (${raw})`;
-      setMessages((m) => [...m, { role: "assistant", content: friendly }]);
-    } finally {
-      setLoading(false);
-    }
+    setFiles(undefined);
+    if (fileRef.current) fileRef.current.value = "";
   }
 
   return (
@@ -103,7 +110,11 @@ function AssistantPage() {
               variant="ghost"
               size="sm"
               className="ml-auto gap-1 rounded-full"
-              onClick={() => setMessages([])}
+              onClick={() => {
+                stop();
+                clearError();
+                setMessages([]);
+              }}
             >
               <RotateCcw className="h-3.5 w-3.5" />
               {lang === "en" ? "New chat" : "പുതിയ ചാറ്റ്"}
@@ -138,7 +149,7 @@ function AssistantPage() {
               {SUGGESTIONS.map((s, i) => (
                 <button
                   key={i}
-                  onClick={() => send(lang === "en" ? s.en : s.ml)}
+                  onClick={() => submit(lang === "en" ? s.en : s.ml)}
                   className={`rounded-full border border-border bg-card px-3 py-1.5 text-xs transition hover:border-primary hover:bg-primary/10 ${ml}`}
                 >
                   {lang === "en" ? s.en : s.ml}
@@ -149,8 +160,8 @@ function AssistantPage() {
         )}
 
         <div className="mb-4 flex-1 space-y-3">
-          {messages.map((m, i) => (
-            <div key={i} className={`flex gap-2 ${m.role === "user" ? "flex-row-reverse" : ""}`}>
+          {messages.map((m) => (
+            <div key={m.id} className={`flex gap-2 ${m.role === "user" ? "flex-row-reverse" : ""}`}>
               <div
                 className={`grid h-8 w-8 shrink-0 place-items-center rounded-full ${
                   m.role === "user"
@@ -161,53 +172,163 @@ function AssistantPage() {
                 {m.role === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
               </div>
               <Card
-                className={`max-w-[80%] animate-in fade-in slide-in-from-bottom-1 p-3 text-sm leading-relaxed duration-300 ${ml} ${
+                className={`max-w-[85%] animate-in fade-in slide-in-from-bottom-1 space-y-2 p-3 text-sm leading-relaxed duration-300 ${ml} ${
                   m.role === "user" ? "bg-primary/10" : ""
                 }`}
               >
-                {m.role === "user" ? (
-                  <span className="whitespace-pre-wrap">{m.content}</span>
-                ) : (
-                  <div className="prose prose-sm dark:prose-invert max-w-none [&_h1]:text-base [&_h2]:text-sm [&_h3]:text-sm [&_li]:my-0.5 [&_p]:my-1.5 [&_strong]:text-foreground [&_ul]:my-1.5 [&_ul]:list-disc [&_ul]:pl-4">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
-                  </div>
-                )}
+                {m.parts.map((part, pi) => {
+                  if (part.type === "text") {
+                    return m.role === "user" ? (
+                      <span key={pi} className="whitespace-pre-wrap">
+                        {part.text}
+                      </span>
+                    ) : (
+                      <div
+                        key={pi}
+                        className="prose prose-sm dark:prose-invert max-w-none [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_h1]:text-base [&_h2]:text-sm [&_h3]:text-sm [&_li]:my-0.5 [&_p]:my-1.5 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-muted [&_pre]:p-3 [&_pre_code]:bg-transparent [&_strong]:text-foreground [&_table]:block [&_table]:overflow-x-auto [&_ul]:my-1.5 [&_ul]:list-disc [&_ul]:pl-4"
+                      >
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{part.text}</ReactMarkdown>
+                      </div>
+                    );
+                  }
+                  if (part.type === "file" && part.mediaType?.startsWith("image/")) {
+                    return (
+                      <img
+                        key={pi}
+                        src={part.url}
+                        alt={part.filename ?? "Uploaded image"}
+                        className="max-h-56 rounded-lg border border-border object-contain"
+                      />
+                    );
+                  }
+                  if (part.type === "file") {
+                    return (
+                      <a
+                        key={pi}
+                        href={part.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-1 text-xs underline"
+                      >
+                        <Paperclip className="h-3 w-3" />
+                        {part.filename ?? "attachment"}
+                      </a>
+                    );
+                  }
+                  return null;
+                })}
               </Card>
             </div>
           ))}
-          {loading && (
+
+          {status === "submitted" && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Bot className="h-4 w-4 animate-pulse" />
               {lang === "en" ? "Thinking…" : "ചിന്തിക്കുന്നു…"}
             </div>
+          )}
+
+          {error && (
+            <Card className="border-destructive/40 bg-destructive/5 p-3">
+              <p className={`mb-2 text-sm text-destructive ${ml}`}>
+                {lang === "en"
+                  ? "Something went wrong while answering."
+                  : "ഉത്തരം നൽകുന്നതിൽ പിഴവ് സംഭവിച്ചു."}
+              </p>
+              <Button size="sm" variant="outline" className="gap-1" onClick={() => regenerate()}>
+                <RefreshCw className="h-3.5 w-3.5" />
+                {lang === "en" ? "Retry" : "വീണ്ടും ശ്രമിക്കുക"}
+              </Button>
+            </Card>
           )}
         </div>
 
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            if (input.trim() && !loading) send(input.trim());
+            if (!busy) submit(input);
           }}
-          className="sticky bottom-2 flex gap-2 rounded-2xl border border-border bg-card p-2 shadow-lg"
+          className="sticky bottom-2 rounded-2xl border border-border bg-card p-2 shadow-lg"
         >
-          <Textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                if (input.trim() && !loading) send(input.trim());
+          {files && files.length > 0 && (
+            <div className="mb-2 flex flex-wrap gap-2 px-1">
+              {Array.from(files).map((f) => (
+                <span
+                  key={f.name}
+                  className="flex items-center gap-1 rounded-full bg-muted px-2 py-1 text-[11px]"
+                >
+                  <Paperclip className="h-3 w-3" />
+                  {f.name}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFiles(undefined);
+                      if (fileRef.current) fileRef.current.value = "";
+                    }}
+                    aria-label="Remove attachment"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="flex items-end gap-2">
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={(e) => setFiles(e.target.files ?? undefined)}
+            />
+            <Button
+              type="button"
+              size="icon"
+              variant="ghost"
+              disabled={!user || busy}
+              onClick={() => fileRef.current?.click()}
+              aria-label={lang === "en" ? "Attach image" : "ചിത്രം ചേർക്കുക"}
+            >
+              <Paperclip className="h-4 w-4" />
+            </Button>
+            <Textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  if (!busy) submit(input);
+                }
+              }}
+              placeholder={
+                lang === "en" ? "Ask in English or Malayalam…" : "ഇംഗ്ലീഷിലോ മലയാളത്തിലോ ചോദിക്കാം…"
               }
-            }}
-            placeholder={
-              lang === "en" ? "Ask in English or Malayalam…" : "ഇംഗ്ലീഷിലോ മലയാളത്തിലോ ചോദിക്കാം…"
-            }
-            rows={1}
-            className="min-h-10 flex-1 resize-none border-0 focus-visible:ring-0"
-          />
-          <Button type="submit" size="icon" disabled={loading || !input.trim() || !user}>
-            <Send className="h-4 w-4" />
-          </Button>
+              rows={1}
+              disabled={!user}
+              className="min-h-10 flex-1 resize-none border-0 focus-visible:ring-0"
+            />
+            {busy ? (
+              <Button
+                type="button"
+                size="icon"
+                variant="secondary"
+                onClick={() => stop()}
+                aria-label={lang === "en" ? "Stop" : "നിർത്തുക"}
+              >
+                <Square className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                size="icon"
+                disabled={!user || (!input.trim() && !files?.length)}
+                aria-label={lang === "en" ? "Send" : "അയക്കുക"}
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </form>
         <p className={`mt-2 text-center text-[10px] text-muted-foreground ${ml}`}>
           {lang === "en"
