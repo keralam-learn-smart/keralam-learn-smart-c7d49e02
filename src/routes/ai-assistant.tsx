@@ -12,6 +12,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { useSite } from "@/lib/site-context";
 import { useAuth } from "@/lib/auth-context";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  fileToAttachment,
+  MAX_ATTACHMENTS,
+  type ChatAttachment,
+} from "@/lib/image-attachments";
 
 export const Route = createFileRoute("/ai-assistant")({
   head: () => ({
@@ -47,12 +52,44 @@ const SUGGESTIONS = [
   },
 ];
 
+function ChatImage({ src, alt }: { src: string; alt: string }) {
+  const [state, setState] = useState<"loading" | "ok" | "error">("loading");
+  if (state === "error") {
+    return (
+      <div className="flex items-center gap-1 rounded-lg border border-border bg-muted px-2 py-1.5 text-xs text-muted-foreground">
+        <Paperclip className="h-3 w-3" />
+        {alt}
+      </div>
+    );
+  }
+  return (
+    <div className="relative">
+      {state === "loading" && (
+        <div className="h-32 w-40 animate-pulse rounded-lg border border-border bg-muted" />
+      )}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setState("ok")}
+        onError={() => setState("error")}
+        className={`max-h-56 rounded-lg border border-border object-contain ${
+          state === "loading" ? "absolute inset-0 opacity-0" : ""
+        }`}
+      />
+    </div>
+  );
+}
+
 function AssistantPage() {
   const { lang } = useSite();
   const ml = lang === "ml" ? "lang-ml" : "";
   const { user, loading: authLoading } = useAuth();
   const [input, setInput] = useState("");
-  const [files, setFiles] = useState<FileList | undefined>(undefined);
+  const [attachments, setAttachments] = useState<ChatAttachment[]>([]);
+  const [attachBusy, setAttachBusy] = useState(false);
+  const [attachError, setAttachError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const langRef = useRef(lang);
   langRef.current = lang;
@@ -79,12 +116,46 @@ function AssistantPage() {
 
   const busy = status === "submitted" || status === "streaming";
 
+  async function addFiles(list: FileList | null) {
+    if (!list?.length) return;
+    setAttachError(null);
+    setAttachBusy(true);
+    const next: ChatAttachment[] = [];
+    let failed = false;
+    for (const file of Array.from(list).slice(0, MAX_ATTACHMENTS)) {
+      try {
+        next.push(await fileToAttachment(file));
+      } catch {
+        failed = true;
+      }
+    }
+    if (failed) {
+      setAttachError(
+        lang === "en"
+          ? "Some images could not be attached. Use a JPEG, PNG or WebP photo under 15 MB."
+          : "ചില ചിത്രങ്ങൾ ചേർക്കാനായില്ല. 15 MB-യിൽ താഴെയുള്ള JPEG, PNG അല്ലെങ്കിൽ WebP ചിത്രം ഉപയോഗിക്കുക.",
+      );
+    }
+    setAttachments((prev) => [...prev, ...next].slice(0, MAX_ATTACHMENTS));
+    setAttachBusy(false);
+    if (fileRef.current) fileRef.current.value = "";
+  }
+
   function submit(text: string) {
-    if (!text.trim() && !files?.length) return;
+    if ((!text.trim() && attachments.length === 0) || attachBusy) return;
     clearError();
-    void sendMessage({ text: text.trim(), files });
+    void sendMessage({
+      text: text.trim(),
+      files: attachments.map((a) => ({
+        type: "file" as const,
+        mediaType: a.mediaType,
+        filename: a.filename,
+        url: a.url,
+      })),
+    });
     setInput("");
-    setFiles(undefined);
+    setAttachments([]);
+    setAttachError(null);
     if (fileRef.current) fileRef.current.value = "";
   }
 
