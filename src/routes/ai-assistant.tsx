@@ -321,22 +321,28 @@ function AssistantPage() {
           }}
           className="sticky bottom-2 rounded-2xl border border-border bg-card p-2 shadow-lg"
         >
-          {files && files.length > 0 && (
+          {attachError && (
+            <p className={`mb-2 px-2 text-[11px] text-destructive ${ml}`}>{attachError}</p>
+          )}
+          {attachBusy && (
+            <p className={`mb-2 px-2 text-[11px] text-muted-foreground ${ml}`}>
+              {lang === "en" ? "Preparing image…" : "ചിത്രം തയ്യാറാക്കുന്നു…"}
+            </p>
+          )}
+          {attachments.length > 0 && (
             <div className="mb-2 flex flex-wrap gap-2 px-1">
-              {Array.from(files).map((f) => (
-                <span
-                  key={f.name}
-                  className="flex items-center gap-1 rounded-full bg-muted px-2 py-1 text-[11px]"
-                >
-                  <Paperclip className="h-3 w-3" />
-                  {f.name}
+              {attachments.map((a) => (
+                <span key={a.id} className="relative">
+                  <img
+                    src={a.url}
+                    alt={a.filename}
+                    className="h-16 w-16 rounded-lg border border-border object-cover"
+                  />
                   <button
                     type="button"
-                    onClick={() => {
-                      setFiles(undefined);
-                      if (fileRef.current) fileRef.current.value = "";
-                    }}
-                    aria-label="Remove attachment"
+                    onClick={() => setAttachments((prev) => prev.filter((x) => x.id !== a.id))}
+                    className="absolute -right-1.5 -top-1.5 grid h-5 w-5 place-items-center rounded-full bg-background text-foreground shadow ring-1 ring-border"
+                    aria-label={lang === "en" ? "Remove attachment" : "ചിത്രം നീക്കുക"}
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -351,13 +357,13 @@ function AssistantPage() {
               accept="image/*"
               multiple
               className="hidden"
-              onChange={(e) => setFiles(e.target.files ?? undefined)}
+              onChange={(e) => void addFiles(e.target.files)}
             />
             <Button
               type="button"
               size="icon"
               variant="ghost"
-              disabled={!user || busy}
+              disabled={!user || busy || attachBusy || attachments.length >= MAX_ATTACHMENTS}
               onClick={() => fileRef.current?.click()}
               aria-label={lang === "en" ? "Attach image" : "ചിത്രം ചേർക്കുക"}
             >
@@ -393,7 +399,7 @@ function AssistantPage() {
               <Button
                 type="submit"
                 size="icon"
-                disabled={!user || (!input.trim() && !files?.length)}
+                disabled={!user || attachBusy || (!input.trim() && attachments.length === 0)}
                 aria-label={lang === "en" ? "Send" : "അയക്കുക"}
               >
                 <Send className="h-4 w-4" />
