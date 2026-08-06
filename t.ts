@@ -7,6 +7,6 @@ const messages: UIMessage[] = [{ id:"1", role:"user", parts:[
   { type:"file", mediaType:"image/jpeg", url:`data:image/jpeg;base64,${b64}` } as any,
 ]}];
 const gw = createLovableAiGatewayProvider(process.env.LOVABLE_API_KEY!);
-const r = streamText({ model: gw("google/gemini-3.6-flash"), messages: convertToModelMessages(messages) });
+const r = streamText({ model: gw("google/gemini-3.6-flash"), messages: await convertToModelMessages(messages) });
 for await (const c of r.textStream) process.stdout.write(c);
 console.log("\nDONE");
