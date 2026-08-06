@@ -264,12 +264,7 @@ function AssistantPage() {
                   }
                   if (part.type === "file" && part.mediaType?.startsWith("image/")) {
                     return (
-                      <img
-                        key={pi}
-                        src={part.url}
-                        alt={part.filename ?? "Uploaded image"}
-                        className="max-h-56 rounded-lg border border-border object-contain"
-                      />
+                      <ChatImage key={pi} src={part.url} alt={part.filename ?? "Uploaded image"} />
                     );
                   }
                   if (part.type === "file") {
