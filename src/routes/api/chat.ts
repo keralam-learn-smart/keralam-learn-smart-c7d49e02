@@ -4,6 +4,44 @@ import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { getServerEnv } from "@/lib/server-env.server";
 
+const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
+const MAX_IMAGE_CHARS = 2_400_000; // ~1.8 MB binary as a data URL
+const IMAGE_HISTORY_WINDOW = 4; // keep images only on the most recent messages
+
+type LoosePart = { type?: string; mediaType?: string; url?: string; [k: string]: unknown };
+
+/**
+ * Validates every file part and drops stale images from older turns so the
+ * request stays inside provider limits. Returns an error string when a part
+ * is not a supported image.
+ */
+function sanitizeMessages(messages: UIMessage[]): { messages: UIMessage[]; error?: string } {
+  let error: string | undefined;
+  const cleaned = messages.map((message, index) => {
+    const keepImages = index >= messages.length - IMAGE_HISTORY_WINDOW;
+    const parts = ((message.parts ?? []) as LoosePart[]).filter((part) => {
+      if (part?.type !== "file") return true;
+      const mediaType = typeof part.mediaType === "string" ? part.mediaType : "";
+      const url = typeof part.url === "string" ? part.url : "";
+      if (!ALLOWED_IMAGE_TYPES.has(mediaType)) {
+        error ??= "Only JPEG, PNG, WebP or GIF images can be attached.";
+        return false;
+      }
+      if (!url.startsWith("data:image/") && !url.startsWith("https://")) {
+        error ??= "That image could not be read. Please attach it again.";
+        return false;
+      }
+      if (url.length > MAX_IMAGE_CHARS) {
+        error ??= "That image is too large. Please attach a smaller photo.";
+        return false;
+      }
+      return keepImages;
+    });
+    return { ...message, parts } as UIMessage;
+  });
+  return { messages: cleaned, error };
+}
+
 const SYSTEM = `You are the Traffic Tips AI Tutor. You help learners pass the Kerala RTO Learner Licence (LL) test.
 - Always answer in the user's chosen language (English or Malayalam). If asked in Malayalam, reply in Malayalam.
 - Be concise, friendly and exam-focused. Use markdown: short paragraphs, bullet points, bold key terms, tables when comparing.
@@ -54,6 +92,12 @@ export const Route = createFileRoute("/api/chat")({
           return Response.json({ error: "Conversation is too long." }, { status: 400 });
         }
 
+        const sanitized = sanitizeMessages(messages as UIMessage[]);
+        if (sanitized.error) {
+          return Response.json({ error: sanitized.error }, { status: 400 });
+        }
+        const modelMessages = sanitized.messages;
+
         const lang = body.lang === "ml" ? "ml" : "en";
         const langHint =
           lang === "ml"
@@ -70,7 +114,7 @@ export const Route = createFileRoute("/api/chat")({
           const result = streamText({
             model: gateway("google/gemini-3.6-flash"),
             system: `${SYSTEM}\n\n${langHint}`,
-            messages: await convertToModelMessages(messages as UIMessage[]),
+            messages: await convertToModelMessages(modelMessages),
           });
 
           return result.toUIMessageStreamResponse({
