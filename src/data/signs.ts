@@ -187,7 +187,7 @@ export const SIGNS: Sign[] = [
       ml: "എല്ലാ വാഹനങ്ങളും ഇടത്തേക്ക് തിരിയണം.",
     },
     example: { en: "One-way junctions.", ml: "ഏക-ദിശ ജംഗ്ഷനുകൾ." },
-    svg: mandatoryCircle(`<path d="M145 88 H100 V65 L55 100 L100 135 V112 H145 Z" fill="#fff"/>`),
+    svg: signPhoto("turn-left"),
   },
   {
     id: "turn-right",
@@ -199,7 +199,7 @@ export const SIGNS: Sign[] = [
       ml: "എല്ലാ വാഹനങ്ങളും വലത്തേക്ക് തിരിയണം.",
     },
     example: { en: "Mandatory right at intersections.", ml: "നിർബന്ധിത വലത് തിരിവ്." },
-    svg: mandatoryCircle(`<path d="M55 88 H100 V65 L145 100 L100 135 V112 H55 Z" fill="#fff"/>`),
+    svg: signPhoto("turn-right"),
   },
   {
     id: "go-straight",
@@ -211,7 +211,7 @@ export const SIGNS: Sign[] = [
       ml: "തിരിയാൻ പാടില്ല — നേരെ മാത്രം.",
     },
     example: { en: "After a junction with restricted turns.", ml: "നിയന്ത്രിത തിരിവുള്ള ജംഗ്ഷൻ." },
-    svg: mandatoryCircle(`<path d="M100 50 L138 92 H115 V150 H85 V92 H62 Z" fill="#fff"/>`),
+    svg: signPhoto("go-straight"),
   },
   {
     id: "horn",
@@ -223,9 +223,7 @@ export const SIGNS: Sign[] = [
       ml: "നിങ്ങളുടെ സാന്നിധ്യം അറിയിക്കാൻ ഹോൺ ഉപയോഗിക്കുക.",
     },
     example: { en: "Hilly area sharp bends.", ml: "മലയോര വളവുകൾ." },
-    svg: mandatoryCircle(
-      `<g fill="#fff"><path d="M55 88 h30 l30 -22 v68 l-30 -22 h-30 z"/><path d="M120 78 q22 22 0 44" fill="none" stroke="#fff" stroke-width="7"/><path d="M132 68 q34 32 0 64" fill="none" stroke="#fff" stroke-width="7"/></g>`,
-    ),
+    svg: signPhoto("sound-horn"),
   },
   {
     id: "compulsory-cycle-track",
@@ -237,9 +235,154 @@ export const SIGNS: Sign[] = [
     },
     explanation: { en: "Only cyclists allowed.", ml: "സൈക്കിൾ യാത്രക്കാർക്ക് മാത്രം." },
     example: { en: "Dedicated cycle lanes.", ml: "സമർപ്പിത സൈക്കിൾ ലെയ്നുകൾ." },
-    svg: mandatoryCircle(
-      `<g fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="68" cy="132" r="22"/><circle cx="132" cy="132" r="22"/><path d="M68 132 L96 82 L128 132"/><path d="M86 82 h22"/><path d="M96 82 L110 108"/></g>`,
-    ),
+    svg: signPhoto("cycle-track"),
+  },
+  {
+    id: "bus-lane",
+    category: "mandatory",
+    name: { en: "Bus Lane", ml: "ബസ് ലെയ്ൻ" },
+    meaning: { en: "Lane reserved for buses", ml: "ബസുകൾക്കായി മാറ്റിവച്ച ലെയ്ൻ" },
+    explanation: {
+      en: "Only buses may use this lane during the hours shown.",
+      ml: "കാണിച്ച സമയങ്ങളിൽ ബസുകൾക്ക് മാത്രമേ ഈ ലെയ്ൻ ഉപയോഗിക്കാൻ കഴിയൂ.",
+    },
+    example: { en: "City bus corridors.", ml: "നഗര ബസ് ഇടനാഴികൾ." },
+    svg: signPhoto("bus-lane"),
+  },
+  {
+    id: "ahead-or-left",
+    category: "mandatory",
+    name: { en: "Ahead or Turn Left", ml: "നേരെ അല്ലെങ്കിൽ ഇടത്തേക്ക്" },
+    meaning: { en: "Go straight or turn left only", ml: "നേരെ പോകുക അല്ലെങ്കിൽ ഇടത്തേക്ക് മാത്രം" },
+    explanation: {
+      en: "Right turn and U-turn are not permitted here.",
+      ml: "വലത്തേക്കുള്ള തിരിവും U-ടേണും ഇവിടെ അനുവദനീയമല്ല.",
+    },
+    example: { en: "T-junctions with a one-way arm.", ml: "ഏക-ദിശ ശാഖയുള്ള T-ജംഗ്ഷനുകൾ." },
+    svg: signPhoto("ahead-or-left"),
+  },
+  {
+    id: "ahead-or-right",
+    category: "mandatory",
+    name: { en: "Ahead or Turn Right", ml: "നേരെ അല്ലെങ്കിൽ വലത്തേക്ക്" },
+    meaning: { en: "Go straight or turn right only", ml: "നേരെ പോകുക അല്ലെങ്കിൽ വലത്തേക്ക് മാത്രം" },
+    explanation: {
+      en: "Left turn is not allowed beyond this sign.",
+      ml: "ഈ ബോർഡിന് ശേഷം ഇടത്തേക്ക് തിരിയാൻ പാടില്ല.",
+    },
+    example: { en: "Junctions with a restricted left arm.", ml: "ഇടത് ശാഖ നിയന്ത്രിത ജംഗ്ഷനുകൾ." },
+    svg: signPhoto("ahead-or-right"),
+  },
+  {
+    id: "left-ahead",
+    category: "mandatory",
+    name: { en: "Left Turn Ahead", ml: "മുന്നിൽ ഇടത് തിരിവ്" },
+    meaning: { en: "The road turns left ahead", ml: "മുന്നിൽ റോഡ് ഇടത്തേക്ക് തിരിയുന്നു" },
+    explanation: {
+      en: "Prepare to take the compulsory left turn a short distance ahead.",
+      ml: "അല്പം മുന്നിലുള്ള നിർബന്ധിത ഇടത് തിരിവിന് തയ്യാറാകുക.",
+    },
+    example: { en: "Approach to one-way loops.", ml: "ഏക-ദിശ ലൂപ്പുകളിലേക്കുള്ള സമീപനം." },
+    svg: signPhoto("left-ahead"),
+  },
+  {
+    id: "right-ahead",
+    category: "mandatory",
+    name: { en: "Right Turn Ahead", ml: "മുന്നിൽ വലത് തിരിവ്" },
+    meaning: { en: "The road turns right ahead", ml: "മുന്നിൽ റോഡ് വലത്തേക്ക് തിരിയുന്നു" },
+    explanation: {
+      en: "Slow down and take the compulsory right turn ahead.",
+      ml: "വേഗത കുറച്ച് മുന്നിലുള്ള നിർബന്ധിത വലത് തിരിവ് എടുക്കുക.",
+    },
+    example: { en: "Diverted road sections.", ml: "വഴിതിരിച്ചുവിട്ട റോഡ് ഭാഗങ്ങൾ." },
+    svg: signPhoto("right-ahead"),
+  },
+  {
+    id: "cycle-pedestrian-path",
+    category: "mandatory",
+    name: { en: "Cycle & Pedestrian Path", ml: "സൈക്കിൾ & കാൽനട പാത" },
+    meaning: {
+      en: "Separate lanes for pedestrians and cycles",
+      ml: "കാൽനടയാത്രക്കാർക്കും സൈക്കിളിനും വെവ്വേറെ വഴി",
+    },
+    explanation: {
+      en: "Walk on the pedestrian half and cycle on the cycle half; motor vehicles are not allowed.",
+      ml: "കാൽനടക്കാർ ഒരു വശത്തും സൈക്കിൾ മറുവശത്തും; മോട്ടോർ വാഹനങ്ങൾ അനുവദനീയമല്ല.",
+    },
+    example: { en: "Shared urban footpaths.", ml: "നഗരത്തിലെ പങ്കിട്ട നടപ്പാതകൾ." },
+    svg: signPhoto("cycle-pedestrian-path"),
+  },
+  {
+    id: "pedestrians-only",
+    category: "mandatory",
+    name: { en: "Pedestrians Only", ml: "കാൽനടയാത്രക്കാർക്ക് മാത്രം" },
+    meaning: { en: "Route reserved for pedestrians", ml: "കാൽനടയാത്രക്കാർക്കായുള്ള വഴി" },
+    explanation: {
+      en: "No vehicles may use this path — walking only.",
+      ml: "ഈ വഴിയിൽ വാഹനങ്ങൾ പാടില്ല — നടത്തം മാത്രം.",
+    },
+    example: { en: "Market walkways and plazas.", ml: "മാർക്കറ്റ് നടപ്പാതകളും പ്ലാസകളും." },
+    svg: signPhoto("pedestrians-only"),
+  },
+  {
+    id: "min-speed-30",
+    category: "mandatory",
+    name: { en: "Minimum Speed 30", ml: "കുറഞ്ഞ വേഗത 30" },
+    meaning: { en: "Do not drive slower than 30 km/h", ml: "30 km/h-ൽ കുറഞ്ഞ വേഗതയിൽ ഓടിക്കരുത്" },
+    explanation: {
+      en: "Slow vehicles block the flow; use another lane or road if you cannot keep this speed.",
+      ml: "വേഗത കുറഞ്ഞ വാഹനങ്ങൾ ഗതാഗതം തടസ്സപ്പെടുത്തും; ഈ വേഗത നിലനിർത്താനാകില്ലെങ്കിൽ മറ്റു വഴി ഉപയോഗിക്കുക.",
+    },
+    example: { en: "Tunnels and flyovers.", ml: "ടണലുകളും ഫ്ലൈഓവറുകളും." },
+    svg: signPhoto("min-speed-30"),
+  },
+  {
+    id: "min-speed-50",
+    category: "mandatory",
+    name: { en: "Minimum Speed 50", ml: "കുറഞ്ഞ വേഗത 50" },
+    meaning: { en: "Do not drive slower than 50 km/h", ml: "50 km/h-ൽ കുറഞ്ഞ വേഗതയിൽ ഓടിക്കരുത്" },
+    explanation: {
+      en: "Applies to express lanes where slow-moving vehicles are unsafe.",
+      ml: "വേഗത കുറഞ്ഞ വാഹനങ്ങൾ അപകടകരമാകുന്ന എക്സ്പ്രസ് ലെയ്നുകളിൽ ബാധകം.",
+    },
+    example: { en: "Expressway fast lanes.", ml: "എക്സ്പ്രസ്‌വേ ഫാസ്റ്റ് ലെയ്നുകൾ." },
+    svg: signPhoto("min-speed-50"),
+  },
+  {
+    id: "pass-either-side",
+    category: "mandatory",
+    name: { en: "Pass Either Side", ml: "ഏതു വശത്തുകൂടിയും കടക്കാം" },
+    meaning: { en: "You may pass on either side", ml: "ഇരു വശത്തുകൂടിയും കടന്നുപോകാം" },
+    explanation: {
+      en: "An obstruction ahead can be passed on the left or the right.",
+      ml: "മുന്നിലുള്ള തടസ്സം ഇടതോ വലതോ വശത്തുകൂടി കടക്കാം.",
+    },
+    example: { en: "Traffic islands and medians.", ml: "ട്രാഫിക് ദ്വീപുകളും മീഡിയനുകളും." },
+    svg: signPhoto("pass-either-side"),
+  },
+  {
+    id: "mini-roundabout",
+    category: "mandatory",
+    name: { en: "Mini Roundabout", ml: "മിനി റൗണ്ടബൗട്ട്" },
+    meaning: { en: "Small roundabout ahead", ml: "മുന്നിൽ ചെറിയ റൗണ്ടബൗട്ട്" },
+    explanation: {
+      en: "Go around the marking clockwise and give way to traffic from the right.",
+      ml: "അടയാളത്തിന് ചുറ്റും ഘടികാരദിശയിൽ പോകുക, വലത്തുനിന്ന് വരുന്ന വാഹനങ്ങൾക്ക് വഴി നൽകുക.",
+    },
+    example: { en: "Small town crossings.", ml: "ചെറിയ പട്ടണ ജംഗ്ഷനുകൾ." },
+    svg: signPhoto("mini-roundabout"),
+  },
+  {
+    id: "snow-chains",
+    category: "mandatory",
+    name: { en: "Snow Chains Compulsory", ml: "സ്നോ ചെയിൻ നിർബന്ധം" },
+    meaning: { en: "Tyre chains must be fitted", ml: "ടയറിൽ ചെയിൻ ഘടിപ്പിക്കണം" },
+    explanation: {
+      en: "Used on snow-bound hill roads; vehicles without chains must not proceed.",
+      ml: "മഞ്ഞുമൂടിയ മലയോര റോഡുകളിൽ; ചെയിൻ ഇല്ലാത്ത വാഹനങ്ങൾ മുന്നോട്ട് പോകരുത്.",
+    },
+    example: { en: "High-altitude winter roads.", ml: "ഉയർന്ന പ്രദേശങ്ങളിലെ ശൈത്യകാല റോഡുകൾ." },
+    svg: signPhoto("snow-chains"),
   },
 
   // ---------------- PROHIBITORY (red circles) ----------------
@@ -551,7 +694,7 @@ export const SIGNS: Sign[] = [
       ml: "റോഡ് ദ്വീപുകളിലും ഡിവൈഡറുകളിലും.",
     },
     example: { en: "Traffic islands.", ml: "ട്രാഫിക് ദ്വീപുകൾ." },
-    svg: mandatoryCircle(`<path d="M135 55 L55 100 L135 145 Z" fill="#fff"/>`),
+    svg: signPhoto("keep-left"),
   },
   {
     id: "no-heavy-vehicles",
@@ -658,7 +801,7 @@ export const SIGNS: Sign[] = [
       en: "Temporary diversions and islands.",
       ml: "താൽക്കാലിക ഡൈവർഷനുകളും ട്രാഫിക് ദ്വീപുകളും.",
     },
-    svg: mandatoryCircle(`<path d="M65 55 L145 100 L65 145 Z" fill="#fff"/>`),
+    svg: signPhoto("keep-right"),
   },
   {
     id: "height-limit",
