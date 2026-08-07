@@ -396,7 +396,7 @@ export const SIGNS: Sign[] = [
       ml: "ഈ അടയാളത്തിന് അപ്പുറം ഒരു വാഹനത്തിനും പ്രവേശിക്കാൻ കഴിയില്ല.",
     },
     example: { en: "One-way street entry.", ml: "ഏക-ദിശ പാത." },
-    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="94" fill="#e01f1f"/><rect x="38" y="88" width="124" height="24" rx="2" fill="#fff"/></svg>`,
+    svg: signPhoto("no-entry"),
   },
   {
     id: "no-parking",
@@ -408,7 +408,7 @@ export const SIGNS: Sign[] = [
       ml: "യാത്രക്കാരെ കയറ്റാനോ ഇറക്കാനോ കുറച്ച് സമയത്തേക്ക് നിർത്താം, പക്ഷേ പാർക്ക് ചെയ്യാൻ പാടില്ല.",
     },
     example: { en: "Near hospital gates.", ml: "ആശുപത്രി ഗേറ്റിന് സമീപം." },
-    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="94" fill="#1157c9"/><circle cx="100" cy="100" r="86" fill="none" stroke="#e01f1f" stroke-width="16"/><text x="100" y="138" font-size="115" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#fff" text-anchor="middle">P</text><line x1="42" y1="42" x2="158" y2="158" stroke="#e01f1f" stroke-width="16" stroke-linecap="round"/></svg>`,
+    svg: signPhoto("no-parking"),
   },
   {
     id: "no-horn",
@@ -420,9 +420,7 @@ export const SIGNS: Sign[] = [
       ml: "ശാന്ത മേഖല — ഹോൺ മുഴക്കരുത്.",
     },
     example: { en: "Outside hospitals.", ml: "ആശുപത്രികൾക്ക് പുറത്ത്." },
-    svg: prohibitoryCircle(
-      `<g fill="#000"><path d="M55 88 h28 l28 -22 v68 l-28 -22 h-28 z"/><path d="M118 82 q20 18 0 36" fill="none" stroke="#000" stroke-width="6"/><path d="M130 72 q30 28 0 56" fill="none" stroke="#000" stroke-width="6"/></g>${prohibitSlash}`,
-    ),
+    svg: signPhoto("no-horn"),
   },
   {
     id: "no-overtaking",
@@ -434,9 +432,7 @@ export const SIGNS: Sign[] = [
       ml: "അടുത്ത അടയാളം റദ്ദാക്കുന്നതുവരെ ഓവർടേക്കിങ് പാടില്ല.",
     },
     example: { en: "On hilly/curvy roads.", ml: "മലയോര വളവുള്ള റോഡുകൾ." },
-    svg: prohibitoryCircle(
-      `<g><path d="M52 140 v-30 q0 -18 18 -18 h30 v-6 l14 12 -14 12 v-6 h-30 q-6 0 -6 6 v30 z" fill="#000"/><path d="M60 82 h48 v42 h-48 z" fill="#000" opacity="0"/><g fill="#000"><rect x="46" y="112" width="54" height="30" rx="4"/><circle cx="58" cy="146" r="6"/><circle cx="90" cy="146" r="6"/></g><g fill="#e01f1f"><rect x="96" y="86" width="54" height="30" rx="4"/><circle cx="108" cy="120" r="6"/><circle cx="140" cy="120" r="6"/></g></g>`,
-    ),
+    svg: signPhoto("no-overtaking"),
   },
   {
     id: "speed-limit-50",
@@ -448,9 +444,7 @@ export const SIGNS: Sign[] = [
       ml: "ഈ അടയാളത്തിന് അപ്പുറം 50 km/h ന് മുകളിൽ ഓടിക്കരുത്.",
     },
     example: { en: "City limits.", ml: "നഗര പരിധി." },
-    svg: prohibitoryCircle(
-      `<text x="100" y="132" font-size="82" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#000" text-anchor="middle">50</text>`,
-    ),
+    svg: signPhoto("speed-limit-50"),
   },
   {
     id: "no-u-turn",
@@ -462,9 +456,7 @@ export const SIGNS: Sign[] = [
       ml: "മുന്നോട്ട് തുടരുക — ഇവിടെ U-ടേൺ പാടില്ല.",
     },
     example: { en: "Divided highways.", ml: "വിഭജിത ഹൈവേകൾ." },
-    svg: prohibitoryCircle(
-      `<path d="M62 150 V95 a38 38 0 0 1 76 0 V115 l12 0 -22 22 -22 -22 12 0 V95 a20 20 0 0 0 -40 0 V150 Z" fill="#000"/>${prohibitSlash}`,
-    ),
+    svg: signPhoto("no-u-turn"),
   },
 
   // ---------------- INFORMATORY (blue rectangles) ----------------
@@ -703,9 +695,7 @@ export const SIGNS: Sign[] = [
     meaning: { en: "Trucks and lorries prohibited", ml: "ട്രക്കുകളും ലോറികളും നിരോധിതം" },
     explanation: { en: "Weight / size restricted road.", ml: "ഭാരം/വലിപ്പം നിയന്ത്രിത റോഡ്." },
     example: { en: "Narrow town centres.", ml: "ഇടുങ്ങിയ ടൗൺ കേന്ദ്രങ്ങൾ." },
-    svg: prohibitoryCircle(
-      `<g fill="#000"><rect x="42" y="98" width="72" height="34" rx="3"/><path d="M114 108 h20 l16 14 v10 h-36 z"/><circle cx="66" cy="140" r="10"/><circle cx="98" cy="140" r="10"/><circle cx="138" cy="140" r="10"/></g>${prohibitSlash}`,
-    ),
+    svg: signPhoto("no-truck"),
   },
   {
     id: "no-cycle",
@@ -717,9 +707,7 @@ export const SIGNS: Sign[] = [
       ml: "സൈക്കിൾ യാത്രക്കാർ മറ്റ് വഴി തിരഞ്ഞെടുക്കണം.",
     },
     example: { en: "Expressways.", ml: "എക്സ്പ്രസ്‌വേകൾ." },
-    svg: prohibitoryCircle(
-      `<g fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="68" cy="132" r="22"/><circle cx="132" cy="132" r="22"/><path d="M68 132 L96 82 L128 132"/><path d="M86 82 h22"/></g>${prohibitSlash}`,
-    ),
+    svg: signPhoto("no-cycle"),
   },
   {
     id: "speed-limit-30",
@@ -816,9 +804,7 @@ export const SIGNS: Sign[] = [
       ml: "വാഹനമോ ചരക്കോ കാണിച്ച ഉയരത്തെക്കാൾ കൂടുതലെങ്കിൽ പ്രവേശിക്കരുത്.",
     },
     example: { en: "Underpasses and low bridges.", ml: "അണ്ടർപാസുകളും താഴ്ന്ന പാലങ്ങളും." },
-    svg: prohibitoryCircle(
-      `<text x="100" y="118" font-size="42" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#000" text-anchor="middle">3.5m</text>`,
-    ),
+    svg: signPhoto("height-limit"),
   },
   {
     id: "width-limit",
@@ -836,9 +822,7 @@ export const SIGNS: Sign[] = [
       en: "Narrow bridges and market lanes.",
       ml: "ഇടുങ്ങിയ പാലങ്ങളും മാർക്കറ്റ് റോഡുകളും.",
     },
-    svg: prohibitoryCircle(
-      `<text x="100" y="118" font-size="42" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#000" text-anchor="middle">2m</text>`,
-    ),
+    svg: signPhoto("width-limit"),
   },
   {
     id: "weight-limit",
@@ -853,9 +837,7 @@ export const SIGNS: Sign[] = [
       ml: "ദുർബല പാലങ്ങളും കല്വർട്ടുകളും ഓവർലോഡ് വാഹനങ്ങളിൽ നിന്ന് സംരക്ഷിക്കുന്നു.",
     },
     example: { en: "Old bridges and village roads.", ml: "പഴയ പാലങ്ങളും ഗ്രാമ റോഡുകളും." },
-    svg: prohibitoryCircle(
-      `<text x="100" y="118" font-size="44" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#000" text-anchor="middle">5T</text>`,
-    ),
+    svg: signPhoto("load-limit"),
   },
   {
     id: "roundabout",
@@ -873,6 +855,258 @@ export const SIGNS: Sign[] = [
     svg: mandatoryCircle(
       `<path d="M100 52a48 48 0 1 1-42 72" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"/><path d="M54 124l-8-36 34 13z" fill="#fff"/>`,
     ),
+  },
+  {
+    id: "no-bus",
+    category: "prohibitory",
+    name: { en: "Buses Prohibited", ml: "ബസ് നിരോധിതം" },
+    meaning: { en: "Buses are not allowed", ml: "ബസുകൾ അനുവദനീയമല്ല" },
+    explanation: {
+      en: "Buses must take an alternative route beyond this sign.",
+      ml: "ഈ അടയാളത്തിന് അപ്പുറം ബസുകൾ മറ്റുവഴി തിരഞ്ഞെടുക്കണം.",
+    },
+    example: { en: "Narrow town roads.", ml: "ഇടുങ്ങിയ ടൗൺ റോഡുകൾ." },
+    svg: signPhoto("no-bus"),
+  },
+  {
+    id: "no-motor-vehicles",
+    category: "prohibitory",
+    name: { en: "Motor Vehicles Prohibited", ml: "മോട്ടോർ വാഹനങ്ങൾ നിരോധിതം" },
+    meaning: { en: "No motorised vehicles allowed", ml: "മോട്ടോർ വാഹനങ്ങൾ അനുവദനീയമല്ല" },
+    explanation: {
+      en: "Only pedestrians and non-motorised traffic may proceed.",
+      ml: "കാൽനടക്കാർക്കും മോട്ടോർ ഇതര വാഹനങ്ങൾക്കും മാത്രം.",
+    },
+    example: { en: "Pedestrian plazas.", ml: "കാൽനട മേഖലകൾ." },
+    svg: signPhoto("no-motor-vehicles"),
+  },
+  {
+    id: "no-bullock-cart",
+    category: "prohibitory",
+    name: { en: "Bullock Carts Prohibited", ml: "കാളവണ്ടി നിരോധിതം" },
+    meaning: { en: "Bullock carts are not allowed", ml: "കാളവണ്ടികൾ അനുവദനീയമല്ല" },
+    explanation: {
+      en: "Slow animal-drawn carts must not use this road.",
+      ml: "മൃഗങ്ങൾ വലിക്കുന്ന വണ്ടികൾ ഈ റോഡിൽ പാടില്ല.",
+    },
+    example: { en: "High-speed corridors.", ml: "ഉയർന്ന വേഗ പാതകൾ." },
+    svg: signPhoto("no-bullock-cart"),
+  },
+  {
+    id: "no-bullock-handcart",
+    category: "prohibitory",
+    name: { en: "Bullock & Hand Carts Prohibited", ml: "കാളവണ്ടിയും കൈവണ്ടിയും നിരോധിതം" },
+    meaning: { en: "Both bullock and hand carts prohibited", ml: "കാളവണ്ടിയും കൈവണ്ടിയും നിരോധിതം" },
+    explanation: {
+      en: "Neither animal carts nor hand carts may enter.",
+      ml: "കാളവണ്ടിക്കും കൈവണ്ടിക്കും പ്രവേശനമില്ല.",
+    },
+    example: { en: "Busy city roads.", ml: "തിരക്കേറിയ നഗര റോഡുകൾ." },
+    svg: signPhoto("no-bullock-handcart"),
+  },
+  {
+    id: "no-handcart",
+    category: "prohibitory",
+    name: { en: "Hand Carts Prohibited", ml: "കൈവണ്ടി നിരോധിതം" },
+    meaning: { en: "Hand carts are not allowed", ml: "കൈവണ്ടികൾ അനുവദനീയമല്ല" },
+    explanation: {
+      en: "Push carts must not use this stretch.",
+      ml: "തള്ളുവണ്ടികൾ ഈ ഭാഗത്ത് പാടില്ല.",
+    },
+    example: { en: "Main market roads.", ml: "പ്രധാന മാർക്കറ്റ് റോഡുകൾ." },
+    svg: signPhoto("no-handcart"),
+  },
+  {
+    id: "no-tonga",
+    category: "prohibitory",
+    name: { en: "Tongas Prohibited", ml: "ടോംഗ നിരോധിതം" },
+    meaning: { en: "Horse carriages are not allowed", ml: "കുതിരവണ്ടികൾ അനുവദനീയമല്ല" },
+    explanation: {
+      en: "Horse-drawn carriages must take another route.",
+      ml: "കുതിരവണ്ടികൾ മറ്റുവഴി പോകണം.",
+    },
+    example: { en: "Highways.", ml: "ഹൈവേകൾ." },
+    svg: signPhoto("no-tonga"),
+  },
+  {
+    id: "no-left-turn",
+    category: "prohibitory",
+    name: { en: "Left Turn Prohibited", ml: "ഇടത്തേക്ക് തിരിയരുത്" },
+    meaning: { en: "You must not turn left", ml: "ഇടത്തേക്ക് തിരിയാൻ പാടില്ല" },
+    explanation: {
+      en: "Continue straight or take a permitted turn.",
+      ml: "നേരെ പോകുക അല്ലെങ്കിൽ അനുവദനീയമായ വഴി എടുക്കുക.",
+    },
+    example: { en: "One-way junctions.", ml: "ഏക-ദിശ ജംഗ്ഷനുകൾ." },
+    svg: signPhoto("no-left-turn"),
+  },
+  {
+    id: "no-right-turn",
+    category: "prohibitory",
+    name: { en: "Right Turn Prohibited", ml: "വലത്തേക്ക് തിരിയരുത്" },
+    meaning: { en: "You must not turn right", ml: "വലത്തേക്ക് തിരിയാൻ പാടില്ല" },
+    explanation: {
+      en: "Right turns are banned to avoid conflicting traffic.",
+      ml: "എതിർ ഗതാഗതം ഒഴിവാക്കാൻ വലത്തേക്ക് തിരിയൽ വിലക്കിയിരിക്കുന്നു.",
+    },
+    example: { en: "Busy divided roads.", ml: "തിരക്കേറിയ വിഭജിത റോഡുകൾ." },
+    svg: signPhoto("no-right-turn"),
+  },
+  {
+    id: "no-stopping",
+    category: "prohibitory",
+    name: { en: "No Stopping", ml: "നിർത്തൽ നിരോധനം" },
+    meaning: { en: "Stopping is prohibited", ml: "നിർത്തൽ നിരോധിച്ചിരിക്കുന്നു" },
+    explanation: {
+      en: "You may not stop at all, even to drop passengers.",
+      ml: "യാത്രക്കാരെ ഇറക്കാൻ പോലും നിർത്താൻ പാടില്ല.",
+    },
+    example: { en: "Tunnels and bridges.", ml: "തുരങ്കങ്ങളും പാലങ്ങളും." },
+    svg: signPhoto("no-stopping"),
+  },
+  {
+    id: "no-standing",
+    category: "prohibitory",
+    name: { en: "No Standing", ml: "കാത്തുനിൽക്കൽ നിരോധനം" },
+    meaning: { en: "Waiting with the vehicle is prohibited", ml: "വാഹനവുമായി കാത്തുനിൽക്കാൻ പാടില്ല" },
+    explanation: {
+      en: "Only immediate boarding or alighting is allowed.",
+      ml: "ഉടനടി കയറ്റം/ഇറക്കം മാത്രം അനുവദനീയം.",
+    },
+    example: { en: "Bus stop areas.", ml: "ബസ് സ്റ്റോപ്പ് ഭാഗങ്ങൾ." },
+    svg: signPhoto("no-standing"),
+  },
+  {
+    id: "axle-load-limit",
+    category: "prohibitory",
+    name: { en: "Axle Load Limit", ml: "ആക്സിൽ ഭാരപരിധി" },
+    meaning: { en: "Axle load above shown limit prohibited", ml: "കാണിച്ച ആക്സിൽ ഭാരത്തിന് മുകളിൽ വിലക്ക്" },
+    explanation: {
+      en: "Protects pavements and bridges from heavy axle loads.",
+      ml: "കനത്ത ആക്സിൽ ഭാരത്തിൽ നിന്ന് റോഡും പാലവും സംരക്ഷിക്കുന്നു.",
+    },
+    example: { en: "Weak bridges.", ml: "ദുർബല പാലങ്ങൾ." },
+    svg: signPhoto("axle-load-limit"),
+  },
+  {
+    id: "length-limit",
+    category: "prohibitory",
+    name: { en: "Length Limit", ml: "നീളപരിധി" },
+    meaning: { en: "Vehicles longer than shown prohibited", ml: "കാണിച്ച നീളത്തിന് മുകളിലുള്ള വാഹനങ്ങൾക്ക് വിലക്ക്" },
+    explanation: {
+      en: "Long vehicles cannot negotiate the road ahead.",
+      ml: "നീളമുള്ള വാഹനങ്ങൾക്ക് മുന്നിലെ റോഡ് കടക്കാനാവില്ല.",
+    },
+    example: { en: "Sharp hairpin bends.", ml: "മൂർച്ചയേറിയ ഹെയർപിൻ വളവുകൾ." },
+    svg: signPhoto("length-limit"),
+  },
+  {
+    id: "no-vehicles-both-ways",
+    category: "prohibitory",
+    name: { en: "Vehicles Prohibited in Both Directions", ml: "ഇരുദിശയിലും വാഹനം നിരോധിതം" },
+    meaning: { en: "No vehicle may pass in either direction", ml: "ഒരു ദിശയിലും വാഹനം കടക്കരുത്" },
+    explanation: {
+      en: "The road is closed to all vehicular traffic.",
+      ml: "റോഡ് എല്ലാ വാഹന ഗതാഗതത്തിനും അടച്ചിരിക്കുന്നു.",
+    },
+    example: { en: "Closed roads and repair zones.", ml: "അടച്ച റോഡുകളും അറ്റകുറ്റപ്പണി മേഖലകളും." },
+    svg: signPhoto("no-vehicles-both-ways"),
+  },
+  {
+    id: "one-way-a",
+    category: "prohibitory",
+    name: { en: "No Entry from This Direction", ml: "ഈ ദിശയിൽ പ്രവേശനമില്ല" },
+    meaning: { en: "Entry against the flow is prohibited", ml: "ഗതാഗത ദിശക്ക് എതിരെ പ്രവേശനം പാടില്ല" },
+    explanation: {
+      en: "Traffic may travel only in the permitted direction.",
+      ml: "അനുവദനീയ ദിശയിൽ മാത്രം സഞ്ചരിക്കാം.",
+    },
+    example: { en: "One-way city streets.", ml: "ഏക-ദിശ നഗര റോഡുകൾ." },
+    svg: signPhoto("one-way-a"),
+  },
+  {
+    id: "one-way-b",
+    category: "prohibitory",
+    name: { en: "One Way Traffic Only", ml: "ഏക-ദിശ ഗതാഗതം മാത്രം" },
+    meaning: { en: "Opposing movement is prohibited", ml: "എതിർദിശയിലെ സഞ്ചാരം നിരോധിതം" },
+    explanation: {
+      en: "Only one direction of travel is permitted here.",
+      ml: "ഇവിടെ ഒരു ദിശയിലെ യാത്ര മാത്രം അനുവദനീയം.",
+    },
+    example: { en: "Narrow lanes.", ml: "ഇടുങ്ങിയ റോഡുകൾ." },
+    svg: signPhoto("one-way-b"),
+  },
+  {
+    id: "no-pedestrians",
+    category: "prohibitory",
+    name: { en: "Pedestrians Prohibited", ml: "കാൽനടക്കാർ നിരോധിതം" },
+    meaning: { en: "Pedestrians may not use this road", ml: "കാൽനടക്കാർക്ക് ഈ റോഡ് ഉപയോഗിക്കാനാവില്ല" },
+    explanation: {
+      en: "Walkers must use the service road or footpath.",
+      ml: "നടക്കുന്നവർ സർവീസ് റോഡ്/നടപ്പാത ഉപയോഗിക്കണം.",
+    },
+    example: { en: "Expressways and flyovers.", ml: "എക്സ്പ്രസ്‌വേകളും മേൽപ്പാലങ്ങളും." },
+    svg: signPhoto("no-pedestrians"),
+  },
+  {
+    id: "straight-prohibited",
+    category: "prohibitory",
+    name: { en: "Straight Ahead Prohibited", ml: "നേരെ പോകൽ നിരോധനം" },
+    meaning: { en: "You must not proceed straight", ml: "നേരെ മുന്നോട്ട് പോകാൻ പാടില്ല" },
+    explanation: {
+      en: "Take a permitted left or right turn instead.",
+      ml: "അനുവദനീയമായ ഇടത്/വലത് വഴി എടുക്കുക.",
+    },
+    example: { en: "T-junctions.", ml: "T-ജംഗ്ഷനുകൾ." },
+    svg: signPhoto("straight-prohibited"),
+  },
+  {
+    id: "overtaking-curve-prohibited",
+    category: "prohibitory",
+    name: { en: "Overtaking Prohibited (Curve)", ml: "വളവിൽ ഓവർടേക്കിങ് നിരോധനം" },
+    meaning: { en: "No overtaking on the curve ahead", ml: "മുന്നിലെ വളവിൽ ഓവർടേക്ക് ചെയ്യരുത്" },
+    explanation: {
+      en: "Visibility is limited; stay in your lane.",
+      ml: "കാഴ്ച പരിമിതമാണ്; സ്വന്തം ലെയിനിൽ തുടരുക.",
+    },
+    example: { en: "Hill roads.", ml: "മലയോര റോഡുകൾ." },
+    svg: signPhoto("overtaking-curve-prohibited"),
+  },
+  {
+    id: "no-parking-footpath",
+    category: "prohibitory",
+    name: { en: "No Parking on Footpath", ml: "നടപ്പാതയിൽ പാർക്കിങ് ഇല്ല" },
+    meaning: { en: "Parking on the footpath is prohibited", ml: "നടപ്പാതയിൽ പാർക്ക് ചെയ്യരുത്" },
+    explanation: {
+      en: "Keep the footpath clear for pedestrians.",
+      ml: "കാൽനടക്കാർക്കായി നടപ്പാത ഒഴിവാക്കി ഇടുക.",
+    },
+    example: { en: "Town centres.", ml: "ടൗൺ കേന്ദ്രങ്ങൾ." },
+    svg: signPhoto("no-parking-footpath"),
+  },
+  {
+    id: "no-parking-half-footpath",
+    category: "prohibitory",
+    name: { en: "No Parking Half on Footpath", ml: "പകുതി നടപ്പാതയിൽ പാർക്കിങ് ഇല്ല" },
+    meaning: { en: "Partial footpath parking is prohibited", ml: "പകുതി നടപ്പാതയിൽ പാർക്കിങ് നിരോധിതം" },
+    explanation: {
+      en: "Do not park with wheels on the footpath.",
+      ml: "ചക്രങ്ങൾ നടപ്പാതയിൽ കയറ്റി പാർക്ക് ചെയ്യരുത്.",
+    },
+    example: { en: "Shopping streets.", ml: "ഷോപ്പിങ് റോഡുകൾ." },
+    svg: signPhoto("no-parking-half-footpath"),
+  },
+  {
+    id: "stop-police",
+    category: "prohibitory",
+    name: { en: "Stop - Police", ml: "നിർത്തുക - പോലീസ്" },
+    meaning: { en: "Stop for police checking", ml: "പോലീസ് പരിശോധനയ്ക്കായി നിർത്തുക" },
+    explanation: {
+      en: "Come to a complete halt and follow the officer's directions.",
+      ml: "പൂർണ്ണമായി നിർത്തി ഉദ്യോഗസ്ഥന്റെ നിർദ്ദേശം പാലിക്കുക.",
+    },
+    example: { en: "Police check posts.", ml: "പോലീസ് ചെക്ക് പോസ്റ്റുകൾ." },
+    svg: signPhoto("stop-police"),
   },
 ];
 
