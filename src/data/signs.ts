@@ -1,4 +1,6 @@
 export type SignCategory = "mandatory" | "warning" | "prohibitory" | "informatory" | "signal";
+import { signPhoto } from "./sign-images";
+
 export type SignFilter = SignCategory | "parking" | "speed" | "safety";
 
 export type Sign = {
