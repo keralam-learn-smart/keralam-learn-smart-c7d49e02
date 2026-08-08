@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Google AdSense publisher client (loader script is included in __root.tsx head).
 const AD_CLIENT = "ca-pub-7684149874357678";
@@ -41,6 +41,9 @@ export function AdUnit({
 }: AdUnitProps) {
   const insRef = useRef<HTMLModElement | null>(null);
   const pushed = useRef(false);
+  // Collapse the block when AdSense does not fill it, so pages never show a
+  // large empty gap between sections.
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     if (pushed.current) return;
@@ -62,10 +65,24 @@ export function AdUnit({
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const timer = window.setTimeout(() => {
+      const el = insRef.current;
+      if (!el) return;
+      const unfilled =
+        el.getAttribute("data-ad-status") === "unfilled" || el.clientHeight < 20;
+      if (unfilled) setCollapsed(true);
+    }, 2500);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  if (collapsed) return null;
+
   return (
     <aside
       aria-label={label}
-      className={`my-6 flex w-full justify-center overflow-hidden ${className}`}
+      className={`my-6 flex w-full justify-center overflow-hidden empty:hidden ${className}`}
     >
       <ins
         ref={insRef}

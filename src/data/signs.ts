@@ -1,5 +1,7 @@
 export type SignCategory = "mandatory" | "warning" | "prohibitory" | "informatory" | "signal";
 import { signPhoto } from "./sign-images";
+import { officialPhoto } from "./official-signs";
+import { OFFICIAL_SIGN_OVERRIDES, OFFICIAL_EXTRA_SIGNS } from "./official-sign-extras";
 
 export type SignFilter = SignCategory | "parking" | "speed" | "safety";
 
@@ -1109,6 +1111,19 @@ export const SIGNS: Sign[] = [
     svg: signPhoto("stop-police"),
   },
 ];
+
+// ---- Official artwork from the Kerala RTO sign sheets ----
+// Replace any legacy hand-drawn illustration with the official photo where one exists,
+// then append the official signs that were missing from the library.
+for (const sign of SIGNS) {
+  const slug = OFFICIAL_SIGN_OVERRIDES[sign.id];
+  const photo = slug ? officialPhoto(slug) : null;
+  if (photo) sign.svg = photo;
+}
+
+for (const extra of OFFICIAL_EXTRA_SIGNS) {
+  if (extra.svg && !SIGNS.some((s) => s.id === extra.id)) SIGNS.push(extra);
+}
 
 export const SIGN_CATEGORIES: { value: SignCategory | "all"; en: string; ml: string }[] = [
   { value: "all", en: "All", ml: "എല്ലാം" },
