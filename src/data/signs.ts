@@ -1,5 +1,7 @@
 export type SignCategory = "mandatory" | "warning" | "prohibitory" | "informatory" | "signal";
 import { signPhoto } from "./sign-images";
+import { officialPhoto } from "./official-signs";
+import { OFFICIAL_SIGN_OVERRIDES, OFFICIAL_EXTRA_SIGNS } from "./official-sign-extras";
 
 export type SignFilter = SignCategory | "parking" | "speed" | "safety";
 
