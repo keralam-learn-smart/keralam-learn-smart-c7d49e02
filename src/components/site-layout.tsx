@@ -378,13 +378,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                     </Link>
                   </li>
                 ))}
-                {NAV[4].items.map((it) => (
-                  <li key={it.to}>
-                    <Link to={it.to} className={`text-muted-foreground hover:text-primary ${ml}`}>
-                      {lang === "en" ? it.en : it.ml}
-                    </Link>
-                  </li>
-                ))}
               </ul>
             </div>
 
