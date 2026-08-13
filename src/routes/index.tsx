@@ -14,7 +14,6 @@ import {
   Search,
   ShieldCheck,
   Signal,
-  Sparkles,
   Timer,
   Trophy,
   type LucideIcon,
@@ -236,10 +235,7 @@ function Index() {
           <section className="relative mb-8 overflow-hidden rounded-[1.5rem] border border-orange-100 dark:border-border bg-white/90 dark:bg-card/90 p-4 shadow-2xl shadow-orange-950/10 backdrop-blur sm:rounded-[2rem] sm:p-10">
             <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-orange-200/40 blur-3xl" />
             <div className="relative">
-              <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-orange-50 px-3 py-2 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-orange-600 sm:px-4 sm:text-xs sm:tracking-[0.2em]">
-                <Sparkles className="h-4 w-4" /> {tr("common.free")}
-              </span>
-              <h1 className="mt-5 max-w-4xl text-[clamp(1.55rem,7vw,2.35rem)] font-black leading-[1.2] tracking-tight text-slate-950 dark:text-foreground sm:text-5xl sm:leading-[1.15]">
+              <h1 className="max-w-4xl text-[clamp(1.55rem,7vw,2.35rem)] font-black leading-[1.2] tracking-tight text-slate-950 dark:text-foreground sm:text-5xl sm:leading-[1.15]">
                 {tr("home.welcome.title")}
               </h1>
               <div className="mt-6 space-y-5 text-[0.98rem] leading-8 text-slate-700 dark:text-muted-foreground sm:text-lg">
