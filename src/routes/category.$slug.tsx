@@ -83,6 +83,39 @@ export const Route = createFileRoute("/category/$slug")({
   component: CategoryPage,
 });
 
+const FEATURED_TRAFFIC_SIGN_IDS = [
+  "stop-police",
+  "no-u-turn",
+  "speed-limit-50",
+  "no-vehicles-both-ways",
+  "one-way-a",
+  "one-way-b",
+  "no-pedestrians",
+  "width-limit",
+  "no-entry",
+  "no-parking",
+  "no-handcart",
+  "no-tonga",
+  "no-bullock-handcart",
+  "no-overtaking",
+  "length-limit",
+  "weight-limit",
+  "no-bus",
+  "no-motor-vehicles",
+  "no-bullock-cart",
+  "no-cycle",
+  "no-horn",
+  "no-left-turn",
+  "no-right-turn",
+  "no-standing",
+  "no-stopping",
+  "overtaking-curve-prohibited",
+  "no-parking-footpath",
+  "no-parking-half-footpath",
+];
+
+const featuredSignRank = new Map(FEATURED_TRAFFIC_SIGN_IDS.map((id, index) => [id, index]));
+
 const STUDY_NOTES: Record<string, { en: string; ml: string }[]> = {
   "traffic-signs": [
     {
@@ -311,6 +344,10 @@ function SignLibrary() {
         (filter === "speed" && haystack.includes("speed")) ||
         (filter === "safety" && ["warning", "prohibitory", "mandatory"].includes(sign.category));
       return matchesQuery && matchesFilter;
+    }).sort((a, b) => {
+      const aRank = featuredSignRank.get(a.id) ?? Number.MAX_SAFE_INTEGER;
+      const bRank = featuredSignRank.get(b.id) ?? Number.MAX_SAFE_INTEGER;
+      return aRank - bRank;
     });
   }, [filter, query]);
   const current = filtered[Math.min(active, Math.max(filtered.length - 1, 0))] ?? SIGNS[0];
